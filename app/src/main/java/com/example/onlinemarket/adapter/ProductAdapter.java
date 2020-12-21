@@ -15,7 +15,6 @@ import com.example.onlinemarket.databinding.ItemViewBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
-
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
@@ -56,14 +55,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @Override
     public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
             holder.bind(mProducts.get(position));
-            mViewModel.setProduct(mProducts.get(position));
-
-            holder.mBinding.btnProductMoreInfo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCallback.onProductSelected(mProducts.get(position));
-                }
-            });
+        holder.mBinding.btnProductMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onProductSelected(mProducts.get(position));
+            }
+        });
     }
 
     @Override
@@ -79,11 +76,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         }
 
         public void bind(Product product){
-
+            mViewModel.setProduct(product);
             Glide.with(mContext).
                     load(product.getImgUrls().get(0)).
                     placeholder(R.drawable.img_place_holder).
                     into(mBinding.imgProduct);
+            mBinding.setViewModel(mViewModel);
         }
 
     }
