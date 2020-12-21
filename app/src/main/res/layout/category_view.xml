@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+  >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_cat"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@color/beauty_red"
+            android:layout_gravity="center"
+            />
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton.CustomBackground"
+            android:id="@+id/btn_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="دسته بندی محصولات"
+            android:background="@color/beauty_light_gray"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/sahel_bold"
+            />
+
+    </LinearLayout>
+</layout>

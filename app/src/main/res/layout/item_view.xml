@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.digikalaapp.R"/>
+        <variable
+            name="viewModel"
+            type="com.example.digikalaapp.viewModel.ProductViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_product"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/img_guitar"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStylePersian"
+                android:id="@+id/tv_product_name"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                tools:text="گیتار"
+                android:text="@{viewModel.getNormalText(viewModel.productModel.name)}"
+                android:background="@drawable/solid_grey"
+                android:textSize="15sp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStylePersian"
+                android:id="@+id/tv_product_price"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                tools:text="قیمت محصول :"
+                android:text='@{"قیمت محصول : "+String.valueOf(viewModel.productModel.price)}'
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStylePersian"
+                android:id="@+id/tv_product_regular_price"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                tools:text="قیمت  با تخفیف محصول : "
+                android:background="@drawable/solid_green_light"
+                android:text='@{"قیمت محصول با تخفیف : "+String.valueOf(viewModel.productModel.regularPrice)}'
+                />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/TextStylePersian"
+                android:id="@+id/btn_product_more_info"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/more_info_product"
+                android:backgroundTint="@color/beauty_red"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

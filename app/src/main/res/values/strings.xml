@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">OnlineMarket</string>
+    <string name="classical_guitar">Classical Guitar</string>
+    <string name="best_products">Best Products</string>
+    <string name="most_visited_products">Most Visited Products</string>
+    <string name="last_products">Last Products</string>
+    <string name="more_info_product">بیشتر ...</string>
+    <string name="product_price">قیمت محصول :</string>
+    <string name="product_regular_price">قیمت  با تخفیف محصول :</string>
+    <string name="product_reviews">نظرات بازدید کنندگان </string>
+    <string name="more_info_web">مشاهده جزئیات بیشتر در سایت</string>
 </resources>

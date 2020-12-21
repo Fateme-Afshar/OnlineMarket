@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.digikalaapp.viewModel.ProductViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/img_slider"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_name"
+        style="@style/TextStylePersian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_min="200dp"
+        android:text="@{viewModel.productModel.name}"
+        tools:text="گیتار"
+        android:background="@drawable/solid_grey"
+        app:layout_constraintStart_toStartOf="@+id/img_slider"
+        app:layout_constraintEnd_toEndOf="@+id/img_slider"
+        app:layout_constraintTop_toBottomOf="@+id/img_slider"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextStylePersian"
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/avatars"
+        android:text='@{viewModel.productModel.description}'
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bar_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tv_description"
+        app:barrierDirection="end"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextStylePersian"
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='@{"قیمت محصول : "+viewModel.productModel.price}'
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextStylePersian"
+        android:id="@+id/tv_regular_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='@{"قیمت محصول با تخفیف : "+viewModel.productModel.regularPrice}'
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/solid_red"
+        android:textColor="@color/white"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextStylePersian"
+        android:id="@+id/tv_reviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_reviews"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/white"
+        android:background="@drawable/solid_green"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_reviews" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_web_view"
+        style="@style/TextStylePersian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#2196F3"
+        android:text="@string/more_info_web"
+        app:icon="@drawable/ic_internet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
