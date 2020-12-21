@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+<!--    <data>
         <variable
             name="viewModel"
             type="com.example.digikalaapp.viewModel.ProductViewModel" />
-    </data>
+    </data>-->
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_min="200dp"
-        android:text="@{viewModel.productModel.name}"
+
         tools:text="گیتار"
         android:background="@drawable/solid_grey"
         app:layout_constraintStart_toStartOf="@+id/img_slider"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/avatars"
-        android:text='@{viewModel.productModel.description}'
+
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text='@{"قیمت محصول : "+viewModel.productModel.price}'
+
         app:layout_constraintTop_toBottomOf="@+id/tv_description"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5dp"
@@ -73,7 +73,7 @@
         android:id="@+id/tv_regular_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text='@{"قیمت محصول با تخفیف : "+viewModel.productModel.regularPrice}'
+
         app:layout_constraintTop_toBottomOf="@+id/tv_description"
         app:layout_constraintEnd_toStartOf="@+id/tv_price"
         android:layout_marginTop="5dp"
