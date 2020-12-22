@@ -1,15 +1,22 @@
 package com.example.onlinemarket.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Titles;
+import com.example.onlinemarket.model.response.CatObj;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
 import com.example.onlinemarket.network.retrofit.gson.ProductGsonConverterCustomize;
 import com.example.onlinemarket.utils.NetworkParams;
+import com.example.onlinemarket.utils.ProgramUtils;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,18 +25,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class OnlineMarketRepository {
-    private static OnlineMarketRepository sInstance;
+public class ProductRepository {
+    private static ProductRepository sInstance;
+
     private MutableLiveData<List<Product>> mNewestProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mPopulateProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mBestProductLiveData=new MutableLiveData<>();
 
-    private OnlineMarketRepository() {
+    private RetrofitInterface mRetrofitInterface;
+
+    private ProductRepository() {
+        Retrofit retrofit=new RetrofitInstance().getRetrofit();
+        mRetrofitInterface=retrofit.create(RetrofitInterface.class);
     }
 
-    public static OnlineMarketRepository getInstance() {
+    public static ProductRepository getInstance() {
         if (sInstance == null)
-            sInstance = new OnlineMarketRepository();
+            sInstance = new ProductRepository();
         return sInstance;
     }
 
@@ -62,18 +74,7 @@ public class OnlineMarketRepository {
     }
 
     private Call<List<Product>> getListCall(Map<String, String> queryMap) {
-        Retrofit retrofit = new RetrofitInstance(
-                new TypeToken<List<Product>>() {
-                }.getType(),
-                new ProductGsonConverterCustomize()).
-                getRetrofit();
-        RetrofitInterface retrofitInterface = getRetrofitInterface(retrofit);
-
-        return retrofitInterface.getListProductObjects(NetworkParams.queryForReceiveProduct(queryMap));
-    }
-
-    private RetrofitInterface getRetrofitInterface(Retrofit retrofit) {
-        return retrofit.create(RetrofitInterface.class);
+        return mRetrofitInterface.getListProductObjects(NetworkParams.queryForReceiveProduct(queryMap));
     }
 
     public MutableLiveData<List<Product>> getNewestProductLiveData() {
@@ -87,4 +88,6 @@ public class OnlineMarketRepository {
     public MutableLiveData<List<Product>> getBestProductLiveData() {
         return mBestProductLiveData;
     }
+
+
 }

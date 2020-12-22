@@ -8,14 +8,14 @@ import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Titles;
-import com.example.onlinemarket.repository.OnlineMarketRepository;
+import com.example.onlinemarket.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Map;
 
 
 public class NetworkTaskViewModel extends AndroidViewModel {
-    private OnlineMarketRepository mOnlineMarketRepository;
+    private ProductRepository mProductRepository;
     private LiveData<List<Product>> mNewestProductLiveData;
     private LiveData<List<Product>> mPopulateProductLiveData;
     private LiveData<List<Product>> mBestProductLiveData;
@@ -23,15 +23,15 @@ public class NetworkTaskViewModel extends AndroidViewModel {
     public NetworkTaskViewModel(@NonNull Application application) {
         super(application);
 
-        mOnlineMarketRepository = OnlineMarketRepository.getInstance();
+        mProductRepository = ProductRepository.getInstance();
 
-        mNewestProductLiveData=mOnlineMarketRepository.getNewestProductLiveData() ;
-        mPopulateProductLiveData=mOnlineMarketRepository.getPopulateProductLiveData() ;
-        mBestProductLiveData=mOnlineMarketRepository.getBestProductLiveData() ;
+        mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
+        mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
+        mBestProductLiveData= mProductRepository.getBestProductLiveData() ;
     }
 
     public void requestToServerForReceiveProducts(Map<String,String> queryMap, Titles title){
-        mOnlineMarketRepository.requestToServerForReceiveProducts(queryMap,title);
+        mProductRepository.requestToServerForReceiveProducts(queryMap,title);
     }
 
     public LiveData<List<Product>> geNewestProductLiveData() {

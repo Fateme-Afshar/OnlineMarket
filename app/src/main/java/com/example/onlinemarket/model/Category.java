@@ -1,11 +1,11 @@
 package com.example.onlinemarket.model;
 
-public class Categorie {
+public class Category {
     private int mId;
     private String mName;
     private String mImagePath;
 
-    public Categorie(int id, String name, String imagePath) {
+    public Category(int id, String name, String imagePath) {
         mId = id;
         mName = name;
         mImagePath = imagePath;
