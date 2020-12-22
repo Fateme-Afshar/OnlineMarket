@@ -35,7 +35,9 @@ public class ProductRepository {
     private RetrofitInterface mRetrofitInterface;
 
     private ProductRepository() {
-        Retrofit retrofit=new RetrofitInstance().getRetrofit();
+        Retrofit retrofit=RetrofitInstance.getRetrofit
+                (new TypeToken<List<Product>>(){}.getType()
+                ,new ProductGsonConverterCustomize());
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
     }
 
@@ -71,6 +73,39 @@ public class ProductRepository {
 
             }
         });
+    }
+
+    public List<Product> requestToServerForSpecificCatProduct(int catId) {
+        List<Product> ProductList = new ArrayList<>();
+
+        int page = 1;
+        List<Product> products = null;
+        try {
+            products = getProductObjs(page, catId);
+
+            while (products.size() != 0) {
+                ProductList.addAll(products);
+
+                products = getProductObjs(++page, catId);
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        // mProductListMutableLiveData.setValue(ProductList);
+        return ProductList;
+    }
+
+    private  List<Product> getProductObjs(int pageNumber,int catId) throws IOException {
+        Log.d(ProgramUtils.TAG, "Start request Server for receive Products every Category");
+        List<Product> Products = new ArrayList<>();
+
+        Call<List<Product>> productObjects = mRetrofitInterface.getListProductObjects(NetworkParams.
+                queryForReceiveSpecificCategoryProduct(catId, pageNumber));
+
+        Response<List<Product>> response = productObjects.execute();
+        Products.addAll(response.body());
+
+        return Products;
     }
 
     private Call<List<Product>> getListCall(Map<String, String> queryMap) {

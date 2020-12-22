@@ -1,14 +1,21 @@
 package com.example.onlinemarket.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.onlinemarket.R;
+
 public class Category {
     private int mId;
     private String mName;
-    private String mImagePath;
+    private String mImageUrl;
 
     public Category(int id, String name, String imagePath) {
         mId = id;
         mName = name;
-        mImagePath = imagePath;
+        mImageUrl = imagePath;
     }
 
     public int getId() {
@@ -27,11 +34,19 @@ public class Category {
         mName = name;
     }
 
-    public String getImagePath() {
-        return mImagePath;
+    public String getImageUrl() {
+        return mImageUrl;
     }
 
-    public void setImagePath(String imagePath) {
-        mImagePath = imagePath;
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+    }
+
+    @BindingAdapter("profileImage")
+    public static void loadImage(ImageView imageView, String imgUrl){
+        Glide.with(imageView.getContext()).
+                load(imgUrl).
+                placeholder(R.drawable.img_place_holder).
+                into(imageView);
     }
 }

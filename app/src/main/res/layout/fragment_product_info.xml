@@ -9,9 +9,10 @@
             type="com.example.onlinemarket.viewModel.ProductViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
 
     <androidx.viewpager.widget.ViewPager
@@ -37,13 +38,13 @@
         app:layout_constraintTop_toBottomOf="@+id/img_slider"
         />
 
-    <com.google.android.material.textview.MaterialTextView
+    <WebView
         style="@style/TextStylePersian"
         android:id="@+id/tv_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/avatars"
-        android:text="@{viewModel.product.description}"
+        app:showDescription="@{viewModel.product.description}"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,28 +84,6 @@
         android:textColor="@color/white"
         />
 
-    <com.google.android.material.textview.MaterialTextView
-        style="@style/TextStylePersian"
-        android:id="@+id/tv_reviews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/product_reviews"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:textColor="@color/white"
-        android:background="@drawable/solid_green"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reviews" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_web_view"
         style="@style/TextStylePersian"
@@ -118,5 +97,5 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 </layout>

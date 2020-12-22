@@ -13,15 +13,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.digikalaapp.R;
-import com.example.digikalaapp.adapter.ProductAdapter;
-import com.example.digikalaapp.databinding.FragmentCategoryDetailBinding;
-import com.example.digikalaapp.model.ProductModel;
-import com.example.digikalaapp.viewModel.NetworkTaskViewModel;
+import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
+import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
@@ -41,7 +37,7 @@ public class CategoryProductsFragment extends Fragment {
     }
 
     public static CategoryProductsFragment newInstance(int catId) {
-        CategoryProductsFragment fragment = new CategoryProductsFragment();
+       CategoryProductsFragment fragment = new CategoryProductsFragment();
         Bundle args = new Bundle();
         args.putInt(ARGS_CATEGORY_ID,catId);
         fragment.setArguments(args);
@@ -69,7 +65,6 @@ public class CategoryProductsFragment extends Fragment {
         mNetworkTaskViewModel =
                 new ViewModelProvider(this).get(NetworkTaskViewModel.class);
 
-        if (mNetworkTaskViewModel.checkNetworkState()) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -85,7 +80,7 @@ public class CategoryProductsFragment extends Fragment {
                 }
             }).start();
         }
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,29 +94,29 @@ public class CategoryProductsFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-    private void setupAdapter(List<ProductModel> models) {
+    private void setupAdapter(List<Product> models) {
             mAdapter = new ProductAdapter(getContext());
-            mAdapter.setProductModels(models);
+            mAdapter.setProducts(models);
             mAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
                 @Override
-                public void onProductSelected(ProductModel productModel) {
+                public void onProductSelected(Product productModel) {
                     mCallback.onSelectedMoreInfoBtn(productModel);
                 }
             });
             mBinding.recyclerView.setAdapter(mAdapter);
-            mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+            mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private void updateUI(List<ProductModel> models) {
+    private void updateUI(List<Product> models) {
         if (mAdapter == null)
             setupAdapter(models);
         else {
-            mAdapter.setProductModels(models);
+            mAdapter.setProducts(models);
             mAdapter.notifyDataSetChanged();
         }
     }
 
     public interface CategoryProductsFragmentCallback {
-        void onSelectedMoreInfoBtn(ProductModel productModel);
+        void onSelectedMoreInfoBtn(Product productModel);
     }
 }

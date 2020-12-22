@@ -1,9 +1,20 @@
 package com.example.onlinemarket.model;
 
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
+
+import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.onlinemarket.R;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Observable;
 
-public class Product implements Serializable {
+public class Product extends Observable implements Serializable {
     private int mId;
     private String mName;
     private String permaLink;
@@ -97,5 +108,22 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    @BindingAdapter("setImage")
+    public static void loadImage(ImageView imageView, String imgUrl) {
+        Glide.with(imageView.getContext()).
+                load(imgUrl).
+                placeholder(R.drawable.img_place_holder).
+                into(imageView);
+    }
+
+    @BindingAdapter("showDescription")
+    public static void setDescription(WebView webView,String description){
+        webView.loadDataWithBaseURL(null,
+                description,
+                "text/html",
+                "utf-8",
+                null);
     }
 }

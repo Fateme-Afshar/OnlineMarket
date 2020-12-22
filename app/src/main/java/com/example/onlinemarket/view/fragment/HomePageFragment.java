@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
@@ -104,6 +105,14 @@ public class HomePageFragment extends Fragment {
         for (int image : images) {
             flipperImages(image);
         }
+
+        mBinding.imvCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallbacks.onStartCategoryFragment();
+            }
+        });
+
         return mBinding.getRoot();
     }
 
@@ -147,6 +156,7 @@ public class HomePageFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         setupAdapter(products,mBinding.recyclerViewNewestProduct);
+                        mBinding.notifyChange();
                     }
                 });
 
@@ -158,6 +168,7 @@ public class HomePageFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         setupAdapter(products,mBinding.recyclerViewBestProduct);
+                        mBinding.notifyChange();
                     }
                 });
 
@@ -170,6 +181,7 @@ public class HomePageFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         setupAdapter(products,mBinding.recyclerViewPopulateProduct);
+                        mBinding.notifyChange();
                     }
                 });
 
@@ -178,9 +190,9 @@ public class HomePageFragment extends Fragment {
                 break;
         }
     }
+
     public interface HomePageFragmentCallbacks{
         void onStartCategoryFragment();
-        void onClickBestProduct();
         void onClickMoreBtn(Product product);
     }
 }

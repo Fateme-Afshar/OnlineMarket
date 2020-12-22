@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -39,8 +40,11 @@ public class CategoryRepository {
 
     public List<Category> requestToServerForCategories() {
         List<Category> categoriesList = new ArrayList<>();
+        Retrofit retrofit = new RetrofitInstance().getRetrofit();
 
         int page = 1;
+
+        mRetrofitInterface = retrofit.create(RetrofitInterface.class);
 
         List<CatObj> catObjList = null;
         try {
@@ -49,12 +53,12 @@ public class CategoryRepository {
             while (catObjList.size() != 0) {
 
                 for (CatObj catObj : catObjList) {
-                    Category Category = new Category(
+                    Category categoriesModel = new Category(
                             catObj.getId(),
                             catObj.getName(),
                             catObj.getImage().getSrc());
 
-                    categoriesList.add(Category);
+                    categoriesList.add(categoriesModel);
                 }
 
                 catObjList = getCatObjs(++page);
@@ -67,7 +71,7 @@ public class CategoryRepository {
         return categoriesList;
     }
 
-    private List<CatObj> getCatObjs(int pageNumber) throws IOException {
+    private  List<CatObj> getCatObjs(int pageNumber) throws IOException {
         Log.d(ProgramUtils.TAG, "Start request to Server for receive Categories");
 
         Call<List<CatObj>> catObjects = mRetrofitInterface.
@@ -75,5 +79,9 @@ public class CategoryRepository {
         Response<List<CatObj>> response = catObjects.execute();
 
         return response.body();
+    }
+
+    public MutableLiveData<List<Category>> getCategoryLiveData() {
+        return mCategoryLiveData;
     }
 }
