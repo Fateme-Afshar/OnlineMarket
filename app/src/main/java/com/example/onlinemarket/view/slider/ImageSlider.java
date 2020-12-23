@@ -1,22 +1,60 @@
 package com.example.onlinemarket.view.slider;
 
 import android.widget.ImageView;
+import android.widget.ViewFlipper;
+
+import com.bumptech.glide.Glide;
+import com.example.onlinemarket.R;
+
+import java.util.List;
 
 public class ImageSlider {
-
-/*    private void flipperImages(int image){
-        ImageView imageView=new ImageView(getContext());
-        imageView.setBackgroundResource(image);
-
-        mBinding.vfSliderProduct.addView(imageView);
-        mBinding.vfSliderProduct.setFlipInterval(4000);
-        mBinding.vfSliderProduct.setAutoStart(true);
-
-        mBinding.vfSliderProduct.setInAnimation(getContext(), android.R.anim.slide_in_left);
-        mBinding.vfSliderProduct.setInAnimation(getContext(), android.R.anim.slide_out_right);
+   private ViewFlipper mViewFlipper;
+            
+    public ImageSlider(ViewFlipper viewFlipper) {
+        mViewFlipper=viewFlipper;
     }
 
-            for (int image : images) {
-        flipperImages(image);
-    }*/
+    public  void startSlider(){
+        int[] images={R.drawable.digital,R.drawable.market,R.drawable.hygianics};
+
+        for (int image : images) {
+            flipperImages(image);
+        }
+    }
+
+    public  void startSlider(List<String> imagesUrl){
+
+        for (String image : imagesUrl) {
+            flipperImages(image);
+        }
+    }
+    
+    private  void flipperImages(int image){
+        ImageView imageView=new ImageView(mViewFlipper.getContext());
+        imageView.setBackgroundResource(image);
+
+        mViewFlipper.addView(imageView);
+        mViewFlipper.setFlipInterval(4000);
+        mViewFlipper.setAutoStart(true);
+
+        mViewFlipper.setInAnimation(mViewFlipper.getContext(), android.R.anim.slide_in_left);
+        mViewFlipper.setInAnimation(mViewFlipper.getContext(), android.R.anim.slide_out_right);
+    }
+
+    public  void flipperImages(String imgUrl){
+        ImageView imageView=new ImageView(mViewFlipper.getContext());
+
+        Glide.with(imageView.getContext()).
+                load(imgUrl).
+                into(imageView);
+
+        mViewFlipper.addView(imageView);
+        mViewFlipper.setFlipInterval(4000);
+        mViewFlipper.setAutoStart(true);
+
+        mViewFlipper.setInAnimation(mViewFlipper.getContext(), android.R.anim.slide_in_left);
+        mViewFlipper.setInAnimation(mViewFlipper.getContext(), android.R.anim.slide_out_right);
+    }
+
 }

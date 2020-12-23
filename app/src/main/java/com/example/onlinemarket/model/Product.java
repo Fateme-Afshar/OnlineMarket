@@ -103,7 +103,7 @@ public class Product extends Observable implements Serializable {
     }
 
     public String getDescription() {
-        return mDescription;
+        return "<div style='dir:rtl;' >"+mDescription+"</div>";
     }
 
     public void setDescription(String description) {

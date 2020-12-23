@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentProductInfoBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
 public class ProductInfoFragment extends Fragment {
@@ -21,6 +22,9 @@ public class ProductInfoFragment extends Fragment {
     private Product mProductModel;
 
     private ProductViewModel mViewModel;
+
+    private ImageSlider mImageSlider;
+
     public ProductInfoFragment() {
         // Required empty public constructor
     }
@@ -28,7 +32,7 @@ public class ProductInfoFragment extends Fragment {
     public static ProductInfoFragment newInstance(Product productModel) {
         ProductInfoFragment fragment = new ProductInfoFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_PRODUCT_Model,productModel);
+        args.putSerializable(ARG_PRODUCT_Model, productModel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,12 +54,16 @@ public class ProductInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding= DataBindingUtil.inflate(inflater,
+        mBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_product_info,
                 container,
                 false);
-       //mBinding.webView.loadUrl(mProductUrl);
-     mBinding.setViewModel(mViewModel);
+        //mBinding.webView.loadUrl(mProductUrl);
+
+        mImageSlider = new ImageSlider(mBinding.imgSlider);
+        mImageSlider.startSlider(mViewModel.getProduct().getImgUrls());
+
+        mBinding.setViewModel(mViewModel);
         return mBinding.getRoot();
     }
 }

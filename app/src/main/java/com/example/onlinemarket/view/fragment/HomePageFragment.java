@@ -25,6 +25,7 @@ import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Titles;
 import com.example.onlinemarket.utils.NetworkParams;
+import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.HashMap;
@@ -43,6 +44,8 @@ public class HomePageFragment extends Fragment {
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
     private HomePageFragmentCallbacks mCallbacks;
+
+    private ImageSlider mImageSlider;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -100,11 +103,9 @@ public class HomePageFragment extends Fragment {
                 R.layout.fragment_home_page,
                 container,
                 false);
-        int[] images={R.drawable.digital,R.drawable.market,R.drawable.hygianics};
 
-        for (int image : images) {
-            flipperImages(image);
-        }
+        mImageSlider=new ImageSlider(mBinding.vfSliderProduct);
+        mImageSlider.startSlider();
 
         mBinding.imvCategories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,18 +115,6 @@ public class HomePageFragment extends Fragment {
         });
 
         return mBinding.getRoot();
-    }
-
-    private void flipperImages(int image){
-        ImageView imageView=new ImageView(getContext());
-        imageView.setBackgroundResource(image);
-
-        mBinding.vfSliderProduct.addView(imageView);
-        mBinding.vfSliderProduct.setFlipInterval(4000);
-        mBinding.vfSliderProduct.setAutoStart(true);
-
-        mBinding.vfSliderProduct.setInAnimation(getContext(), android.R.anim.slide_in_left);
-        mBinding.vfSliderProduct.setInAnimation(getContext(), android.R.anim.slide_out_right);
     }
 
     private void setupAdapter(List<Product> productList, RecyclerView recyclerView) {
