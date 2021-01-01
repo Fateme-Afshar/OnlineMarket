@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -18,13 +18,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Titles;
 import com.example.onlinemarket.utils.NetworkParams;
+import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
@@ -39,7 +39,7 @@ import static com.example.onlinemarket.model.Titles.NEWEST_PRODUCT;
  * Use the {@link HomePageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomePageFragment extends Fragment {
+public class HomePageFragment extends Fragment implements IOnBackPress {
     private FragmentHomePageBinding mBinding;
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
@@ -114,16 +114,23 @@ public class HomePageFragment extends Fragment {
             }
         });
 
+        mBinding.searchView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mCallbacks.onClickSearchView();
+                return true;
+            }
+        });
+
         return mBinding.getRoot();
     }
 
     private void setupAdapter(List<Product> productList, RecyclerView recyclerView) {
-        ProductAdapter productAdapter = new ProductAdapter(getContext());
-        productAdapter.setProducts(productList);
+        ProductAdapter productAdapter = new ProductAdapter(getContext(),productList);
         productAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
             @Override
             public void onProductSelected(Product product) {
-                    mCallbacks.onClickMoreBtn(product);
+                    mCallbacks.onItemClickListener(product);
             }
         });
 
@@ -180,8 +187,14 @@ public class HomePageFragment extends Fragment {
         }
     }
 
+    @Override
+    public boolean onBackPressed() {
+        return true;
+    }
+
     public interface HomePageFragmentCallbacks{
         void onStartCategoryFragment();
-        void onClickMoreBtn(Product product);
+        void onItemClickListener(Product product);
+        void onClickSearchView();
     }
 }

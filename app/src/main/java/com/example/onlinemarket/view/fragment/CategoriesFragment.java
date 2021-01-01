@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -19,11 +18,12 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 import com.example.onlinemarket.model.Category;
+import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
 
-public class CategoriesFragment extends Fragment {
+public class CategoriesFragment extends Fragment implements IOnBackPress {
     private FragmentCategoriesBinding mBinding;
     private CategoryAdapter mCatAdapter;
 
@@ -84,13 +84,13 @@ public class CategoriesFragment extends Fragment {
                 R.layout.fragment_categories,
                 container,
                 false);
+
         return mBinding.getRoot();
     }
 
     private void setupAdapter(List<Category> models) {
         if (mCatAdapter==null) {
-            mCatAdapter = new CategoryAdapter(getContext());
-            mCatAdapter.setCategories(models);
+            mCatAdapter = new CategoryAdapter(getContext(),models);
             mBinding.recyclerView.setAdapter(mCatAdapter);
             mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -113,6 +113,11 @@ public class CategoriesFragment extends Fragment {
             mCatAdapter.setCategories(models);
             mCatAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return true;
     }
 
     public interface CategoriesFragmentCallbacks{

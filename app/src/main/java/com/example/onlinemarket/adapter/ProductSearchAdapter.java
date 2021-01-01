@@ -12,16 +12,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.databinding.ItemViewBinding;
+import com.example.onlinemarket.databinding.ItemSearchViewBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.viewModel.ProductViewModel;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
-    private ItemViewBinding mBinding;
+public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdapter.Holder>{
     private List<Product> mProducts;
     private Context mContext;
+
+    private ItemSearchViewBinding mBinding;
 
     private ProductAdapterCallback mCallback;
 
@@ -33,27 +33,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         mProducts = products;
     }
 
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductSearchAdapter(Context context,List<Product> products) {
         mContext = context;
-        mProducts=productList;
+        mProducts = products;
     }
 
     @NonNull
     @Override
-    public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mBinding= DataBindingUtil.inflate(
                 LayoutInflater.from(mContext),
-                R.layout.item_view,
+                R.layout.item_search_view,
                 parent,
                 false);
 
-        return new ProductHolder(mBinding);
+        return new Holder(mBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
-            holder.bind(mProducts.get(position));
-
+    public void onBindViewHolder(@NonNull Holder holder, int position) {
+        holder.bind(mProducts.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,17 +66,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         return mProducts.size();
     }
 
-    class ProductHolder extends RecyclerView.ViewHolder {
-        ItemViewBinding mBinding;
-        public ProductHolder(@NonNull ItemViewBinding binding) {
-            super(binding.getRoot());
-            mBinding=binding;
+    class Holder extends RecyclerView.ViewHolder {
+        private ItemSearchViewBinding mBindingView;
+
+        public Holder(@NonNull ItemSearchViewBinding itemSearchViewBinding) {
+            super(itemSearchViewBinding.getRoot());
+            mBindingView=itemSearchViewBinding;
         }
 
-        public void bind(Product product){
+        public void bind(Product product) {
             mBinding.setProduct(product);
         }
-
     }
 
     public interface ProductAdapterCallback{

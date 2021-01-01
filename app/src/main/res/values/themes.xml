@@ -15,7 +15,7 @@
     </style>
 
     <style name="HeadTextStyle">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/sahel_bold</item>
         <item name="android:background">@drawable/solid_grey</item>
@@ -35,4 +35,13 @@
         <item name="android:textAlignment">center</item>
         <item name="android:padding">4dp</item>
     </style>
+
+    <style name="Theme.OnlineMarket.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.OnlineMarket.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.OnlineMarket.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

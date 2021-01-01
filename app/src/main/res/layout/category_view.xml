@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="viewModel"
-            type="com.example.onlinemarket.viewModel.CategoryViewModel" />
+            name="category"
+            type="com.example.onlinemarket.model.Category" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_height="200dp"
             android:src="@color/beauty_red"
             android:layout_gravity="center"
-            app:setImage="@{viewModel.category.imageUrl}"
+            app:setImage="@{category.imageUrl}"
             />
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button.TextButton.CustomBackground"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="دسته بندی محصولات"
-            android:text="@{viewModel.category.name}"
+            android:text="@{category.name}"
             android:background="@color/beauty_light_gray"
             android:textColor="@color/black"
             android:layout_margin="5dp"

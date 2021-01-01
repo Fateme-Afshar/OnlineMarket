@@ -24,8 +24,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHol
 
     private CatAdapterCallbacks mCallbacks;
 
-    private CategoryViewModel mViewModel;
-
     public void setCallbacks(CatAdapterCallbacks callbacks) {
         mCallbacks = callbacks;
     }
@@ -34,9 +32,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHol
         mCategories = categories;
     }
 
-    public CategoryAdapter(Context context) {
+    public CategoryAdapter(Context context,List<Category> categories) {
         mContext = context;
-        mViewModel=new CategoryViewModel();
+        mCategories=categories;
     }
 
     @NonNull
@@ -76,8 +74,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHol
         }
 
         public void bind(Category categoriesModel){
-            mViewModel.setCategory(categoriesModel);
-            mBinding.setViewModel(mViewModel);
+                mBinding.setCategory(categoriesModel);
         }
     }
 

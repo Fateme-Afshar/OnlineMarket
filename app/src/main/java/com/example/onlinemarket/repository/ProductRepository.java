@@ -31,6 +31,7 @@ public class ProductRepository {
     private MutableLiveData<List<Product>> mNewestProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mPopulateProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mBestProductLiveData=new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mSearchProducts =new MutableLiveData<>();
 
     private RetrofitInterface mRetrofitInterface;
 
@@ -66,6 +67,22 @@ public class ProductRepository {
                     default:
                         break;
                 }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void requestToServerForReceiveProducts(Map<String,String> queryMap) {
+        Call<List<Product>> call = getListCall(queryMap);
+
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                    mSearchProducts.setValue(response.body());
             }
 
             @Override
@@ -124,5 +141,7 @@ public class ProductRepository {
         return mBestProductLiveData;
     }
 
-
+    public MutableLiveData<List<Product>> getSearchProducts() {
+        return mSearchProducts;
+    }
 }

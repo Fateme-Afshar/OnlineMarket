@@ -12,6 +12,7 @@ import com.example.onlinemarket.model.Titles;
 import com.example.onlinemarket.repository.CategoryRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
     private LiveData<List<Product>> mNewestProductLiveData;
     private LiveData<List<Product>> mPopulateProductLiveData;
     private LiveData<List<Product>> mBestProductLiveData;
+    private LiveData<List<Product>> mSearchProductLiveData;
 
     private LiveData<List<Category>> mCategoryLiveData;
 
@@ -34,6 +36,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
         mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
         mBestProductLiveData= mProductRepository.getBestProductLiveData() ;
+        mSearchProductLiveData=mProductRepository.getSearchProducts();
 
         mCategoryRepository= CategoryRepository.getInstance();
         mCategoryLiveData=mCategoryRepository.getCategoryLiveData();
@@ -51,6 +54,13 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         return mCategoryRepository.requestToServerForCategories();
     }
 
+    public void requestToServerForSearchProducts(String title,String search){
+        Map<String,String> queryParameter=new HashMap<>();
+        queryParameter.put("attributes",title);
+        queryParameter.put("search",search);
+        mProductRepository.requestToServerForReceiveProducts(queryParameter);
+    }
+
     public LiveData<List<Product>> geNewestProductLiveData() {
         return mNewestProductLiveData;
     }
@@ -65,5 +75,9 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Category>> getCategoryLiveData() {
         return mCategoryLiveData;
+    }
+
+    public LiveData<List<Product>> getSearchProductLiveData() {
+        return mSearchProductLiveData;
     }
 }
