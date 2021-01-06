@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +96,7 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
         queryMapPopulate.put("onSale", "true");
         getProducts(queryMapPopulate, Titles.MORE_REVIEWS_PRODUCT);
 
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -111,14 +115,6 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
             @Override
             public void onClick(View v) {
                 mCallbacks.onStartCategoryFragment();
-            }
-        });
-
-        mBinding.searchView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mCallbacks.onClickSearchView();
-                return true;
             }
         });
 

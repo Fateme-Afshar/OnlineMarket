@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineMarket">
         <activity
-            android:name=".view.activity.SearchViewActivity"
-            android:label="@string/title_activity_search_view"
+            android:name=".view.activity.NavActivity"
+            android:label="@string/title_activity_nav"
             android:theme="@style/Theme.OnlineMarket.NoActionBar"></activity>
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>

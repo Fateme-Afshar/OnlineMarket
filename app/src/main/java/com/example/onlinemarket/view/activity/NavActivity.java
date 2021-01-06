@@ -1,0 +1,79 @@
+package com.example.onlinemarket.view.activity;
+
+import android.os.Bundle;
+import android.view.Menu;
+
+import com.example.onlinemarket.R;
+import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.view.fragment.CategoriesFragment;
+import com.example.onlinemarket.view.fragment.HomePageFragment;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+public class NavActivity extends AppCompatActivity implements
+        HomePageFragment.HomePageFragmentCallbacks ,
+        CategoriesFragment.CategoriesFragmentCallbacks {
+
+    private AppBarConfiguration mAppBarConfiguration;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_nav);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_categories, R.id.nav_search)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.nav, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onStartCategoryFragment() {
+
+    }
+
+    @Override
+    public void onItemClickListener(Product product) {
+
+    }
+
+    @Override
+    public void onClickSearchView() {
+
+    }
+
+    @Override
+    public void onCatSelected(int catId) {
+
+    }
+}
