@@ -38,4 +38,5 @@
     <string name="menu_newest_product">جدیدترن ها</string>
     <string name="filter_color">فیلتر بر اساس رنگ</string>
     <string name="filter_size">فیلتر بر اساس اندازه</string>
+    <string name="select">انتخاب</string>
 </resources>

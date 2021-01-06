@@ -36,7 +36,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
         mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
         mBestProductLiveData= mProductRepository.getBestProductLiveData() ;
-        mSearchProductLiveData=mProductRepository.getSearchProducts();
+        mSearchProductLiveData=mProductRepository.getProducts();
 
         mCategoryRepository= CategoryRepository.getInstance();
         mCategoryLiveData=mCategoryRepository.getCategoryLiveData();

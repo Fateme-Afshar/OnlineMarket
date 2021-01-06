@@ -13,20 +13,20 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+      android:layout_margin="8dp"
         >
 
         <RelativeLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imv_product"
                 android:layout_width="170dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_guitar"
+                tools:src="@drawable/img_guitar"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 app:setImage="@{product.imgUrls.get(0)}"

@@ -36,6 +36,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public ProductAdapter(Context context, List<Product> productList) {
         mContext = context;
         mProducts=productList;
+
     }
 
     @NonNull

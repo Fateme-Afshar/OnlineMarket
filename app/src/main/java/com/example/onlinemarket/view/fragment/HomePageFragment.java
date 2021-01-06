@@ -21,7 +21,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.utils.Query;
+import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.view.IOnBackPress;
@@ -77,20 +77,20 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
         //receive newest products
         Map<String, String> queryMapNewest = new HashMap<>();
-        queryMapNewest.put(Query.ORDER_BY, "date");
-        queryMapNewest.put(Query.ORDER, NetworkParams.ORDER_ASC);
+        queryMapNewest.put(QueryParameters.ORDER_BY, "date");
+        queryMapNewest.put(QueryParameters.ORDER, NetworkParams.ORDER_ASC);
         getProducts(queryMapNewest, NEWEST_PRODUCT);
 
         //receive best products
         Map<String, String> queryMapBest = new HashMap<>();
-        queryMapBest.put(Query.ORDER_BY, "rating");
-        queryMapBest.put(Query.ORDER, NetworkParams.ORDER_ASC);
+        queryMapBest.put(QueryParameters.ORDER_BY, "rating");
+        queryMapBest.put(QueryParameters.ORDER, NetworkParams.ORDER_ASC);
         getProducts(queryMapBest, Titles.BEST_PRODUCT);
 
         //receive most review products
         Map<String, String> queryMapPopulate = new HashMap<>();
         queryMapPopulate.clear();
-        queryMapPopulate.put(Query.ON_SALE, "true");
+        queryMapPopulate.put(QueryParameters.ON_SALE, "true");
         getProducts(queryMapPopulate, Titles.MORE_REVIEWS_PRODUCT);
 
         setHasOptionsMenu(true);

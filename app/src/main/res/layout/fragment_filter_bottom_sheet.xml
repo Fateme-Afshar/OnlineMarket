@@ -5,22 +5,36 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@color/beauty_light_gray">
 
         <View
+            android:id="@+id/view"
             android:layout_width="100dp"
             android:layout_height="2dp"
             android:background="@color/beauty_gray"
-            android:layout_gravity="top|center" />
+            android:layout_centerHorizontal="true" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/filter_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
             android:layout_marginTop="5dp" />
 
-    </FrameLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_select"
+            style="@style/Widget.MaterialComponents.Button.TextButton.PinkBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/filter_recycler"
+            android:layout_centerHorizontal="true"
+            android:text="@string/select"
+            android:fontFamily="@font/sahel_bold"
+            android:textSize="14sp"
+            />
+
+    </RelativeLayout>
 </layout>

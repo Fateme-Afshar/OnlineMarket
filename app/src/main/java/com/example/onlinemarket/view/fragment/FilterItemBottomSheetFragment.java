@@ -1,6 +1,11 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -8,19 +13,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.FilterItemAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBottomSheetBinding;
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.viewModel.FilterViewModel;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +29,10 @@ import java.util.List;
  */
 public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
     public static final String ARG_ATTRIBUTE_ID = "Attribute Id";
+    public static final String EXTRA_FILTER_ITEM_IDS =
+            "com.example.onlinemarket.FilterItemIds";
+    public static final String EXTRA_FILTER_ATTRIBUTE_ID =
+            "com.example.onlinemarket.FilterAttributeId";
     private FilterViewModel mViewModel;
     private int mAttributeId;
 
@@ -55,7 +58,7 @@ public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
         if (getArguments() != null) {
             mAttributeId=getArguments().getInt(ARG_ATTRIBUTE_ID);
         }
-        mViewModel=new ViewModelProvider(this).get(FilterViewModel.class);
+        mViewModel=new ViewModelProvider(getActivity()).get(FilterViewModel.class);
         mViewModel.requestToServerForReceiveInfoSectionAttribute(mAttributeId);
         mViewModel.getAttributeListLiveData().observe(this, new Observer<List<AttributeInfo>>() {
             @Override
@@ -69,16 +72,30 @@ public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding= DataBindingUtil.inflate(inflater,
+        mBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_filter_bottom_sheet,
                 container,
                 false);
+
+        mBinding.btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment=FilterItemBottomSheetFragment.this.getTargetFragment();
+                int fragmentTargetCode=FilterItemBottomSheetFragment.this.getTargetRequestCode();
+                Intent intent=new Intent();
+                intent.putExtra(EXTRA_FILTER_ITEM_IDS,mAdapter.getFilterItemIds().toArray());
+                intent.putExtra(EXTRA_FILTER_ATTRIBUTE_ID,mAttributeId);
+                fragment.onActivityResult(fragmentTargetCode,Activity.RESULT_OK,intent);
+                dismiss();
+            }
+        });
 
         return mBinding.getRoot();
     }
 
     private void setupAdapter(List<AttributeInfo> attributeInfoList) {
-        mAdapter=new FilterItemAdapter(attributeInfoList,getContext());
+        mAdapter = new FilterItemAdapter(getContext(), attributeInfoList,mViewModel);
         mBinding.filterRecycler.setAdapter(mAdapter);
         mBinding.filterRecycler.setLayoutManager(new GridLayoutManager(getContext(),2));
     }

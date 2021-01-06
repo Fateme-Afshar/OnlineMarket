@@ -29,7 +29,7 @@ public class ProductRepository {
     private MutableLiveData<List<Product>> mNewestProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mPopulateProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mBestProductLiveData=new MutableLiveData<>();
-    private MutableLiveData<List<Product>> mSearchProducts =new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mProducts =new MutableLiveData<>();
 
     private RetrofitInterface mRetrofitInterface;
 
@@ -80,7 +80,7 @@ public class ProductRepository {
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                    mSearchProducts.setValue(response.body());
+                    mProducts.setValue(response.body());
             }
 
             @Override
@@ -139,7 +139,7 @@ public class ProductRepository {
         return mBestProductLiveData;
     }
 
-    public MutableLiveData<List<Product>> getSearchProducts() {
-        return mSearchProducts;
+    public MutableLiveData<List<Product>> getProducts() {
+        return mProducts;
     }
 }

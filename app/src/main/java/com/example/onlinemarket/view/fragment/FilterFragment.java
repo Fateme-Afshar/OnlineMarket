@@ -1,22 +1,27 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBinding;
-import com.example.onlinemarket.model.AttributeInfo;
+import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +30,8 @@ public class FilterFragment extends Fragment implements IOnBackPress {
     public static final String TAG_FILTER_FRAGMENT = "Filter Fragment";
     private FilterViewModel mViewModel;
     private FragmentFilterBinding mBinding;
+
+    private ProductSearchAdapter mAdapter;
 
     public FilterFragment() {
         // Required empty public constructor
@@ -40,29 +47,39 @@ public class FilterFragment extends Fragment implements IOnBackPress {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(getActivity()).get(FilterViewModel.class);
-        mViewModel.setOnBtnClickListener(new FilterViewModel.OnBtnClickListener() {
+        setupViewModel();
+
+        mViewModel.getFilterProducts().observe(this, new Observer<List<Product>>() {
             @Override
-            public void onAttributeSelected(int attributeId) {
-                FilterItemBottomSheetFragment filterItemBottomSheetFragment=
-                        FilterItemBottomSheetFragment.newInstance(attributeId);
-
-                //create parent-child relationship between FilterFragment and FilterItemBottomSheetFragment
-                filterItemBottomSheetFragment.
-                        setTargetFragment(FilterFragment.this,
-                                REQUEST_CODE_FILTER_BOTTOM_SHEET);
-
-                filterItemBottomSheetFragment.show(getParentFragmentManager(),
-                        TAG_FILTER_FRAGMENT);
+            public void onChanged(List<Product> productList) {
+                setupAdapter(productList);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK && data == null)
+            return;
+        if (requestCode == REQUEST_CODE_FILTER_BOTTOM_SHEET) {
+            List<Integer> filterIds = mViewModel.getFilterIds();
+
+            int attributeId = data.getIntExtra
+                    (FilterItemBottomSheetFragment.EXTRA_FILTER_ATTRIBUTE_ID, 0);
+            if (attributeId == 3)
+                mViewModel.requestToServerForReceiveFilterProducts(filterIds, "pa_color");
+            else
+                mViewModel.requestToServerForReceiveFilterProducts(filterIds, "pa_size");
+
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding= DataBindingUtil.inflate
+        mBinding = DataBindingUtil.inflate
                 (inflater,
                         R.layout.fragment_filter,
                         container,
@@ -74,5 +91,30 @@ public class FilterFragment extends Fragment implements IOnBackPress {
     @Override
     public boolean onBackPressed() {
         return true;
+    }
+
+    private void setupViewModel() {
+        mViewModel = new ViewModelProvider(getActivity()).get(FilterViewModel.class);
+        mViewModel.setOnBtnClickListener(new FilterViewModel.OnBtnClickListener() {
+            @Override
+            public void onAttributeSelected(int attributeId) {
+                FilterItemBottomSheetFragment filterItemBottomSheetFragment =
+                        FilterItemBottomSheetFragment.newInstance(attributeId);
+
+                //create parent-child relationship between FilterFragment and FilterItemBottomSheetFragment
+                filterItemBottomSheetFragment.
+                        setTargetFragment(FilterFragment.this,
+                                REQUEST_CODE_FILTER_BOTTOM_SHEET);
+
+                filterItemBottomSheetFragment.show(FilterFragment.this.getParentFragmentManager(),
+                        TAG_FILTER_FRAGMENT);
+            }
+        });
+    }
+
+    private void setupAdapter(List<Product> productList) {
+        mAdapter = new ProductSearchAdapter(getContext(), productList);
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.recyclerView.setAdapter(mAdapter);
     }
 }

@@ -18,22 +18,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class AttributeRepository {
-    private static AttributeRepository sInstance;
+public class FilterRepository {
+    private static FilterRepository sInstance;
     private MutableLiveData<List<AttributeInfo>> mAttributeListLiveData = new MutableLiveData<>();
     private MutableLiveData<AttributeInfo> mAttributeLiveData = new MutableLiveData<>();
+
     private RetrofitInterface mRetrofitInterface;
 
     private List<Integer> mAttributeId = new ArrayList<>();
 
-    private AttributeRepository() {
+    private FilterRepository() {
         Retrofit retrofit = RetrofitInstance.getRetrofit();
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
-    public static AttributeRepository getInstance() {
+    public static FilterRepository getInstance() {
         if (sInstance == null)
-            sInstance = new AttributeRepository();
+            sInstance = new FilterRepository();
         return sInstance;
     }
 
