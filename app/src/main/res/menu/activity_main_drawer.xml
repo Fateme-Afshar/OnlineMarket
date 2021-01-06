@@ -21,5 +21,6 @@
             android:id="@+id/nav_filter"
             android:icon="@drawable/ic_filter"
             android:title="@string/menu_filter" />
+
     </group>
 </menu>

@@ -1,5 +1,6 @@
 package com.example.onlinemarket.network.retrofit;
 
+import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.response.CatObj;
 
@@ -14,8 +15,16 @@ import retrofit2.http.QueryMap;
 public interface RetrofitInterface {
 
     @GET("products/{path}")
-    Call<List<CatObj>> getListCatObjects(@Path("path") String path,@QueryMap Map<String,String> queryMap);
+    Call<List<CatObj>> getListCatObjects(@Path("path") String path, @QueryMap Map<String, String> queryMap);
 
     @GET("products")
-    Call<List<Product>> getListProductObjects(@QueryMap Map<String,String> queryMap);
+    Call<List<Product>> getListProductObjects(@QueryMap Map<String, String> queryMap);
+
+    //for receive filter sections such as color,size
+    @GET("products/attributes")
+    Call<List<AttributeInfo>> getAttributes(@QueryMap Map<String, String> queryMap);
+
+    //for receive every filter part attribute for example in size:32,33,45,50,...
+    @GET("products/attributes/{id}/terms")
+    Call<List<AttributeInfo>> getEveryAttributePart(@Path("id") String path, @QueryMap Map<String, String> queryMap);
 }

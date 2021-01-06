@@ -4,21 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-            <variable
-                name="viewModel"
-                type="com.example.onlinemarket.viewModel.FilterViewModel" />
+        <variable
+            name="viewModel"
+            type="com.example.onlinemarket.viewModel.FilterViewModel" />
     </data>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f1f1f1"
-        >
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cont"
+        tools:context=".view.fragment.BlankFragment">
+
+        <LinearLayout
+            android:id="@+id/btn_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".view.fragment.FilterFragment">
+            android:weightSum="2"
+            android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_color_filter"
@@ -29,7 +30,6 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_size_filter"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_weight="1"
-                android:onClick="@{()->viewModel.onClickListener(3)}"
                 android:text="@string/filter_color" />
 
             <com.google.android.material.button.MaterialButton
@@ -42,16 +42,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/filter_size"
                 android:layout_weight="1"
-                android:onClick="@{()->viewModel.onClickListener(4)}"
                 app:layout_constraintHorizontal_chainStyle="packed" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/btn_color_filter"
-                android:layout_marginTop="10dp" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_container"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
 </layout>

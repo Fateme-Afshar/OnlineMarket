@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -40,7 +39,7 @@ public class CategoryRepository {
 
     public List<Category> requestToServerForCategories() {
         List<Category> categoriesList = new ArrayList<>();
-        Retrofit retrofit = new RetrofitInstance().getRetrofit();
+        Retrofit retrofit =RetrofitInstance.getRetrofit();
 
         int page = 1;
 

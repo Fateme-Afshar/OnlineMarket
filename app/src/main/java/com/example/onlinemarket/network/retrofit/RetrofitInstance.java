@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * this class has two constructor ,
+ * this class has two ststic method ,
  * one of them create retrofit instance with Gson Converter Customize
  * another create retrofit instance with default Gson Converter.
  */

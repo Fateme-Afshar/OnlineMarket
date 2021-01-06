@@ -29,10 +29,13 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_categories">Categories</string>
-    <string name="menu_search">Search</string>
-    <string name="menu_filter">Filter</string>
+    <string name="menu_home">خانه</string>
+    <string name="menu_categories">دسته بندی</string>
+    <string name="menu_search">جستجو</string>
+    <string name="menu_filter">فیلتر</string>
+    <string name="menu_more_visited">پربازدید ترین ها</string>
+    <string name="menu_best_product">بهترین ها</string>
+    <string name="menu_newest_product">جدیدترن ها</string>
     <string name="filter_color">فیلتر بر اساس رنگ</string>
     <string name="filter_size">فیلتر بر اساس اندازه</string>
 </resources>

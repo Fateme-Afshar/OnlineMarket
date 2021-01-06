@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="attributeInfo"
+            type="com.example.onlinemarket.model.AttributeInfo" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkbox_item_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_item_filter"
+            style="@style/TextStylePersian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{attributeInfo.name}"
+            android:textSize="14sp"
+            android:layout_gravity="top"
+            tools:text="نارنجی" />
+
+    </LinearLayout>
+</layout>
