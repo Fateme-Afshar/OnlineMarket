@@ -12,4 +12,6 @@
     <color name="beauty_red">#e41419</color>
 
     <color name="dark_pink">#f41930</color>
+    <color name="light_pink">#f8475a</color>
+    <color name="pink_gray">#d9c8c0</color>
 </resources>

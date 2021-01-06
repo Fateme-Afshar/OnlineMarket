@@ -35,7 +35,6 @@
                 android:id="@+id/vf_slider_product"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@drawable/hygianics"
                 app:layout_constraintEnd_toEndOf="@id/guid_right"
                 app:layout_constraintStart_toStartOf="@id/guid_left"
                 app:layout_constraintTop_toBottomOf="@+id/search_view"
@@ -179,35 +178,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_last_product"
                 />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imv_bottom_bar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/beauty_red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_newest_product"
-                android:layout_marginTop="40dp"
-                />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imv_home"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_home"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guid_right"
-                android:layout_margin="12dp"
-                />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imv_categories"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_categories"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guid_left"
-                android:layout_margin="12dp"
-                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

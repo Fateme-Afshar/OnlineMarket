@@ -16,7 +16,7 @@ public class ImageSlider {
     }
 
     public  void startSlider(){
-        int[] images={R.drawable.digital,R.drawable.market,R.drawable.hygianics};
+        int[] images={R.drawable.slide_1,R.drawable.slide_2,R.drawable.slide_3};
 
         for (int image : images) {
             flipperImages(image);

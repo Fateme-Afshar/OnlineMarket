@@ -111,13 +111,6 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
         mImageSlider=new ImageSlider(mBinding.vfSliderProduct);
         mImageSlider.startSlider();
 
-        mBinding.imvCategories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallbacks.onStartCategoryFragment();
-            }
-        });
-
         return mBinding.getRoot();
     }
 
