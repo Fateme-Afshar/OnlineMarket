@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.model.Titles;
+import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.repository.CategoryRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 

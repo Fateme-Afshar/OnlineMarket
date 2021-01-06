@@ -4,10 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,7 +21,8 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.model.Titles;
+import com.example.onlinemarket.utils.Query;
+import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.slider.ImageSlider;
@@ -35,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.onlinemarket.model.Titles.NEWEST_PRODUCT;
+import static com.example.onlinemarket.utils.Titles.NEWEST_PRODUCT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,20 +77,20 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
         //receive newest products
         Map<String, String> queryMapNewest = new HashMap<>();
-        queryMapNewest.put("orderby", "date");
-        queryMapNewest.put("order", NetworkParams.ORDER_ASC);
+        queryMapNewest.put(Query.ORDER_BY, "date");
+        queryMapNewest.put(Query.ORDER, NetworkParams.ORDER_ASC);
         getProducts(queryMapNewest, NEWEST_PRODUCT);
 
         //receive best products
         Map<String, String> queryMapBest = new HashMap<>();
-        queryMapBest.put("orderby", "rating");
-        queryMapBest.put("order", NetworkParams.ORDER_ASC);
+        queryMapBest.put(Query.ORDER_BY, "rating");
+        queryMapBest.put(Query.ORDER, NetworkParams.ORDER_ASC);
         getProducts(queryMapBest, Titles.BEST_PRODUCT);
 
         //receive most review products
         Map<String, String> queryMapPopulate = new HashMap<>();
         queryMapPopulate.clear();
-        queryMapPopulate.put("onSale", "true");
+        queryMapPopulate.put(Query.ON_SALE, "true");
         getProducts(queryMapPopulate, Titles.MORE_REVIEWS_PRODUCT);
 
         setHasOptionsMenu(true);
@@ -182,8 +179,8 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
     }
 
     public interface HomePageFragmentCallbacks{
-        void onStartCategoryFragment();
         void onItemClickListener(Product product);
+        void onStartCategoryFragment();
         void onClickSearchView();
     }
 }

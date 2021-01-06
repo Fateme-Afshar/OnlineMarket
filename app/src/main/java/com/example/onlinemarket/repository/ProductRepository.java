@@ -4,10 +4,8 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.model.Titles;
-import com.example.onlinemarket.model.response.CatObj;
+import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
 import com.example.onlinemarket.network.retrofit.gson.ProductGsonConverterCustomize;

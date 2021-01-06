@@ -32,4 +32,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_search">Search</string>
+    <string name="menu_filter">Filter</string>
+    <string name="filter_color">فیلتر بر اساس رنگ</string>
+    <string name="filter_size">فیلتر بر اساس اندازه</string>
 </resources>
