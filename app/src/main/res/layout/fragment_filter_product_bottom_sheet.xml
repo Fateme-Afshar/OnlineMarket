@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.example.onlinemarket.utils.QueryParameters" />
+
+        <variable
+            name="viewModel"
+            type="com.example.onlinemarket.viewModel.FilterProductOnMoreViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_newest"
+            style="@style/Widget.MaterialComponents.Button.BorderBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("date","desc")}'
+            android:text="@string/newest_filter"
+            app:layout_constraintEnd_toStartOf="@+id/btn_best_sellers"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_best_sellers"
+            style="@style/Widget.MaterialComponents.Button.BorderBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/best_sellers_filter"
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("popularity","desc")}'
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_newest"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_price_low_high"
+            style="@style/Widget.MaterialComponents.Button.BorderBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("price","asc")}'
+            android:text="@string/price_low_to_high"
+            app:layout_constraintEnd_toStartOf="@+id/btn_price_high_to_law"
+            app:layout_constraintStart_toEndOf="@+id/btn_newest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_newest" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_price_high_to_law"
+            style="@style/Widget.MaterialComponents.Button.BorderBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("price","desc")}'
+            android:text="@string/price_high_to_law"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_newest"
+            app:layout_constraintTop_toBottomOf="@+id/btn_best_sellers" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

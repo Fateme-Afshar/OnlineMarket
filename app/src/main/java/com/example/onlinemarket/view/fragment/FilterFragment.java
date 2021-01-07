@@ -21,12 +21,12 @@ import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class FilterFragment extends Fragment implements IOnBackPress {
     public static final int REQUEST_CODE_FILTER_BOTTOM_SHEET = 1;
+    public static final int REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET =2;
     public static final String TAG_FILTER_FRAGMENT = "Filter Fragment";
     private FilterViewModel mViewModel;
     private FragmentFilterBinding mBinding;
@@ -68,10 +68,14 @@ public class FilterFragment extends Fragment implements IOnBackPress {
             int attributeId = data.getIntExtra
                     (FilterItemBottomSheetFragment.EXTRA_FILTER_ATTRIBUTE_ID, 0);
             if (attributeId == 3)
-                mViewModel.requestToServerForReceiveFilterProducts(filterIds, "pa_color");
+                mViewModel.requestToServerForReceiveFilterProductsOnAttributeTerm(filterIds, "pa_color");
             else
-                mViewModel.requestToServerForReceiveFilterProducts(filterIds, "pa_size");
+                mViewModel.requestToServerForReceiveFilterProductsOnAttributeTerm(filterIds, "pa_size");
 
+        }else if(requestCode==REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET){
+            String orderby=data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER_BY);
+            String order=data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER);
+            mViewModel.requestToServerForReceiveFilterProductsOnMore(orderby,order);
         }
     }
 
@@ -95,7 +99,7 @@ public class FilterFragment extends Fragment implements IOnBackPress {
 
     private void setupViewModel() {
         mViewModel = new ViewModelProvider(getActivity()).get(FilterViewModel.class);
-        mViewModel.setOnBtnClickListener(new FilterViewModel.OnBtnClickListener() {
+        mViewModel.setOnFilterAttributeClickListener(new FilterViewModel.OnBtnClickListener() {
             @Override
             public void onAttributeSelected(int attributeId) {
                 FilterItemBottomSheetFragment filterItemBottomSheetFragment =
@@ -107,6 +111,20 @@ public class FilterFragment extends Fragment implements IOnBackPress {
                                 REQUEST_CODE_FILTER_BOTTOM_SHEET);
 
                 filterItemBottomSheetFragment.show(FilterFragment.this.getParentFragmentManager(),
+                        TAG_FILTER_FRAGMENT);
+            }
+
+            @Override
+            public void onFilterBtnClickListener() {
+                FilterProductBottomSheetFragment filterProductBottomSheetFragment =
+                        FilterProductBottomSheetFragment.newInstance();
+
+                //create parent-child relationship between FilterFragment and FilterProductBottomSheetFragment
+                filterProductBottomSheetFragment.
+                        setTargetFragment(FilterFragment.this,
+                                REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET);
+
+                filterProductBottomSheetFragment.show(FilterFragment.this.getParentFragmentManager(),
                         TAG_FILTER_FRAGMENT);
             }
         });

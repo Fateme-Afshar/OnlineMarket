@@ -1,7 +1,9 @@
 package com.example.onlinemarket.network.retrofit.gson;
 
 import android.util.Log;
+
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.utils.ProgramUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -14,18 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductGsonConverterCustomize implements JsonDeserializer<List<Product>> {
-    public static final String TAG="DigiKala";
 
     @Override
     public List<Product> deserialize(JsonElement json,
                                           Type typeOfT,
                                           JsonDeserializationContext context) throws JsonParseException {
-        Log.d(TAG,"GsonConverterCustomize : Start Extract json");
+        Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Start Extract json");
         List<Product> productModels = new ArrayList<>();
         JsonArray jsonArrayProduct = json.getAsJsonArray();
 
         for (JsonElement jsonElement : jsonArrayProduct) {
-            Log.d(TAG,"GsonConverterCustomize : Start Extract Product info from json");
+            Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Start Extract Product info from json");
             JsonObject jsonObjProduct = jsonElement.getAsJsonObject();
             List<String> imgUrls = new ArrayList<>();
 
@@ -33,12 +34,11 @@ public class ProductGsonConverterCustomize implements JsonDeserializer<List<Prod
             String name = jsonObjProduct.get("name").getAsString();
             String permaLink = jsonObjProduct.get("permalink").getAsString();
             String dateCreated = jsonObjProduct.get("date_created").getAsString();
-            String description=jsonObjProduct.get("description").getAsString();
-
-            long price;
+            String description = jsonObjProduct.get("description").getAsString();
+            long price = 0;
             try {
-                price=jsonObjProduct.get("price").getAsLong();
-            }catch (Exception e){
+                price = jsonObjProduct.get("price").getAsLong();
+            } catch (Exception e) {
                 continue;
             }
 
@@ -64,10 +64,10 @@ public class ProductGsonConverterCustomize implements JsonDeserializer<List<Prod
                     regularPrice,
                     imgUrls);
 
-            Log.d(TAG,"GsonConverterCustomize : Add new product in list of product");
+            Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Add new product in list of product");
             productModels.add(productModel);
         }
-        Log.d(TAG,"GsonConverterCustomize : Complete convert work and return final list");
+        Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Complete convert work and return final list");
         return productModels;
     }
 }

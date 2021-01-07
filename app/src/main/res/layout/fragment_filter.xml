@@ -23,27 +23,37 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_color_filter"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="0dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.onAttributeBtnClickListener(3)}"
+                android:text="@string/filter_color"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.765"
                 app:layout_constraintStart_toEndOf="@+id/btn_size_filter"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_weight="1"
-                android:onClick="@{()->viewModel.onClickListener(3)}"
-                android:text="@string/filter_color" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:id="@+id/btn_size_filter"
-                android:layout_width="0dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_color_filter"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="72dp"
+                android:layout_marginLeft="72dp"
+                android:onClick="@{()->viewModel.onAttributeBtnClickListener(4)}"
                 android:text="@string/filter_size"
-                android:layout_weight="1"
-                android:onClick="@{()->viewModel.onClickListener(4)}"
-                app:layout_constraintHorizontal_chainStyle="packed" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_more_filter"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.onMoreFilterBtnClickListener()}"
+                app:icon="@drawable/ic_filter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

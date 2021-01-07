@@ -39,7 +39,7 @@ public class FilterViewModel extends AndroidViewModel {
         mRepository.requestToServerForReceiveInfoSectionAttribute(attributeId);
     }
 
-    public void requestToServerForReceiveFilterProducts(List<Integer> filterItemIds, String filterName) {
+    public void requestToServerForReceiveFilterProductsOnAttributeTerm(List<Integer> filterItemIds, String filterName) {
         Log.d(ProgramUtils.TAG,"FilterViewModel : Creating filter query parameters");
 
         Map<String, String> queryParameters = new HashMap<>();
@@ -54,8 +54,19 @@ public class FilterViewModel extends AndroidViewModel {
         mProductRepository.requestToServerForReceiveProducts(queryParameters);
     }
 
-    public void onClickListener(int attributeId) {
+    public void requestToServerForReceiveFilterProductsOnMore(String orderby,String order){
+        Map<String,String> queryParameter=new HashMap<>();
+        queryParameter.put(QueryParameters.ORDER_BY,orderby);
+        queryParameter.put(order,order);
+        mProductRepository.requestToServerForReceiveProducts(queryParameter);
+    }
+
+    public void onAttributeBtnClickListener(int attributeId) {
         mOnBtnClickListener.onAttributeSelected(attributeId);
+    }
+
+    public void onMoreFilterBtnClickListener(){
+        mOnBtnClickListener.onFilterBtnClickListener();
     }
 
     public LiveData<List<AttributeInfo>> getAttributeListLiveData() {
@@ -68,9 +79,10 @@ public class FilterViewModel extends AndroidViewModel {
 
     public interface OnBtnClickListener {
         void onAttributeSelected(int attributeId);
+        void onFilterBtnClickListener();
     }
 
-    public void setOnBtnClickListener(OnBtnClickListener onBtnClickListener) {
+    public void setOnFilterAttributeClickListener(OnBtnClickListener onBtnClickListener) {
         mOnBtnClickListener = onBtnClickListener;
     }
 

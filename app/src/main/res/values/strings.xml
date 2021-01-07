@@ -5,6 +5,7 @@
     <string name="most_visited_products">پربازدید ترین محصولات</string>
     <string name="best_products">بهترین محصولات</string>
     <string name="more_info_product">بیشتر ...</string>
+    <string name="more">بیشتر </string>
     <string name="product_price">قیمت محصول :</string>
     <string name="product_regular_price">قیمت  با تخفیف محصول :</string>
     <string name="product_reviews">نظرات بازدید کنندگان </string>
@@ -39,4 +40,8 @@
     <string name="filter_color">فیلتر بر اساس رنگ</string>
     <string name="filter_size">فیلتر بر اساس اندازه</string>
     <string name="select">انتخاب</string>
+    <string name="newest_filter">جدیدترین ها</string>
+    <string name="best_sellers_filter">پرفروش ترین ها</string>
+    <string name="price_low_to_high">قیمت از کم به زیاد</string>
+    <string name="price_high_to_law">قیمت از زیاد به کم</string>
 </resources>
