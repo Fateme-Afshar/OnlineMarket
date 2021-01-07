@@ -19,6 +19,7 @@ import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
+import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class CategoryProductsFragment extends Fragment implements IOnBackPress {
     private int mCategoryId;
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
-    private CategoryProductsFragmentCallback mCallback;
+    private OpenProductPage mCallback;
     
     public CategoryProductsFragment() {
         // Required empty public constructor
@@ -49,11 +50,11 @@ public class CategoryProductsFragment extends Fragment implements IOnBackPress {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof CategoryProductsFragmentCallback)
-            mCallback=(CategoryProductsFragmentCallback) context;
+        if (context instanceof OpenProductPage)
+            mCallback=(OpenProductPage) context;
         else
             throw new ClassCastException(
-                    "Must implement CategoryProductsFragmentCallback interface");
+                    "Must implement OpenProductPage interface");
 
     }
 
@@ -100,7 +101,7 @@ public class CategoryProductsFragment extends Fragment implements IOnBackPress {
             mAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
                 @Override
                 public void onProductSelected(Product productModel) {
-                    mCallback.onSelectedMoreInfoBtn(productModel);
+                    mCallback.onItemClickListener(productModel);
                 }
             });
             mBinding.recyclerView.setAdapter(mAdapter);
@@ -119,9 +120,5 @@ public class CategoryProductsFragment extends Fragment implements IOnBackPress {
     @Override
     public boolean onBackPressed() {
         return true;
-    }
-
-    public interface CategoryProductsFragmentCallback {
-        void onSelectedMoreInfoBtn(Product productModel);
     }
 }

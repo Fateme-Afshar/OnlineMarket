@@ -25,6 +25,7 @@ import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.view.IOnBackPress;
+import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
@@ -43,7 +44,7 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
     private FragmentHomePageBinding mBinding;
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
-    private HomePageFragmentCallbacks mCallbacks;
+    private OpenProductPage mCallbacks;
 
     private ImageSlider mImageSlider;
 
@@ -62,11 +63,11 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if (context instanceof HomePageFragmentCallbacks)
-            mCallbacks=(HomePageFragmentCallbacks) context;
+        if (context instanceof OpenProductPage)
+            mCallbacks=(OpenProductPage) context;
         else
             throw new ClassCastException(
-                    "Must implement HomePageFragmentCallbacks interface");
+                    "Must implement OpenProductPage interface");
 
     }
 
@@ -177,11 +178,5 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
     @Override
     public boolean onBackPressed() {
         return true;
-    }
-
-    public interface HomePageFragmentCallbacks{
-        void onItemClickListener(Product product);
-        void onStartCategoryFragment();
-        void onClickSearchView();
     }
 }

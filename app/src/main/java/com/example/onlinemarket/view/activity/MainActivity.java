@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
+import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoryProductsFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
@@ -26,9 +27,7 @@ import com.example.onlinemarket.view.fragment.SearchFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity
-        implements HomePageFragment.HomePageFragmentCallbacks,
-        CategoriesFragment.CategoriesFragmentCallbacks,
-        CategoryProductsFragment.CategoryProductsFragmentCallback{
+        implements CategoriesFragment.CategoriesFragmentCallbacks, OpenProductPage {
 
     public static final String HOME_PAGE_FRAGMENT_TAG = "HomePageFragment";
     private AppBarConfiguration mAppBarConfiguration;
@@ -85,48 +84,20 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     @Override
-    public void onStartCategoryFragment() {
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.nav_host_fragment,
-                        CategoriesFragment.newInstance()).
-                commit();
-    }
-
-    @Override
     public void onItemClickListener(Product product) {
         getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.nav_host_fragment,
+                add(R.id.nav_host_fragment,
                         ProductInfoFragment.newInstance(product)).
                 commit();
-    }
-
-    @Override
-    public void onClickSearchView() {
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.nav_host_fragment,
-                        SearchFragment.newInstance()).
-                addToBackStack(HOME_PAGE_FRAGMENT_TAG)
-                .commit();
     }
 
     @Override
     public void onCatSelected(int catId) {
         getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.nav_host_fragment,
+                add(R.id.nav_host_fragment,
                         CategoryProductsFragment.newInstance(catId)).
-                commit();
-    }
-
-    @Override
-    public void onSelectedMoreInfoBtn(Product product) {
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.nav_host_fragment,
-                        ProductInfoFragment.newInstance(product)).
                 commit();
     }
 
@@ -138,7 +109,7 @@ public class MainActivity extends SingleFragmentActivity
         }else {
             getSupportFragmentManager().
                     beginTransaction().
-                    replace(R.id.nav_host_fragment,
+                    add(R.id.nav_host_fragment,
                             HomePageFragment.newInstance()).
                     commit();
         }

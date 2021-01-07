@@ -1,11 +1,10 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.ItemSearchViewBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.utils.ProgramUtils;
 
 import java.util.List;
 
@@ -23,9 +23,9 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
 
     private ItemSearchViewBinding mBinding;
 
-    private ProductAdapterCallback mCallback;
+    private ProductSearchAdapterCallback mCallback;
 
-    public void setCallback(ProductAdapterCallback callback) {
+    public void setCallback(ProductSearchAdapterCallback callback) {
         mCallback = callback;
     }
 
@@ -56,7 +56,13 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallback.onProductSelected(mProducts.get(position));
+                try {
+                    mCallback.onProductSelected(mProducts.get(position));
+                }catch (Exception e){
+                    Log.e(ProgramUtils.TAG,
+                            "ProductSearchAdapter : if you want when click item, " +
+                                    "get product information page must set callback with setCallback method");
+                }
             }
         });
     }
@@ -79,7 +85,7 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         }
     }
 
-    public interface ProductAdapterCallback{
+    public interface ProductSearchAdapterCallback {
         void onProductSelected(Product product);
     }
 }

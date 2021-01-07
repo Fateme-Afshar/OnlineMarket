@@ -1,12 +1,14 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,7 @@ import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
+import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 
 import java.util.List;
@@ -33,6 +36,8 @@ public class FilterFragment extends Fragment implements IOnBackPress {
 
     private ProductSearchAdapter mAdapter;
 
+    private OpenProductPage mCallback;
+
     public FilterFragment() {
         // Required empty public constructor
     }
@@ -42,6 +47,17 @@ public class FilterFragment extends Fragment implements IOnBackPress {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OpenProductPage)
+            mCallback=(OpenProductPage) context;
+        else
+            throw new ClassCastException(
+                    "Must implement OpenProductPage interface");
     }
 
     @Override

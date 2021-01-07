@@ -1,10 +1,12 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,7 @@ import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentSearchBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class SearchFragment extends Fragment {
 
     private NetworkTaskViewModel mViewModel;
 
+    private OpenProductPage mCallback;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -42,6 +47,17 @@ public class SearchFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OpenProductPage)
+            mCallback=(OpenProductPage) context;
+        else
+            throw new ClassCastException(
+                    "Must implement OpenProductPage interface");
     }
 
     @Override
@@ -96,6 +112,12 @@ public class SearchFragment extends Fragment {
                 new ProductSearchAdapter(getActivity(),productList);
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.recyclerView.setAdapter(mAdapter);
+        mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
+            @Override
+            public void onProductSelected(Product product) {
+                mCallback.onItemClickListener(product);
+            }
+        });
         setupEmpty(productList);
     }
 
