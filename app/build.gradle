@@ -37,6 +37,10 @@ dependencies {
     def glide_version="4.11.0"
     def lifecycle_version="2.2.0"
     def lottieVersion = "3.6.0"
+    def room_version = "2.2.6"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation "com.airbnb.android:lottie:$lottieVersion"
     

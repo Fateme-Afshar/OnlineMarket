@@ -1,27 +1,39 @@
 package com.example.onlinemarket.model;
 
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databases.OnlineShopSchema;
+import com.example.onlinemarket.databases.OnlineShopSchema.Product.ProductColumn;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
-
+@Entity(tableName = OnlineShopSchema.Product.NAME)
 public class Product extends Observable implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = ProductColumn.ID)
     private int mId;
+    @ColumnInfo(name = ProductColumn.NAME)
     private String mName;
+    @ColumnInfo(name = ProductColumn.PERMA_LINK)
     private String permaLink;
+    @ColumnInfo(name = ProductColumn.DATE_CREATED)
     private String mDateCreated;
+    @ColumnInfo(name = ProductColumn.DESCRIPTION)
     private String mDescription;
+    @ColumnInfo(name = ProductColumn.PRICE)
     private long mPrice;
+    @ColumnInfo(name = ProductColumn.REGULAR_PRICE)
     private long mRegularPrice;
+    @ColumnInfo(name = ProductColumn.IMAGES_URL)
     private List<String> mImgUrls;
 
     public Product(int id) {
@@ -103,7 +115,7 @@ public class Product extends Observable implements Serializable {
     }
 
     public String getDescription() {
-        return "<div style='dir:rtl;' >"+mDescription+"</div>";
+        return "<div>"+mDescription+"</div>";
     }
 
     public void setDescription(String description) {

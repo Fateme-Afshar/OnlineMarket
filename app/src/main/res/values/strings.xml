@@ -46,4 +46,9 @@
     <string name="price_low_to_high">قیمت از کم به زیاد</string>
     <string name="price_high_to_law">قیمت از زیاد به کم</string>
     <string name="nothing_to_show">محصولی برای نمایش وجود ندارد</string>
+    <string name="first_name_family_name">نام و نام خانوادگی</string>
+    <string name="address">آدرس</string>
+    <string name="telephone">شماره تلفن</string>
+    <string name="sign_up">ثبت نام</string>
+    <string name="add_to_basket">افزون به سبد خرید</string>
 </resources>
