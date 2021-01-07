@@ -44,4 +44,5 @@
     <string name="best_sellers_filter">پرفروش ترین ها</string>
     <string name="price_low_to_high">قیمت از کم به زیاد</string>
     <string name="price_high_to_law">قیمت از زیاد به کم</string>
+    <string name="nothing_to_show">محصولی برای نمایش وجود ندارد</string>
 </resources>
