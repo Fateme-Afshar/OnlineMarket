@@ -29,6 +29,7 @@ public class ProductRepository {
     private MutableLiveData<List<Product>> mNewestProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mPopulateProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mBestProductLiveData=new MutableLiveData<>();
+    private MutableLiveData<List<Product>> mSpecialProductLiveData=new MutableLiveData<>();
     private MutableLiveData<List<Product>> mProducts =new MutableLiveData<>();
 
     private RetrofitInterface mRetrofitInterface;
@@ -62,6 +63,8 @@ public class ProductRepository {
                     case MORE_REVIEWS_PRODUCT:
                         mPopulateProductLiveData.setValue(response.body());
                         break;
+                    case SPECIAL_PRODUCT:
+                        mSpecialProductLiveData.setValue(response.body());
                     default:
                         break;
                 }
@@ -137,6 +140,10 @@ public class ProductRepository {
 
     public MutableLiveData<List<Product>> getBestProductLiveData() {
         return mBestProductLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getSpecialProductLiveData() {
+        return mSpecialProductLiveData;
     }
 
     public MutableLiveData<List<Product>> getProducts() {

@@ -24,6 +24,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
     private LiveData<List<Product>> mNewestProductLiveData;
     private LiveData<List<Product>> mPopulateProductLiveData;
     private LiveData<List<Product>> mBestProductLiveData;
+    private LiveData<List<Product>> mSpecialProductLiveData;
     private LiveData<List<Product>> mSearchProductLiveData;
 
     private LiveData<List<Category>> mCategoryLiveData;
@@ -36,6 +37,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
         mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
         mBestProductLiveData= mProductRepository.getBestProductLiveData() ;
+        mSpecialProductLiveData=mProductRepository.getSpecialProductLiveData();
         mSearchProductLiveData=mProductRepository.getProducts();
 
         mCategoryRepository= CategoryRepository.getInstance();
@@ -79,5 +81,9 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Product>> getSearchProductLiveData() {
         return mSearchProductLiveData;
+    }
+
+    public LiveData<List<Product>> getSpecialProductLiveData() {
+        return mSpecialProductLiveData;
     }
 }

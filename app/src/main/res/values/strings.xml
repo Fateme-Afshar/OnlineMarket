@@ -2,6 +2,7 @@
     <string name="app_name">OnlineMarket</string>
     <string name="classical_guitar">Classical Guitar</string>
     <string name="newest">جدیدترین محصولات</string>
+    <string name="special_product">پیشنهادات ویژه</string>
     <string name="most_visited_products">پربازدید ترین محصولات</string>
     <string name="best_products">بهترین محصولات</string>
     <string name="more_info_product">بیشتر ...</string>

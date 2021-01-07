@@ -178,6 +178,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_last_product"
                 />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_special_product"
+                style="@style/HeadTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/special_product"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_newest_product"
+                app:layout_constraintEnd_toEndOf="@id/guid_right"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="36dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_special_product"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@id/guid_right"
+                app:layout_constraintStart_toStartOf="@id/guid_left"
+                app:layout_constraintTop_toBottomOf="@+id/tv_special_product"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

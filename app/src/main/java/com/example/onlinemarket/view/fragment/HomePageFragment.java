@@ -90,10 +90,14 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
 
         //receive most review products
         Map<String, String> queryMapPopulate = new HashMap<>();
-        queryMapPopulate.clear();
         queryMapPopulate.put(QueryParameters.ORDER_BY, "popularity");
         queryMapPopulate.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
         getProducts(queryMapPopulate, Titles.MORE_REVIEWS_PRODUCT);
+
+        //receive special products
+        Map<String, String> queryMapSpecial = new HashMap<>();
+        queryMapSpecial.put(QueryParameters.ON_SALE, "true");
+        getProducts(queryMapSpecial, Titles.SPECIAL_PRODUCT);
 
         setHasOptionsMenu(true);
     }
@@ -168,8 +172,19 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
                         mBinding.notifyChange();
                     }
                 });
-
                 break;
+            case SPECIAL_PRODUCT:
+
+                LiveData<List<Product>> specialProductLiveData=
+                        mNetworkTaskViewModel.getSpecialProductLiveData();
+                specialProductLiveData.observe(this, new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(List<Product> productList) {
+                        setupAdapter(productList,mBinding.recyclerViewSpecialProduct);
+                        mBinding.notifyChange();
+                    }
+                });
+
             default:
                 break;
         }
