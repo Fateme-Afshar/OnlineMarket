@@ -9,9 +9,9 @@ import com.example.onlinemarket.model.Product;
 import java.util.List;
 
 public class ProductRepository implements IRepository<Product> {
-    public static ProductRepository sInstance;
+    private static ProductRepository sInstance;
 
-    public ProductDao mDao;
+    private final ProductDao mDao;
 
     private ProductRepository(Context context) {
         OnlineShopDatabase onlineShopDatabase =
