@@ -61,7 +61,7 @@ public class Customer{
 		this.dateCreated = String.valueOf(new Date());
 	}
 
-	public Customer(String dateCreated, String lastName, String firstName, String email, String username) {
+	public Customer(String lastName, String firstName, String email, String username) {
 		this();
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -69,71 +69,136 @@ public class Customer{
 		this.username = username;
 	}
 
-	public String getDateModifiedGmt(){
+	public String getDateModifiedGmt() {
 		return dateModifiedGmt;
 	}
 
-	public String getRole(){
+	public void setDateModifiedGmt(String dateModifiedGmt) {
+		this.dateModifiedGmt = dateModifiedGmt;
+	}
+
+	public String getRole() {
 		return role;
 	}
 
-	public Links getLinks(){
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Links getLinks() {
 		return links;
 	}
 
-	public String getDateCreated(){
+	public void setLinks(Links links) {
+		this.links = links;
+	}
+
+	public String getDateCreated() {
 		return dateCreated;
 	}
 
-	public String getLastName(){
+	public void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public String getLastName() {
 		return lastName;
 	}
 
-	public String getDateCreatedGmt(){
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getDateCreatedGmt() {
 		return dateCreatedGmt;
 	}
 
-	public Billing getBilling(){
+	public void setDateCreatedGmt(String dateCreatedGmt) {
+		this.dateCreatedGmt = dateCreatedGmt;
+	}
+
+	public Billing getBilling() {
 		return billing;
 	}
 
-	public String getDateModified(){
+	public void setBilling(Billing billing) {
+		this.billing = billing;
+	}
+
+	public String getDateModified() {
 		return dateModified;
 	}
 
-	public Shipping getShipping(){
+	public void setDateModified(String dateModified) {
+		this.dateModified = dateModified;
+	}
+
+	public Shipping getShipping() {
 		return shipping;
 	}
 
-	public String getAvatarUrl(){
+	public void setShipping(Shipping shipping) {
+		this.shipping = shipping;
+	}
+
+	public String getAvatarUrl() {
 		return avatarUrl;
 	}
 
-	public List<MetaDataItem> getMetaData(){
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	public List<MetaDataItem> getMetaData() {
 		return metaData;
 	}
 
-	public int getId(){
+	public void setMetaData(List<MetaDataItem> metaData) {
+		this.metaData = metaData;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public String getFirstName(){
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public String getEmail(){
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getEmail() {
 		return email;
 	}
 
-	public boolean isIsPayingCustomer(){
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isPayingCustomer() {
 		return isPayingCustomer;
 	}
 
-	public String getUsername(){
+	public void setPayingCustomer(boolean payingCustomer) {
+		isPayingCustomer = payingCustomer;
+	}
+
+	public String getUsername() {
 		return username;
 	}
 
-	private int randomNumber(int max,int min){
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	private int randomNumber(int max, int min){
 		return (int) (Math.random() * (max - min + 1) + min);
 	}
+
 }

@@ -36,6 +36,7 @@
     <string name="menu_categories">دسته بندی</string>
     <string name="menu_search">جستجو</string>
     <string name="menu_filter">فیلتر</string>
+    <string name="menu_account">حساب کاربری</string>
     <string name="menu_more_visited">پربازدید ترین ها</string>
     <string name="menu_best_product">بهترین ها</string>
     <string name="menu_newest_product">جدیدترن ها</string>
@@ -48,9 +49,12 @@
     <string name="price_high_to_law">قیمت از زیاد به کم</string>
     <string name="nothing_to_show">محصولی برای نمایش وجود ندارد</string>
     <string name="empty_shop_basket">سبد خرید شما خالی است</string>
-    <string name="first_name_family_name">نام و نام خانوادگی</string>
+    <string name="family_name"> نام خانوادگی</string>
+    <string name="first_name"> نام</string>
     <string name="address">آدرس</string>
+    <string name="email_address">آدرس ایمیل</string>
     <string name="telephone">شماره تلفن</string>
+    <string name="username">نام کاربری</string>
     <string name="sign_up">ثبت نام</string>
     <string name="add_to_basket">افزون به سبد خرید</string>
     <string name="total_price">قیمت کل :</string>

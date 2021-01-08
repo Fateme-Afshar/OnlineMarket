@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.onlinemarket.viewModel.SignUpViewModel" />
     </data>
 
     <LinearLayout
@@ -20,10 +22,12 @@
             android:layout_marginBottom="5dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_fname"
                 style="@style/TextStylePersian"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/first_name_family_name"
+                android:hint="@string/first_name"
+                android:afterTextChanged="@{viewModel::afterTextChangeFirstName}"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -34,10 +38,12 @@
             android:layout_marginBottom="5dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_lname"
                 style="@style/TextStylePersian"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/address"
+                android:hint="@string/family_name"
+                android:afterTextChanged="@{viewModel::afterTextChangeLastName}"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,20 +54,41 @@
             android:layout_marginBottom="5dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_email"
                 style="@style/TextStylePersian"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/telephone"
+                android:hint="@string/email_address"
+                android:afterTextChanged="@{viewModel::afterTextChangeEmail}"
                 android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_username"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/username"
+                android:textSize="14sp"
+                android:afterTextChanged="@{viewModel::afterTextChangeUsername}"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.TextButton.PinkBackground"
             android:id="@+id/btn_sign_up"
+            style="@style/Widget.MaterialComponents.Button.TextButton.PinkBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:text="@string/sign_up"
-            android:fontFamily="@font/sahel_bold" />
+            android:fontFamily="@font/sahel_bold"
+            android:onClick="@{()->viewModel.onSignUpBtnClickListener()}"
+            />
     </LinearLayout>
 </layout>

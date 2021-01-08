@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.example.onlinemarket.model.customer.Customer;
 import com.google.gson.Gson;
 
-public class ProductSharePref {
+public class OnlineShopSharePref {
     private static final String KEY_CUSTOMER="productIds";
 
     public static Customer getCustomer(Context context) {
@@ -15,7 +15,7 @@ public class ProductSharePref {
         return gson.fromJson(json,Customer.class);
     }
 
-    public void saveCustomer(Context context,Customer customer){
+    public static void saveCustomer(Context context,Customer customer){
         Gson gson=new Gson();
         String json=gson.toJson(customer);
         getSharePreference(context).
