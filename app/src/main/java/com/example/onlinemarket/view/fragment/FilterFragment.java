@@ -150,6 +150,14 @@ public class FilterFragment extends Fragment implements IOnBackPress {
         mAdapter = new ProductSearchAdapter(getContext(), productList);
         mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
+            @Override
+            public void onProductSelected(Product product) {
+                mCallback.onItemClickListener(product);
+            }
+        });
+
         setupEmpty(productList);
     }
 

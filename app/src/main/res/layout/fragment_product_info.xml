@@ -58,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="5dp"
             android:minHeight="100dp"
-            android:textDirection="rtl"
+            android:textDirection="ltr"
             />
 
         <androidx.constraintlayout.widget.Barrier
@@ -118,6 +118,7 @@
             android:text="@string/add_to_basket"
             android:fontFamily="@font/sahel_bold"
             android:textSize="14sp"
+            android:onClick="@{()->viewModel.onAddCartBtnClickListener()}"
             />
     </LinearLayout>
 </ScrollView>

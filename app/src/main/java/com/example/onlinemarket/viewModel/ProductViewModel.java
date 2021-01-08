@@ -12,6 +12,7 @@ import com.example.onlinemarket.model.Product;
 
 public class ProductViewModel extends ViewModel {
     private Product mProduct;
+    private ProductRepository mRepository=OnlineShopApplication.getRepository();
 
     public Product getProduct() {
         return mProduct;
@@ -26,5 +27,9 @@ public class ProductViewModel extends ViewModel {
             return text;
         else
             return text.substring(0, 21)+"...";
+    }
+
+    public void onAddCartBtnClickListener(){
+        mRepository.insert(mProduct);
     }
 }

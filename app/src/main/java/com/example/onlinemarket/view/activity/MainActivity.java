@@ -19,6 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
+import com.example.onlinemarket.view.fragment.CartFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoryProductsFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
@@ -64,7 +65,24 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_basket:
+                getSupportFragmentManager().
+                        beginTransaction().
+                        add(R.id.nav_host_fragment,
+                                CartFragment.newInstance()).
+                        commit();
+                return true;
+            case R.id.menu_search:
+                getSupportFragmentManager().
+                        beginTransaction().
+                        add(R.id.nav_host_fragment,
+                                SearchFragment.newInstance()).
+                        commit();
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Observable;
 @Entity(tableName = OnlineShopSchema.Product.NAME)
 public class Product extends Observable implements Serializable {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = ProductColumn.ID)
     private int mId;
     @ColumnInfo(name = ProductColumn.NAME)
@@ -40,6 +41,7 @@ public class Product extends Observable implements Serializable {
         mId=id;
     }
 
+    @Ignore
     public Product(int id,
                    String name,
                    String permaLink,
