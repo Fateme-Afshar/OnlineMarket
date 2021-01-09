@@ -38,6 +38,8 @@
     <style name="Widget.MaterialComponents.Button.TextButton.PinkBackground">
         <item name="backgroundTint">@color/light_pink</item>
         <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/sahel_bold</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="TextStylePersian">

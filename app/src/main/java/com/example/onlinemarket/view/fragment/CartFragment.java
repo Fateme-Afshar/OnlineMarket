@@ -74,8 +74,12 @@ public class CartFragment extends Fragment implements IOnBackPress {
                 }
                 mViewModel.setTotalPrice(totalPrice);
                 mBinding.tvTotalPrice.setText("قیمت کل : "+totalPrice);
+
+                mViewModel.setProductList(productList);
             }
         });
+
+        mViewModel.setLifecycleOwner(this);
     }
 
     @Override
@@ -110,10 +114,14 @@ public class CartFragment extends Fragment implements IOnBackPress {
         if(productList.size()==0) {
             mBinding.animEmpty.setVisibility(View.VISIBLE);
             mBinding.tvEmpty.setVisibility(View.VISIBLE);
+            mBinding.tvTotalPrice.setVisibility(View.GONE);
+            mBinding.btnFinalizePurchase.setVisibility(View.GONE);
         }
         else {
             mBinding.animEmpty.setVisibility(View.GONE);
             mBinding.tvEmpty.setVisibility(View.GONE);
+            mBinding.tvTotalPrice.setVisibility(View.VISIBLE);
+            mBinding.btnFinalizePurchase.setVisibility(View.VISIBLE);
         }
     }
 

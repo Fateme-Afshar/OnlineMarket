@@ -60,4 +60,7 @@
     <string name="total_price">قیمت کل :</string>
 
     <string name="repetitive_email">این ایمل توسط شخص دیگری ثبت شده است لطفا ایمیل دیگری را ثبت نمایید</string>
+    <string name="order_fail">سفارشات ارسال نشد</string>
+    <string name="order_success">سفارشات با موفقیت ارسال شد</string>
+    <string name="finalize_the_purchase">نهایی کردن خرید</string>
 </resources>

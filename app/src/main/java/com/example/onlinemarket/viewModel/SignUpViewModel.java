@@ -89,7 +89,6 @@ public class SignUpViewModel extends AndroidViewModel {
         mRepository.postCustomerToServer(mCustomer);
 
         checkResponse(getApplication());
-
     }
 
     public void checkResponse(Context context) {
@@ -97,15 +96,15 @@ public class SignUpViewModel extends AndroidViewModel {
                 @Override
                 public void onChanged(Integer integer) {
                     if (integer==201) {
-                        Log.d(ProgramUtils.TEST_TAG,
-                                "CustomerRepository : Customer post successfully" + integer);
+                        Log.d(ProgramUtils.TAG,
+                                "SignUpViewModel : Customer post successfully" + integer);
                         OnlineShopSharePref.saveCustomer(context, mCustomer);
 
                         //TODO: this is anti pattern, using callback or use another way :))
                         MainActivity.start(getApplication());
                     } else {
-                        Log.e(ProgramUtils.TEST_TAG,
-                                "CustomerRepository : Customer post fail response code is  " + integer);
+                        Log.e(ProgramUtils.TAG,
+                                "SignUpViewModel : Customer post fail response code is  " + integer);
                         Toast.makeText(context.getApplicationContext(),
                                 R.string.repetitive_email,
                                 Toast.LENGTH_LONG).
