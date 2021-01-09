@@ -37,5 +37,7 @@ public interface RetrofitInterface {
     Call<Customer> postCustomer(@Body Customer customer,
                                 @QueryMap Map<String, String> queryMap);
 
-
+    @POST("Orders")
+    Call<Customer> postOrders(@Body Orders orders,
+                              @QueryMap Map<String, String> queryMap);
 }
