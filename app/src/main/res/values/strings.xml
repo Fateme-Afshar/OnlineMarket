@@ -58,4 +58,6 @@
     <string name="sign_up">ثبت نام</string>
     <string name="add_to_basket">افزون به سبد خرید</string>
     <string name="total_price">قیمت کل :</string>
+
+    <string name="repetitive_email">این ایمل توسط شخص دیگری ثبت شده است لطفا ایمیل دیگری را ثبت نمایید</string>
 </resources>

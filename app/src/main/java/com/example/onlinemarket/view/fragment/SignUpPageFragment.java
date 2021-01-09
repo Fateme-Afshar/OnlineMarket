@@ -39,6 +39,7 @@ public class SignUpPageFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel=new ViewModelProvider(this).get(SignUpViewModel.class);
+        mViewModel.setLifecycleOwner(this);
     }
 
     @Override
