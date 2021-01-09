@@ -7,6 +7,10 @@ public class CollectionItem{
 	@SerializedName("href")
 	private String href;
 
+	public CollectionItem(String href) {
+		this.href = href;
+	}
+
 	public String getHref(){
 		return href;
 	}

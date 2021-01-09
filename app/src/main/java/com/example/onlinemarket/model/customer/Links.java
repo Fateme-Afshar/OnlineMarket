@@ -11,6 +11,11 @@ public class Links{
 	@SerializedName("collection")
 	private List<CollectionItem> collection;
 
+	public Links(List<SelfItem> self, List<CollectionItem> collection) {
+		this.self = self;
+		this.collection = collection;
+	}
+
 	public List<SelfItem> getSelf(){
 		return self;
 	}

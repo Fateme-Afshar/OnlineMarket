@@ -1,28 +1,31 @@
-package com.example.onlinemarket.databases;
+package com.example.onlinemarket.repository;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.onlinemarket.databases.IRepository;
+import com.example.onlinemarket.databases.OnlineShopDatabase;
+import com.example.onlinemarket.databases.ProductDao;
 import com.example.onlinemarket.model.Product;
 
 import java.util.List;
 
-public class ProductRepository implements IRepository<Product> {
-    private static ProductRepository sInstance;
+public class ProductPurchasedRepository implements IRepository<Product> {
+    private static ProductPurchasedRepository sInstance;
 
     private final ProductDao mDao;
 
-    private ProductRepository(Context context) {
+    private ProductPurchasedRepository(Context context) {
         OnlineShopDatabase onlineShopDatabase =
                 OnlineShopDatabase.getInstance(context.getApplicationContext());
 
         mDao=onlineShopDatabase.getProductDao();
     }
 
-    public static ProductRepository getInstance(Context context) {
+    public static ProductPurchasedRepository getInstance(Context context) {
         if (sInstance == null)
-            sInstance = new ProductRepository(context.getApplicationContext());
+            sInstance = new ProductPurchasedRepository(context.getApplicationContext());
         return sInstance;
     }
 

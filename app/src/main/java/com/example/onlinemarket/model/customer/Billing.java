@@ -37,6 +37,30 @@ public class Billing{
 	@SerializedName("email")
 	private String email;
 
+	public Billing(String country,
+				   String city,
+				   String phone,
+				   String address1,
+				   String address2,
+				   String postcode,
+				   String lastName,
+				   String company,
+				   String state,
+				   String firstName,
+				   String email) {
+		this.country = country;
+		this.city = city;
+		this.phone = phone;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.postcode = postcode;
+		this.lastName = lastName;
+		this.company = company;
+		this.state = state;
+		this.firstName = firstName;
+		this.email = email;
+	}
+
 	public String getCountry(){
 		return country;
 	}

@@ -2,12 +2,17 @@ package com.example.onlinemarket.network.retrofit;
 
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.response.CatObj;
 
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -27,7 +32,6 @@ public interface RetrofitInterface {
 
     //for receive every filter part attribute for example in size:32,33,45,50,...
     @GET("products/attributes/{id}/terms")
-    Call<List<AttributeInfo>> getEveryAttributePart(@Path("id") String path, @QueryMap Map<String, String> queryMap);
-
-
+    Call<List<AttributeInfo>> getEveryAttributePart(@Path("id") String path,
+                                                    @QueryMap Map<String, String> queryMap);
 }

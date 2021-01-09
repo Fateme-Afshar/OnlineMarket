@@ -7,6 +7,10 @@ public class SelfItem{
 	@SerializedName("href")
 	private String href;
 
+	public SelfItem(String href) {
+		this.href = href;
+	}
+
 	public String getHref(){
 		return href;
 	}

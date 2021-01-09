@@ -31,6 +31,26 @@ public class Shipping{
 	@SerializedName("first_name")
 	private String firstName;
 
+	public Shipping(String country,
+					String city,
+					String address1,
+					String address2,
+					String postcode,
+					String lastName,
+					String company,
+					String state,
+					String firstName) {
+		this.country = country;
+		this.city = city;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.postcode = postcode;
+		this.lastName = lastName;
+		this.company = company;
+		this.state = state;
+		this.firstName = firstName;
+	}
+
 	public String getCountry(){
 		return country;
 	}

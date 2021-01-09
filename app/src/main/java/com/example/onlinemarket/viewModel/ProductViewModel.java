@@ -3,12 +3,12 @@ package com.example.onlinemarket.viewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
-import com.example.onlinemarket.databases.ProductRepository;
+import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.model.Product;
 
 public class ProductViewModel extends ViewModel {
     private Product mProduct;
-    private ProductRepository mRepository=OnlineShopApplication.getRepository();
+    private ProductPurchasedRepository mRepository=OnlineShopApplication.getProductPurchasedRepository();
 
     public Product getProduct() {
         return mProduct;

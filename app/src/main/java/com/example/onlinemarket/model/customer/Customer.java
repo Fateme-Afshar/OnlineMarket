@@ -1,10 +1,8 @@
 package com.example.onlinemarket.model.customer;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Customer{
 
@@ -56,17 +54,26 @@ public class Customer{
 	@SerializedName("username")
 	private String username;
 
-	public Customer(){
-		this.id=randomNumber(500,10);
-		this.dateCreated = String.valueOf(new Date());
+	public Customer() {
 	}
 
-	public Customer(String lastName, String firstName, String email, String username) {
-		this();
+	public Customer(
+			Links links,
+			Billing billing,
+			Shipping shipping,
+			String role,
+			String username,
+			String lastName,
+			String firstName,
+			String email) {
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
-		this.username = username;
+		this.shipping=shipping;
+		this.billing=billing;
+		this.role=role;
+		this.username=username;
+		this.links=links;
 	}
 
 	public String getDateModifiedGmt() {

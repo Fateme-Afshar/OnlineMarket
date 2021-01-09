@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 
 import java.lang.reflect.Type;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,6 +31,15 @@ public class RetrofitInstance {
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
     }
+
+    public static Retrofit getPostRetrofit(){
+        OkHttpClient client = new OkHttpClient();
+        return new Retrofit.Builder().
+                baseUrl(NetworkParams.BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                .client(client).
+                build();
+    }
+
     private static Converter.Factory createConverterFactoryCustom(Type type,Object typeAdapter){
         GsonBuilder gsonBuilder=new GsonBuilder();
         gsonBuilder.registerTypeAdapter(type,typeAdapter);

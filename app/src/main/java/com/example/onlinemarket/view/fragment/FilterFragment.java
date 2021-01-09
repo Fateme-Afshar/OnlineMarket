@@ -3,6 +3,7 @@ package com.example.onlinemarket.view.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +11,19 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.FilterViewModel;
@@ -60,11 +64,11 @@ public class FilterFragment extends Fragment implements IOnBackPress {
                     "Must implement OpenProductPage interface");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupViewModel();
-
         mViewModel.getFilterProducts().observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> productList) {

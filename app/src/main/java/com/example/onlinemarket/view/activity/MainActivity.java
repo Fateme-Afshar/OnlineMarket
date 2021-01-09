@@ -52,10 +52,6 @@ public class MainActivity extends SingleFragmentActivity
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
-    }
-
     public static void start(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
         starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
