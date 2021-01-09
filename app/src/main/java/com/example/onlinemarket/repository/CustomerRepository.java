@@ -32,7 +32,27 @@ public class CustomerRepository {
             sInstance = new CustomerRepository();
         return sInstance;
     }
+    // important note to post customer:Email must be unique
+    public void postCustomerToServer(Customer customer) {
+        Retrofit retrofit = RetrofitInstance.getPostRetrofit();
+        mRetrofitInterface = retrofit.create(RetrofitInterface.class);
 
+        /*        RequestBody body = RequestBody.create( MediaType.parse("application/json"),ProgramUtils.customerTesting().toString());*/
+        mRetrofitInterface.postCustomer(customer, NetworkParams.MAP_KEYS).enqueue(new Callback<Customer>() {
+            @Override
+            public void onResponse(Call<Customer> call, Response<Customer> response) {
+                if (response.isSuccessful())
+                    Log.d(ProgramUtils.TEST_TAG, "CustomerRepository : Customer post successfully" + response.code());
+                else
+                    Log.e(ProgramUtils.TEST_TAG, "CustomerRepository : Customer post fail because of " + response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Customer> call, Throwable t) {
+
+            }
+        });
+    }
 
     public static Map<String, String> getMapFormat(Customer customer) {
         Map<String, String> customerMap = new HashMap<>();
