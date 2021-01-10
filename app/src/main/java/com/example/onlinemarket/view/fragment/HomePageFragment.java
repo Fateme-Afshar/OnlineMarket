@@ -30,6 +30,7 @@ import com.example.onlinemarket.model.customer.Links;
 import com.example.onlinemarket.model.customer.SelfItem;
 import com.example.onlinemarket.model.customer.Shipping;
 import com.example.onlinemarket.repository.CustomerRepository;
+import com.example.onlinemarket.services.PollWorkManager;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.QueryParameters;
@@ -86,6 +87,7 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PollWorkManager.enqueue(getContext(),1,false);
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
         //receive newest products
         Map<String, String> queryMapNewest = new HashMap<>();

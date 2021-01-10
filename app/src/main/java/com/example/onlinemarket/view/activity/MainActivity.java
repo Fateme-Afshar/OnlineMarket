@@ -59,6 +59,12 @@ public class MainActivity extends SingleFragmentActivity
         context.startActivity(starter);
     }
 
+    public static Intent newIntent(Context context) {
+        Intent starter = new Intent(context, MainActivity.class);
+        starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return starter;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
