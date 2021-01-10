@@ -38,6 +38,9 @@ dependencies {
     def lifecycle_version="2.2.0"
     def lottieVersion = "3.6.0"
     def room_version = "2.2.6"
+    def work_version = "2.4.0"
+
+    implementation "androidx.work:work-runtime:$work_version"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

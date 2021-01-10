@@ -60,4 +60,10 @@
     <style name="Theme.OnlineMarket.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OnlineMarket.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+<style name="MyNumberPickerTheme">
+<item name="colorControlNormal ">#D10A37</item>
+<item name="android:background">#FFFFFF</item>
+</style>
 </resources>

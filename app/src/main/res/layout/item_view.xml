@@ -31,7 +31,7 @@
                 android:id="@+id/img_product"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                app:setImage="@{product.imgUrls.get(0)}"
+                app:setImage='@{product.imgUrls.size()==0 ? "" : product.imgUrls.get(0)}'
                 tools:src="@drawable/img_guitar" />
 
             <com.google.android.material.textview.MaterialTextView

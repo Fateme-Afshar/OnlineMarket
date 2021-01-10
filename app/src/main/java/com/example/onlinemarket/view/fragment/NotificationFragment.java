@@ -2,13 +2,16 @@ package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databinding.FragmentNotificationBinding;
 import com.example.onlinemarket.view.IOnBackPress;
 
 /**
@@ -17,7 +20,7 @@ import com.example.onlinemarket.view.IOnBackPress;
  * create an instance of this fragment.
  */
 public class NotificationFragment extends Fragment implements IOnBackPress {
-
+    private FragmentNotificationBinding mBinding;
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -38,7 +41,21 @@ public class NotificationFragment extends Fragment implements IOnBackPress {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+        mBinding= DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_notification,
+                container,
+                false);
+        mBinding.numberPickerHours.setMaxValue(24);
+        mBinding.numberPickerHours.setMinValue(1);
+
+        mBinding.numberPickerHours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                //TODO: get value and setup in view model
+            }
+        });
+        return mBinding.getRoot();
     }
 
     @Override

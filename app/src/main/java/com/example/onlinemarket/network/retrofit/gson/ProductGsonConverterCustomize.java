@@ -35,16 +35,19 @@ public class ProductGsonConverterCustomize implements JsonDeserializer<List<Prod
             String permaLink = jsonObjProduct.get("permalink").getAsString();
             String dateCreated = jsonObjProduct.get("date_created").getAsString();
             String description = jsonObjProduct.get("description").getAsString();
-            long price = 0;
+            long price;
+            long regularPrice;
+            JsonArray jsonArrayImages;
             try {
                 price = jsonObjProduct.get("price").getAsLong();
+                regularPrice = jsonObjProduct.get("regular_price").getAsLong();
+                jsonArrayImages = jsonObjProduct.get("images").getAsJsonArray();
             } catch (Exception e) {
-                continue;
+                price = 0;
+                regularPrice = 0;
+                jsonArrayImages=new JsonArray();
             }
 
-            long regularPrice = jsonObjProduct.get("regular_price").getAsLong();
-
-            JsonArray jsonArrayImages = jsonObjProduct.get("images").getAsJsonArray();
 
             for (JsonElement jsonImgElem : jsonArrayImages) {
                 JsonObject jsonObjectImg = jsonImgElem.getAsJsonObject();
