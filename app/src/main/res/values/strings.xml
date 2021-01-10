@@ -37,6 +37,7 @@
     <string name="menu_search">جستجو</string>
     <string name="menu_filter">فیلتر</string>
     <string name="menu_account">حساب کاربری</string>
+    <string name="menu_notification">تنظیمات اعلان</string>
     <string name="menu_more_visited">پربازدید ترین ها</string>
     <string name="menu_best_product">بهترین ها</string>
     <string name="menu_newest_product">جدیدترن ها</string>
@@ -63,4 +64,36 @@
     <string name="order_fail">سفارشات ارسال نشد</string>
     <string name="order_success">سفارشات با موفقیت ارسال شد</string>
     <string name="finalize_the_purchase">نهایی کردن خرید</string>
+    <string name="setup_notification">تنظیم زمان اعلان</string>
+    <string name="setup_custom_notification">تنظیم زمان دلخواه برای اعلان</string>
+    <string name="three_hour">3 ساعت</string>
+    <string name="five_hour">5 ساعت</string>
+    <string name="eight_hour">8 ساعت</string>
+    <string name="twelve_hour">12 ساعت</string>
+    <string name="role_time_custom">زمان انتخابی باید بین 12-1 باشد</string>
+
+    <string name="one">یک</string>
+    <string name="two">دو</string>
+    <string name="three">سه</string>
+    <string name="four">چهار</string>
+    <string name="five">پنج</string>
+    <string name="six">شش</string>
+    <string name="seven">هفت</string>
+    <string name="eight">هشت</string>
+    <string name="nine">نه</string>
+    <string name="ten">ده</string>
+    <string name="eleven">یازده</string>
+    <string name="twelve">دوازده</string>
+    <string name="thirteen">سیزده</string>
+    <string name="fourteen">چهارده</string>
+    <string name="fifteen">پانزده</string>
+    <string name="sixteen">شانزده</string>
+    <string name="seventeen">هفده</string>
+    <string name="eighteen">هجده</string>
+    <string name="nineteen">نوزده</string>
+    <string name="twenty">بیست</string>
+    <string name="twenty_one">بیست و یک</string>
+    <string name="twenty_two">بیست و دو</string>
+    <string name="twenty_three">بیست و سه</string>
+    <string name="twenty_four">بیست و چهار</string>
 </resources>

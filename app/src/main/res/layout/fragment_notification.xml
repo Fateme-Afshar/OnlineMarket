@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.NotificationFragment">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStylePersian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_notification"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.14" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_top"
+
+            >
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_btn_three_hour"
+                style="@style/TextStylePersian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/three_hour"
+                app:layout_constraintBottom_toTopOf="@+id/guide_top"
+                app:layout_constraintEnd_toStartOf="@+id/radio_btn_five_hour"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_btn_five_hour"
+                style="@style/TextStylePersian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/five_hour"
+                app:layout_constraintBottom_toTopOf="@+id/guide_top"
+                app:layout_constraintEnd_toStartOf="@+id/radio_btn_eight_hour"
+                app:layout_constraintStart_toEndOf="@id/radio_btn_three_hour" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_btn_eight_hour"
+                style="@style/TextStylePersian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eight_hour"
+                app:layout_constraintBottom_toTopOf="@+id/guide_top"
+                app:layout_constraintEnd_toStartOf="@+id/radio_btn_twelve_hour"
+                app:layout_constraintStart_toEndOf="@id/radio_btn_five_hour" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_btn_twelve_hour"
+                style="@style/TextStylePersian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/twelve_hour"
+                app:layout_constraintBottom_toTopOf="@+id/guide_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/radio_btn_eight_hour" />
+        </RadioGroup>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_custom_time"
+            style="@style/TextStylePersian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_custom_notification"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guide_top" />
+
+        <NumberPicker
+            android:id="@+id/number_picker_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_custom_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

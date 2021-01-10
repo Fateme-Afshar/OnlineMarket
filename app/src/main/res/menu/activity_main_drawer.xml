@@ -27,5 +27,10 @@
             android:icon="@drawable/ic_account"
             android:title="@string/menu_account" />
 
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/menu_notification" />
+
     </group>
 </menu>
