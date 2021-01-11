@@ -96,4 +96,7 @@
     <string name="twenty_two">بیست و دو</string>
     <string name="twenty_three">بیست و سه</string>
     <string name="twenty_four">بیست و چهار</string>
+    <string name="inactive_notification">غیر فعال کردن اعلان</string>
+    <string name="active_notification"> فعال کردن اعلان</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.onlinemarket.viewModel.NotificationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +35,6 @@
             android:layout_height="60dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/guide_top"
-
             >
 
             <com.google.android.material.radiobutton.MaterialRadioButton
@@ -96,6 +97,18 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_custom_time" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_setup_notification"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->viewModel.setupNotification()}"
+            app:icon="@drawable/ic_notif_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/number_picker_hours" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
