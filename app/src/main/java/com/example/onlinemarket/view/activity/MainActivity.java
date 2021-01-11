@@ -19,16 +19,23 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
+import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CartFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoryProductsFragment;
+import com.example.onlinemarket.view.fragment.CustomerFragment;
+import com.example.onlinemarket.view.fragment.CustomerInfoFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
+import com.example.onlinemarket.view.fragment.MapFragment;
 import com.example.onlinemarket.view.fragment.ProductInfoFragment;
 import com.example.onlinemarket.view.fragment.SearchFragment;
+import com.example.onlinemarket.view.fragment.SignUpPageFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity
-        implements CategoriesFragment.CategoriesFragmentCallbacks, OpenProductPage {
+        implements CategoriesFragment.CategoriesFragmentCallbacks,
+        OpenProductPage, AccountFragment.AccountFragmentCallback,
+        CustomerInfoFragment.CustomerInfoFragmentCallback {
 
     public static final String HOME_PAGE_FRAGMENT_TAG = "HomePageFragment";
     private AppBarConfiguration mAppBarConfiguration;
@@ -140,5 +147,32 @@ public class MainActivity extends SingleFragmentActivity
                             HomePageFragment.newInstance()).
                     commit();
         }
+    }
+
+    @Override
+    public void getSignUpFragment() {
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.nav_host_fragment,
+                        SignUpPageFragment.newInstance()).
+                commit();
+    }
+
+    @Override
+    public void getCustomerFragment() {
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.nav_host_fragment,
+                        CustomerFragment.newInstance()).
+                commit();
+    }
+
+    @Override
+    public void getMapFragment() {
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.map_fragment_container,
+                        MapFragment.newInstance()).
+                commit();
     }
 }
