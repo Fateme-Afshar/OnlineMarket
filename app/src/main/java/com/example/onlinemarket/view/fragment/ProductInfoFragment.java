@@ -42,7 +42,7 @@ public class ProductInfoFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO: this is wrong
-        int productId =
+        mProductModel =
                 ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
 
         mViewModel=new ViewModelProvider(this).

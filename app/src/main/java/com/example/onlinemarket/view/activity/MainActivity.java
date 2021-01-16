@@ -118,11 +118,11 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     @Override
-    public void onItemClickListener(int productId) {
+    public void onItemClickListener(Product product) {
         HomePageFragmentDirections.ActionNavHomeToNavProductInfo actionNavHomeToNavProductInfo=
-                HomePageFragmentDirections.actionNavHomeToNavProductInfo(productId);
+                HomePageFragmentDirections.actionNavHomeToNavProductInfo(product);
 
-        actionNavHomeToNavProductInfo.setProductId(productId);
+        actionNavHomeToNavProductInfo.setProductId(product);
         navController.navigate(actionNavHomeToNavProductInfo);
     }
 

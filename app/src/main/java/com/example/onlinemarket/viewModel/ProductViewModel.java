@@ -14,8 +14,8 @@ public class ProductViewModel extends ViewModel {
         return mProduct;
     }
 
-    public void requestToProductFromId(int productId) {
-
+    public void setProduct(Product product) {
+        mProduct=product;
     }
 
     public String getNormalText(String text) {

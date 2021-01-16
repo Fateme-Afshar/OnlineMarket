@@ -98,8 +98,8 @@ public class CartFragment extends Fragment{
 
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(int productId) {
-                mCallback.onItemClickListener(productId);
+            public void onProductSelected(Product product) {
+                mCallback.onItemClickListener(product);
             }
         });
 

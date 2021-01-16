@@ -15,7 +15,7 @@
             app:destination="@id/nav_product_info" >
             <argument
                 android:name="productId"
-                app:argType="integer"/>
+                app:argType="com.example.onlinemarket.model.Product"/>
         </action>
 
     </fragment>
@@ -60,7 +60,7 @@
         >
         <argument
             android:name="productId"
-            app:argType="integer"/>
+            app:argType="com.example.onlinemarket.model.Product"/>
     </fragment>
 
     <fragment

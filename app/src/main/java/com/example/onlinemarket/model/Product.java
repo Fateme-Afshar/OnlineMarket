@@ -1,30 +1,17 @@
 package com.example.onlinemarket.model;
 
-import android.graphics.Paint;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.onlinemarket.R;
 import com.example.onlinemarket.databases.OnlineShopSchema;
-import com.example.onlinemarket.databases.OnlineShopSchema.Product.ProductColumn;
-import com.example.onlinemarket.utils.PersianNumberUtils;
+import com.example.onlinemarket.databases.OnlineShopSchema.ProductTable.ProductColumn;
 
 import java.io.Serializable;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.Observable;
-@Entity(tableName = OnlineShopSchema.Product.NAME)
+@Entity(tableName = OnlineShopSchema.ProductTable.NAME)
 public class Product extends Observable implements Serializable {
     @PrimaryKey
     @ColumnInfo(name = ProductColumn.ID)

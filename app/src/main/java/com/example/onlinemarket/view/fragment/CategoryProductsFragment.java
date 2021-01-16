@@ -100,7 +100,7 @@ public class CategoryProductsFragment extends Fragment{
             mAdapter = new ProductAdapter(getContext(),models);
             mAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
                 @Override
-                public void onProductSelected(int productModel) {
+                public void onProductSelected(Product productModel) {
 
                 }
             });

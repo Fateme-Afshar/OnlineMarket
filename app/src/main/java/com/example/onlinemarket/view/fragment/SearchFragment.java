@@ -113,7 +113,7 @@ public class SearchFragment extends Fragment {
         mBinding.recyclerView.setAdapter(mAdapter);
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(int product) {
+            public void onProductSelected(Product product) {
                 mCallback.onItemClickListener(product);
             }
         });

@@ -4,7 +4,7 @@ public class OnlineShopSchema {
     public static final String NAME = "onlineShop.db";
     public static final int VERSION = 1;
 
-    public static final class Product {
+    public static final class ProductTable {
         public static final String NAME = "productTable";
 
         public static final class ProductColumn {

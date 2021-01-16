@@ -3,5 +3,5 @@ package com.example.onlinemarket.view;
 import com.example.onlinemarket.model.Product;
 
 public interface OpenProductPage {
-    void onItemClickListener(int productId);
+    void onItemClickListener(Product product);
 }

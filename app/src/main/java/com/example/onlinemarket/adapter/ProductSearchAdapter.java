@@ -57,7 +57,7 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
             @Override
             public void onClick(View v) {
                 try {
-                    mCallback.onProductSelected(mProducts.get(position).getId());
+                    mCallback.onProductSelected(mProducts.get(position));
                 }catch (Exception e){
                     Log.e(ProgramUtils.TAG,
                             "ProductSearchAdapter : if you want when click item, " +
@@ -86,6 +86,6 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
     }
 
     public interface ProductSearchAdapterCallback {
-        void onProductSelected(int productId);
+        void onProductSelected(Product product);
     }
 }
