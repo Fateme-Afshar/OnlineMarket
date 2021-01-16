@@ -38,6 +38,7 @@
     <string name="menu_filter">فیلتر</string>
     <string name="menu_account">حساب کاربری</string>
     <string name="menu_notification">تنظیمات اعلان</string>
+    <string name="menu_product_info">اطلاعات محصول</string>
     <string name="menu_more_visited">پربازدید ترین ها</string>
     <string name="menu_best_product">بهترین ها</string>
     <string name="menu_newest_product">جدیدترن ها</string>

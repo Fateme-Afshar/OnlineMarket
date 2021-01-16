@@ -122,8 +122,8 @@ public class HomePageFragment extends Fragment{
         ProductAdapter productAdapter = new ProductAdapter(getContext(),productList);
         productAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
-                    mCallbacks.onItemClickListener(product);
+            public void onProductSelected(int productId) {
+                    mCallbacks.onItemClickListener(productId);
             }
         });
 

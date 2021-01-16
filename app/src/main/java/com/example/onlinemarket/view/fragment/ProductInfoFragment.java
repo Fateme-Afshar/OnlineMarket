@@ -12,11 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentProductInfoBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
 public class ProductInfoFragment extends Fragment{
-    public static final String ARG_PRODUCT_Model = "Product Model";
+    public static final String ARG_PRODUCT_INFO = "Product Model";
 
     private FragmentProductInfoBinding mBinding;
 
@@ -30,10 +31,9 @@ public class ProductInfoFragment extends Fragment{
         // Required empty public constructor
     }
 
-    public static ProductInfoFragment newInstance(Product productModel) {
+    public static ProductInfoFragment newInstance() {
         ProductInfoFragment fragment = new ProductInfoFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_PRODUCT_Model, productModel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,8 +42,8 @@ public class ProductInfoFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO: this is wrong
-        mProductModel= (Product)
-                getArguments().getSerializable(ARG_PRODUCT_Model);
+        int productId =
+                ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
 
         mViewModel=new ViewModelProvider(this).
                 get(ProductViewModel.class);

@@ -149,7 +149,7 @@ public class FilterFragment extends Fragment{
 
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
+            public void onProductSelected(int product) {
                 mCallback.onItemClickListener(product);
             }
         });

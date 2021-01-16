@@ -6,12 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.room.Database;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,8 +98,8 @@ public class CartFragment extends Fragment{
 
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
-                mCallback.onItemClickListener(product);
+            public void onProductSelected(int productId) {
+                mCallback.onItemClickListener(productId);
             }
         });
 

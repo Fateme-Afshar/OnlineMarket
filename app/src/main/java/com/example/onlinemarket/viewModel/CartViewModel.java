@@ -12,11 +12,11 @@ import androidx.lifecycle.Observer;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.LineItemsItem;
 import com.example.onlinemarket.model.orders.Orders;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
-import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
 

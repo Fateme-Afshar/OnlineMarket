@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -21,12 +22,11 @@ import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CartFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
-import com.example.onlinemarket.view.fragment.CategoryProductsFragment;
 import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.CustomerInfoFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
+import com.example.onlinemarket.view.fragment.HomePageFragmentDirections;
 import com.example.onlinemarket.view.fragment.MapFragment;
-import com.example.onlinemarket.view.fragment.ProductInfoFragment;
 import com.example.onlinemarket.view.fragment.SearchFragment;
 import com.example.onlinemarket.view.fragment.SignUpPageFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -37,7 +37,10 @@ public class MainActivity extends SingleFragmentActivity
         CustomerInfoFragment.CustomerInfoFragmentCallback {
 
     public static final String HOME_PAGE_FRAGMENT_TAG = "HomePageFragment";
+    public static final String ARG_PRODUCT_INFO = "ProductInfo";
+    public static final String ARG_CATEGORY_ID = "categoryId";
     private AppBarConfiguration mAppBarConfiguration;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +52,10 @@ public class MainActivity extends SingleFragmentActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_categories, R.id.nav_search,R.id.nav_filter,
-                R.id.nav_user_account,R.id.nav_notification)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        mAppBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
@@ -117,21 +118,19 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     @Override
-    public void onItemClickListener(Product product) {
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.nav_host_fragment,
-                        ProductInfoFragment.newInstance(product)).
-                commit();
+    public void onItemClickListener(int productId) {
+        HomePageFragmentDirections.ActionNavHomeToNavProductInfo actionNavHomeToNavProductInfo=
+                HomePageFragmentDirections.actionNavHomeToNavProductInfo(productId);
+
+        actionNavHomeToNavProductInfo.setProductId(productId);
+        navController.navigate(actionNavHomeToNavProductInfo);
     }
 
     @Override
     public void onCatSelected(int catId) {
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.nav_host_fragment,
-                        CategoryProductsFragment.newInstance(catId)).
-                commit();
+        Bundle bundle=new Bundle();
+        bundle.putInt(ARG_CATEGORY_ID,catId);
+        navController.navigate(R.id.nav_category_product,bundle);
     }
 
     @Override

@@ -113,7 +113,7 @@ public class ProductRepository {
         return ProductList;
     }
 
-    private  List<Product> getProductObjs(int pageNumber,int catId) throws IOException {
+    private  List<Product> getProductObjs(int pageNumber, int catId) throws IOException {
         Log.d(ProgramUtils.TAG, "Start request Server for receive Products every Category");
         List<Product> Products = new ArrayList<>();
 

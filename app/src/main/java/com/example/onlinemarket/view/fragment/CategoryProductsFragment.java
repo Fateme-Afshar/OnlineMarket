@@ -19,6 +19,7 @@ import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.OpenProductPage;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class CategoryProductsFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCategoryId = getArguments().getInt(ARGS_CATEGORY_ID);
+        mCategoryId = getArguments().getInt(MainActivity.ARG_CATEGORY_ID);
 
         mNetworkTaskViewModel =
                 new ViewModelProvider(this).get(NetworkTaskViewModel.class);
@@ -99,8 +100,8 @@ public class CategoryProductsFragment extends Fragment{
             mAdapter = new ProductAdapter(getContext(),models);
             mAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
                 @Override
-                public void onProductSelected(Product productModel) {
-                    mCallback.onItemClickListener(productModel);
+                public void onProductSelected(int productModel) {
+
                 }
             });
             mBinding.recyclerView.setAdapter(mAdapter);

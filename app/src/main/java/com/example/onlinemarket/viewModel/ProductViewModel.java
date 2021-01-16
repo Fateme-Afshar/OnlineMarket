@@ -3,8 +3,8 @@ package com.example.onlinemarket.viewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
-import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.repository.ProductPurchasedRepository;
 
 public class ProductViewModel extends ViewModel {
     private Product mProduct;
@@ -14,8 +14,8 @@ public class ProductViewModel extends ViewModel {
         return mProduct;
     }
 
-    public void setProduct(Product product) {
-        mProduct = product;
+    public void requestToProductFromId(int productId) {
+
     }
 
     public String getNormalText(String text) {

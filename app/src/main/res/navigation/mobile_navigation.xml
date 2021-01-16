@@ -9,7 +9,16 @@
         android:id="@+id/nav_home"
         android:name="com.example.onlinemarket.view.fragment.HomePageFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_product_info"
+            app:destination="@id/nav_product_info" >
+            <argument
+                android:name="productId"
+                app:argType="integer"/>
+        </action>
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_categories"
@@ -41,5 +50,23 @@
         android:name="com.example.onlinemarket.view.fragment.NotificationFragment"
         android:label="@string/menu_notification"
         tools:layout="@layout/fragment_notification"
+        />
+
+    <fragment
+        android:id="@+id/nav_product_info"
+        android:name="com.example.onlinemarket.view.fragment.ProductInfoFragment"
+        android:label="@string/menu_product_info"
+        tools:layout="@layout/fragment_product_info"
+        >
+        <argument
+            android:name="productId"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_category_product"
+        android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_category_detail"
         />
 </navigation>

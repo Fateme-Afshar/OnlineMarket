@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentSearchBinding;
 import com.example.onlinemarket.model.Product;
@@ -114,7 +113,7 @@ public class SearchFragment extends Fragment {
         mBinding.recyclerView.setAdapter(mAdapter);
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
+            public void onProductSelected(int product) {
                 mCallback.onItemClickListener(product);
             }
         });

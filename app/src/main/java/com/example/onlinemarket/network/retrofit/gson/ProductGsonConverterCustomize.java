@@ -19,8 +19,8 @@ public class ProductGsonConverterCustomize implements JsonDeserializer<List<Prod
 
     @Override
     public List<Product> deserialize(JsonElement json,
-                                          Type typeOfT,
-                                          JsonDeserializationContext context) throws JsonParseException {
+                                     Type typeOfT,
+                                     JsonDeserializationContext context) throws JsonParseException {
         Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Start Extract json");
         List<Product> productModels = new ArrayList<>();
         JsonArray jsonArrayProduct = json.getAsJsonArray();
