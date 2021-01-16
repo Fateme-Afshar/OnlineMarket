@@ -1,4 +1,4 @@
-package com.example.onlinemarket.view.BindAdapter;
+package com.example.onlinemarket.view.bindAdapter;
 
 import android.graphics.Paint;
 import android.webkit.WebView;
@@ -41,4 +41,5 @@ public class BindingHelper {
             textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
     }
+
 }

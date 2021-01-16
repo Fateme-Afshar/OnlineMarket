@@ -26,11 +26,11 @@ public class ProductGsonConverterCustomize implements JsonDeserializer<List<Prod
         JsonArray jsonArrayProduct = json.getAsJsonArray();
 
         for (JsonElement jsonElement : jsonArrayProduct) {
-            Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Start Extract Product info from json");
             JsonObject jsonObjProduct = jsonElement.getAsJsonObject();
             List<String> imgUrls = new ArrayList<>();
 
             int id = jsonObjProduct.get("id").getAsInt();
+            float averageRating=jsonObjProduct.get("average_rating").getAsFloat();
             String name = jsonObjProduct.get("name").getAsString();
             String permaLink = jsonObjProduct.get("permalink").getAsString();
             String dateCreated = jsonObjProduct.get("date_created").getAsString();
@@ -65,9 +65,9 @@ public class ProductGsonConverterCustomize implements JsonDeserializer<List<Prod
                     description,
                     price,
                     regularPrice,
-                    imgUrls);
+                    imgUrls,
+                    averageRating);
 
-            Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Add new product in list of product");
             productModels.add(productModel);
         }
         Log.d(ProgramUtils.TAG, "GsonConverterCustomize : Complete convert work and return final list");

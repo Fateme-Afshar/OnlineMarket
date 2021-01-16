@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.example.onlinemarket.view.BindAdapter.BindingHelper"/>
+        <import type="com.example.onlinemarket.view.bindAdapter.BindingHelper"/>
         <import type="com.example.onlinemarket.R" />
         <import type="com.example.onlinemarket.utils.PersianNumberUtils"/>
 
@@ -48,12 +48,12 @@
 
             <RatingBar
                 android:id="@+id/rating_bar"
-                style="@style/Base.Widget.AppCompat.RatingBar.Small.CustomRatingMain"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent"
-
+                android:rating="@{product.averageRating}"
                 />
 
             <androidx.constraintlayout.widget.Barrier

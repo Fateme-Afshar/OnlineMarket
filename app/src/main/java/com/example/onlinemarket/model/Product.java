@@ -44,6 +44,8 @@ public class Product extends Observable implements Serializable {
     @ColumnInfo(name = ProductColumn.IMAGES_URL)
     private List<String> mImgUrls;
 
+    private float mAverageRating;
+
     public Product(int id) {
         mId=id;
     }
@@ -56,15 +58,18 @@ public class Product extends Observable implements Serializable {
                    String description,
                    long price,
                    long regularPrice,
-                   List<String> imgUrls) {
+                   List<String> imgUrls,
+                   float averageRating) {
+
         mId = id;
         mName = name;
-        mDescription=description;
         this.permaLink = permaLink;
         mDateCreated = dateCreated;
+        mDescription = description;
         mPrice = price;
         mRegularPrice = regularPrice;
         mImgUrls = imgUrls;
+        mAverageRating = averageRating;
     }
 
     public int getId() {
@@ -129,5 +134,13 @@ public class Product extends Observable implements Serializable {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public float getAverageRating() {
+        return mAverageRating;
+    }
+
+    public void setAverageRating(float averageRating) {
+        mAverageRating = averageRating;
     }
 }

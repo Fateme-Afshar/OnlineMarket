@@ -66,8 +66,8 @@
     </style>
 
     <style name="Base.Widget.AppCompat.RatingBar.Small.CustomRatingMain">
-        <item name="android:progressDrawable">@drawable/img_default_rating</item>
-        <item name="android:indeterminateDrawable">@drawable/img_rating</item>
+        <item name="android:progressDrawable">@drawable/img_rating</item>
+        <item name="android:indeterminateDrawable">@drawable/img_default_rating</item>
     </style>
 
     <style name="Base.Widget.AppCompat.RatingBar.Small.CustomRating">
