@@ -44,11 +44,9 @@
 
     <style name="TextStylePersian">
         <item name="android:fontFamily">@font/sahel_bold</item>
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">8sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:textAlignment">center</item>
         <item name="android:padding">4dp</item>
     </style>
 
@@ -62,8 +60,17 @@
     <style name="Theme.OnlineMarket.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-<style name="MyNumberPickerTheme">
-<item name="colorControlNormal ">#D10A37</item>
-<item name="android:background">#FFFFFF</item>
-</style>
+    <style name="MyNumberPickerTheme">
+        <item name="colorControlNormal ">#D10A37</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="Base.Widget.AppCompat.RatingBar.Small.CustomRatingMain">
+        <item name="android:progressDrawable">@drawable/img_default_rating</item>
+        <item name="android:indeterminateDrawable">@drawable/img_rating</item>
+    </style>
+
+    <style name="Base.Widget.AppCompat.RatingBar.Small.CustomRating">
+        <item name="android:indeterminateDrawable">@drawable/img_star</item>
+    </style>
 </resources>

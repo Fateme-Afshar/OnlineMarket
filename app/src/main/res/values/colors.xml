@@ -14,5 +14,7 @@
 
     <color name="dark_pink">#f41930</color>
     <color name="light_pink">#f8475a</color>
+    <color name="anzac_yellow">#e3b44c</color>
     <color name="pink_gray">#d9c8c0</color>
+    <color name="green">#07700B</color>
 </resources>

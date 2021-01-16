@@ -1,7 +1,9 @@
 package com.example.onlinemarket.model;
 
+import android.graphics.Paint;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
@@ -10,12 +12,17 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databases.OnlineShopSchema;
 import com.example.onlinemarket.databases.OnlineShopSchema.Product.ProductColumn;
+import com.example.onlinemarket.utils.PersianNumberUtils;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Observable;
 @Entity(tableName = OnlineShopSchema.Product.NAME)
 public class Product extends Observable implements Serializable {
@@ -127,7 +134,10 @@ public class Product extends Observable implements Serializable {
     @BindingAdapter("setImage")
     public static void loadImage(ImageView imageView, String imgUrl) {
         Glide.with(imageView.getContext()).
-                load(imgUrl).
+                load(imgUrl)
+                   .override(184, 184)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL).
                 placeholder(R.drawable.img_place_holder).
                 into(imageView);
     }
@@ -139,5 +149,14 @@ public class Product extends Observable implements Serializable {
                 "text/html",
                 "utf-8",
                 null);
+    }
+
+    @BindingAdapter("strikeThrough")
+    public static void strikeThrough(TextView textView, Boolean strikeThrough) {
+        if (strikeThrough) {
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
     }
 }

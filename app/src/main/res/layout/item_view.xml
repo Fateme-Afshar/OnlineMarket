@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="com.example.onlinemarket.R" />
+        <import type="com.example.onlinemarket.utils.PersianNumberUtils"/>
 
         <variable
             name="product"
@@ -13,24 +13,24 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="270dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         >
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="3"
             >
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_product"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:setImage='@{product.imgUrls.size()==0 ? "" : product.imgUrls.get(0)}'
                 tools:src="@drawable/img_guitar" />
 
@@ -38,36 +38,66 @@
                 android:id="@+id/tv_product_name"
                 style="@style/TextStylePersian"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:textStyle="normal"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/img_product"
+                app:layout_constraintBottom_toTopOf="@+id/b_horizantal"
                 android:text="@{product.name}"
-                android:textSize="9sp"
-                android:layout_weight="1"
-                android:layout_gravity="right"
+                android:textStyle="normal"
                 tools:text="گیتار" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small.CustomRatingMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
+                app:layout_constraintStart_toStartOf="parent"
+
+                />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/b_horizantal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_product_name,rating_bar" />
+
+            <View
+                android:id="@+id/br"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/beauty_gray"
+                app:layout_constraintTop_toBottomOf="@+id/b_horizantal"
+                android:layout_marginTop="8dp"/>
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStylePersian"
                 android:id="@+id/tv_product_price"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textStyle="normal"
-                tools:text="قیمت محصول :"
+                android:layout_below="@+id/br"
+                app:layout_constraintTop_toBottomOf="@+id/br"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="10000"
                 android:layout_weight="1"
-                android:text='@{"قیمت محصول : "+String.valueOf(product.price)}'
+                android:textSize="10sp"
+                strikeThrough="@{product.regularPrice==product.price ? false : true}"
+                android:text="@{PersianNumberUtils.convert(product.price)}"
                 />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStylePersian"
                 android:id="@+id/tv_product_regular_price"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/br"
+                app:layout_constraintStart_toStartOf="parent"
                 android:textStyle="normal"
-                android:layout_weight="1"
-                tools:text="قیمت  با تخفیف محصول : "
-                android:background="@drawable/solid_green_light"
-                android:text='@{"قیمت محصول با تخفیف : "+String.valueOf(product.regularPrice)}'
+                tools:text="5000"
+                android:textColor="@color/green"
+                android:text="@{PersianNumberUtils.convert(product.regularPrice)}"
                 />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
