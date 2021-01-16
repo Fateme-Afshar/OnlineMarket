@@ -130,33 +130,4 @@ public class Product extends Observable implements Serializable {
     public void setDescription(String description) {
         mDescription = description;
     }
-
-    @BindingAdapter("setImage")
-    public static void loadImage(ImageView imageView, String imgUrl) {
-        Glide.with(imageView.getContext()).
-                load(imgUrl)
-                   .override(184, 184)
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL).
-                placeholder(R.drawable.img_place_holder).
-                into(imageView);
-    }
-
-    @BindingAdapter("showDescription")
-    public static void setDescription(WebView webView,String description){
-        webView.loadDataWithBaseURL(null,
-                description,
-                "text/html",
-                "utf-8",
-                null);
-    }
-
-    @BindingAdapter("strikeThrough")
-    public static void strikeThrough(TextView textView, Boolean strikeThrough) {
-        if (strikeThrough) {
-            textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        } else {
-            textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-    }
 }
