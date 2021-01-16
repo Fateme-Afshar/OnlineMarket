@@ -18,12 +18,11 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
 
-public class CategoriesFragment extends Fragment implements IOnBackPress {
+public class CategoriesFragment extends Fragment{
     private FragmentCategoriesBinding mBinding;
     private CategoryAdapter mCatAdapter;
 
@@ -113,11 +112,6 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
             mCatAdapter.setCategories(models);
             mCatAdapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 
     public interface CategoriesFragmentCallbacks{

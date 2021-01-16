@@ -3,7 +3,6 @@ package com.example.onlinemarket.view.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,29 +17,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.model.customer.Billing;
-import com.example.onlinemarket.model.customer.CollectionItem;
-import com.example.onlinemarket.model.customer.Customer;
-import com.example.onlinemarket.model.customer.Links;
-import com.example.onlinemarket.model.customer.SelfItem;
-import com.example.onlinemarket.model.customer.Shipping;
-import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.services.PollWorkManager;
 import com.example.onlinemarket.utils.NetworkParams;
-import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +40,7 @@ import static com.example.onlinemarket.utils.Titles.NEWEST_PRODUCT;
  * Use the {@link HomePageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomePageFragment extends Fragment implements IOnBackPress {
+public class HomePageFragment extends Fragment{
     private FragmentHomePageBinding mBinding;
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
@@ -201,10 +189,5 @@ public class HomePageFragment extends Fragment implements IOnBackPress {
             default:
                 break;
         }
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 }

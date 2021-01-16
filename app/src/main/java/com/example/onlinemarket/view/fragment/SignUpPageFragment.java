@@ -1,18 +1,16 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentSignupPageBinding;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.SignUpViewModel;
 
 /**
@@ -20,7 +18,7 @@ import com.example.onlinemarket.viewModel.SignUpViewModel;
  * Use the {@link SignUpPageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SignUpPageFragment extends Fragment implements IOnBackPress {
+public class SignUpPageFragment extends Fragment{
     private FragmentSignupPageBinding mBinding;
     private SignUpViewModel mViewModel;
 
@@ -53,10 +51,5 @@ public class SignUpPageFragment extends Fragment implements IOnBackPress {
                         false);
         mBinding.setViewModel(mViewModel);
         return mBinding.getRoot();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 }

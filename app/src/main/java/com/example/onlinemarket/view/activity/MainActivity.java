@@ -17,7 +17,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CartFragment;
@@ -133,20 +132,6 @@ public class MainActivity extends SingleFragmentActivity
                 add(R.id.nav_host_fragment,
                         CategoryProductsFragment.newInstance(catId)).
                 commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        if (!(fragment instanceof IOnBackPress) || !((IOnBackPress) fragment).onBackPressed()) {
-            super.onBackPressed();
-        }else {
-            getSupportFragmentManager().
-                    beginTransaction().
-                    add(R.id.nav_host_fragment,
-                            HomePageFragment.newInstance()).
-                    commit();
-        }
     }
 
     @Override

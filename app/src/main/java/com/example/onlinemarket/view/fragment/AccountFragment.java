@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentAccountBinding;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.AccountManagerViewModel;
 
 /**
@@ -22,7 +21,7 @@ import com.example.onlinemarket.viewModel.AccountManagerViewModel;
  * Use the {@link AccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccountFragment extends Fragment implements IOnBackPress {
+public class AccountFragment extends Fragment{
     private FragmentAccountBinding mBinding;
     private AccountManagerViewModel mViewModel;
 
@@ -78,11 +77,6 @@ public class AccountFragment extends Fragment implements IOnBackPress {
                 false);
         mViewModel.getAccountFragment();
         return mBinding.getRoot();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 
     public interface AccountFragmentCallback{

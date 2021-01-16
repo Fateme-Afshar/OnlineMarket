@@ -1,20 +1,18 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentNotificationBinding;
 import com.example.onlinemarket.services.PollWorkManager;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.viewModel.NotificationViewModel;
 
 /**
@@ -22,7 +20,7 @@ import com.example.onlinemarket.viewModel.NotificationViewModel;
  * Use the {@link NotificationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationFragment extends Fragment implements IOnBackPress {
+public class NotificationFragment extends Fragment{
     private FragmentNotificationBinding mBinding;
     private NotificationViewModel mViewModel;
     public NotificationFragment() {
@@ -66,10 +64,5 @@ public class NotificationFragment extends Fragment implements IOnBackPress {
                 PollWorkManager.enqueue(getContext(),newVal,false);
             }
         });
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 }

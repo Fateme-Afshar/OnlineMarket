@@ -12,11 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentProductInfoBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
-public class ProductInfoFragment extends Fragment implements IOnBackPress {
+public class ProductInfoFragment extends Fragment{
     public static final String ARG_PRODUCT_Model = "Product Model";
 
     private FragmentProductInfoBinding mBinding;
@@ -67,10 +66,5 @@ public class ProductInfoFragment extends Fragment implements IOnBackPress {
         mBinding.setViewModel(mViewModel);
 
         return mBinding.getRoot();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 }

@@ -21,7 +21,6 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCartBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.CartViewModel;
 
@@ -32,7 +31,7 @@ import java.util.List;
  * Use the {@link CartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartFragment extends Fragment implements IOnBackPress {
+public class CartFragment extends Fragment{
     private FragmentCartBinding mBinding;
     private CartViewModel mViewModel;
     private ProductSearchAdapter mAdapter;
@@ -125,8 +124,4 @@ public class CartFragment extends Fragment implements IOnBackPress {
         }
     }
 
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
 }

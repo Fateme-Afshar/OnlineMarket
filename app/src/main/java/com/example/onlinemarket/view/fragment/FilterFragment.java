@@ -18,20 +18,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.utils.ProgramUtils;
-import com.example.onlinemarket.view.IOnBackPress;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 
 import java.util.List;
 
 
-public class FilterFragment extends Fragment implements IOnBackPress {
+public class FilterFragment extends Fragment{
     public static final int REQUEST_CODE_FILTER_BOTTOM_SHEET = 1;
     public static final int REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET =2;
     public static final String TAG_FILTER_FRAGMENT = "Filter Fragment";
@@ -110,11 +107,6 @@ public class FilterFragment extends Fragment implements IOnBackPress {
                         false);
         mBinding.setViewModel(mViewModel);
         return mBinding.getRoot();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
     }
 
     private void setupViewModel() {
