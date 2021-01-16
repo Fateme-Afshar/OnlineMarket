@@ -9,28 +9,27 @@
             type="com.example.onlinemarket.model.Category" />
     </data>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="250dp"
         android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:padding="8dp"
         >
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imv_cat"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@color/beauty_red"
             android:layout_gravity="center"
             app:setImage="@{category.imageUrl}"
             />
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.TextButton.CustomBackground"
+            style="@style/Widget.MaterialComponents.Button.TextButton.CustomBackgroundCategoryItem"
             android:id="@+id/btn_cat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="دسته بندی محصولات"
             android:text="@{category.name}"
-            android:background="@color/beauty_light_gray"
-            android:textColor="@color/black"
-            android:layout_margin="5dp"
+            android:textColor="@color/anzac_yellow"
             android:fontFamily="@font/sahel_bold"
             />
 

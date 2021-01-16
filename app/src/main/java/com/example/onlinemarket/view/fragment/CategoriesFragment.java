@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
@@ -91,7 +92,7 @@ public class CategoriesFragment extends Fragment{
         if (mCatAdapter==null) {
             mCatAdapter = new CategoryAdapter(getContext(),models);
             mBinding.recyclerView.setAdapter(mCatAdapter);
-            mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
             mCatAdapter.setCallbacks(new CategoryAdapter.CatAdapterCallbacks() {
                 @Override

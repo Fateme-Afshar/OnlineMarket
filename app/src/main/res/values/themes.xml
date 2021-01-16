@@ -26,6 +26,13 @@
         <item name="backgroundTint">@color/beauty_light_gray</item>
     </style>
 
+    <style name="Widget.MaterialComponents.Button.TextButton.CustomBackgroundCategoryItem">
+        <item name="backgroundTint">#D83748</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
     <style name="Widget.MaterialComponents.Button.BorderBackground">
         <item name="android:background">@drawable/border_gray</item>
         <item name="backgroundTint">@color/white</item>
