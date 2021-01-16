@@ -22,6 +22,7 @@ import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CartFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
+import com.example.onlinemarket.view.fragment.CategoriesFragmentDirections;
 import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.CustomerInfoFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
@@ -36,9 +37,6 @@ public class MainActivity extends SingleFragmentActivity
         OpenProductPage, AccountFragment.AccountFragmentCallback,
         CustomerInfoFragment.CustomerInfoFragmentCallback {
 
-    public static final String HOME_PAGE_FRAGMENT_TAG = "HomePageFragment";
-    public static final String ARG_PRODUCT_INFO = "ProductInfo";
-    public static final String ARG_CATEGORY_ID = "categoryId";
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
 
@@ -50,8 +48,7 @@ public class MainActivity extends SingleFragmentActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         mAppBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setDrawerLayout(drawer)
@@ -83,18 +80,10 @@ public class MainActivity extends SingleFragmentActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_basket:
-                getSupportFragmentManager().
-                        beginTransaction().
-                        add(R.id.nav_host_fragment,
-                                CartFragment.newInstance()).
-                        commit();
+               navController.navigate(R.id.nav_cart);
                 return true;
             case R.id.menu_search:
-                getSupportFragmentManager().
-                        beginTransaction().
-                        add(R.id.nav_host_fragment,
-                                SearchFragment.newInstance()).
-                        commit();
+                navController.navigate(R.id.nav_search);
                 return true;
             default:
                 return false;
@@ -110,10 +99,6 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public Fragment getFragment() {
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.nav_host_fragment,
-                        HomePageFragment.newInstance(), HOME_PAGE_FRAGMENT_TAG);
         return HomePageFragment.newInstance();
     }
 
@@ -128,35 +113,25 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public void onCatSelected(int catId) {
-        Bundle bundle=new Bundle();
-        bundle.putInt(ARG_CATEGORY_ID,catId);
-        navController.navigate(R.id.nav_category_product,bundle);
+        CategoriesFragmentDirections.ActionNavCategoriesToNavCategoryProduct action
+                =CategoriesFragmentDirections.actionNavCategoriesToNavCategoryProduct(catId);
+
+        action.setCatId(catId);
+        navController.navigate(action);
     }
 
     @Override
     public void getSignUpFragment() {
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.nav_host_fragment,
-                        SignUpPageFragment.newInstance()).
-                commit();
+        navController.navigate(R.id.nav_sign);
     }
 
     @Override
     public void getCustomerFragment() {
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.nav_host_fragment,
-                        CustomerFragment.newInstance()).
-                commit();
+            navController.navigate(R.id.nav_user_account);
     }
 
     @Override
     public void getMapFragment() {
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.map_fragment_container,
-                        MapFragment.newInstance()).
-                commit();
+        navController.navigate(R.id.nav_map);
     }
 }

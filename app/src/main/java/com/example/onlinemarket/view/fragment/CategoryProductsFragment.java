@@ -25,7 +25,6 @@ import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 import java.util.List;
 
 public class CategoryProductsFragment extends Fragment{
-    public static final String ARGS_CATEGORY_ID = "Category Id";
     private FragmentCategoryDetailBinding mBinding;
     private ProductAdapter mAdapter;
 
@@ -38,10 +37,9 @@ public class CategoryProductsFragment extends Fragment{
         // Required empty public constructor
     }
 
-    public static CategoryProductsFragment newInstance(int catId) {
+    public static CategoryProductsFragment newInstance() {
        CategoryProductsFragment fragment = new CategoryProductsFragment();
         Bundle args = new Bundle();
-        args.putInt(ARGS_CATEGORY_ID,catId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,7 +60,7 @@ public class CategoryProductsFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCategoryId = getArguments().getInt(MainActivity.ARG_CATEGORY_ID);
+        mCategoryId = CategoryProductsFragmentArgs.fromBundle(getArguments()).getCatId();
 
         mNetworkTaskViewModel =
                 new ViewModelProvider(this).get(NetworkTaskViewModel.class);

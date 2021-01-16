@@ -24,7 +24,15 @@
         android:id="@+id/nav_categories"
         android:name="com.example.onlinemarket.view.fragment.CategoriesFragment"
         android:label="@string/menu_categories"
-        tools:layout="@layout/fragment_category_detail" />
+        tools:layout="@layout/fragment_category_detail" >
+        <action
+            android:id="@+id/action_nav_categories_to_nav_category_product"
+            app:destination="@id/nav_category_product">
+            <argument
+                android:name="catId"
+                app:argType="integer"/>
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_search"
@@ -68,5 +76,30 @@
         android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
         android:label=" "
         tools:layout="@layout/fragment_category_detail"
+        >
+        <argument
+            android:name="catId"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.example.onlinemarket.view.fragment.MapFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_map"
+        />
+
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.onlinemarket.view.fragment.CartFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_cart"
+        />
+
+    <fragment
+        android:id="@+id/nav_sign"
+        android:name="com.example.onlinemarket.view.fragment.SignUpPageFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_signup_page"
         />
 </navigation>
