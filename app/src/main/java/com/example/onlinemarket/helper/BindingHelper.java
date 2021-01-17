@@ -1,4 +1,4 @@
-package com.example.onlinemarket.view.bindAdapter;
+package com.example.onlinemarket.helper;
 
 import android.graphics.Paint;
 import android.webkit.WebView;
@@ -16,10 +16,7 @@ public class BindingHelper {
     @BindingAdapter("setImage")
     public static void loadImage(ImageView imageView, String imgUrl) {
         Glide.with(imageView.getContext()).
-                load(imgUrl)
-                .override(184, 184)
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL).
+                load(imgUrl).
                 placeholder(R.drawable.img_place_holder).
                 into(imageView);
     }

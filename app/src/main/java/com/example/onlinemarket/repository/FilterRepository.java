@@ -64,7 +64,8 @@ public class FilterRepository {
         call.enqueue(new Callback<List<AttributeInfo>>() {
             @Override
             public void onResponse(Call<List<AttributeInfo>> call, Response<List<AttributeInfo>> response) {
-                Log.d(ProgramUtils.TAG, "AttributeRepository : Request to server for Receive Information Every Section Attributes");
+                Log.d(ProgramUtils.TAG,
+                        "AttributeRepository : Request to server for Receive Information Every Section Attributes");
                 mAttributeListLiveData.setValue(response.body());
             }
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlinemarket.R;
@@ -29,9 +30,13 @@ public class CustomerRepository {
     private RetrofitInterface mRetrofitInterface;
 
     private Response<Customer> mResponse;
-    private MutableLiveData<Integer> mResponseCode=new MutableLiveData<>();
+    private final MutableLiveData<Integer> mResponseCode=new MutableLiveData<>();
+
+    private MutableLiveData<Customer> mCustomerLiveData=new MutableLiveData<>();
 
     private CustomerRepository() {
+        Retrofit retrofit = RetrofitInstance.getPostRetrofit();
+        mRetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
     public static CustomerRepository getInstance() {
@@ -41,10 +46,10 @@ public class CustomerRepository {
     }
     // important note to post customer:Email must be unique
     public void postCustomerToServer(Customer customer) {
-        Retrofit retrofit = RetrofitInstance.getPostRetrofit();
-        mRetrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        /*        RequestBody body = RequestBody.create( MediaType.parse("application/json"),ProgramUtils.customerTesting().toString());*/
+        /*        RequestBody body =
+        RequestBody.create( MediaType.parse("application/json"),
+        ProgramUtils.customerTesting().toString());*/
         mRetrofitInterface.postCustomer(customer, NetworkParams.MAP_KEYS).enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -56,6 +61,28 @@ public class CustomerRepository {
 
             }
         });
+    }
+
+    public void requestToFindCustomer(String email){
+        Call<Customer> customerCall=
+                mRetrofitInterface.getCustomer(NetworkParams.queryForFindCustomer(email));
+
+        customerCall.enqueue(new Callback<Customer>() {
+            @Override
+            public void onResponse(Call<Customer> call, Response<Customer> response) {
+                Log.d(ProgramUtils.TEST_TAG,"CustomerRepository : receive customer from server ");
+                mCustomerLiveData.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Customer> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public MutableLiveData<Customer> getCustomerLiveData() {
+        return mCustomerLiveData;
     }
 
     public MutableLiveData<Integer> getResponseCode() {

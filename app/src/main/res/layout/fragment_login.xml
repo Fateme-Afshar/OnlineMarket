@@ -3,70 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.onlinemarket.viewModel.SignUpViewModel" />
+            type="com.example.onlinemarket.viewModel.LoginViewModel" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragment.SignUpPageFragment"
+        tools:context=".view.fragment.LoginFragment"
+        android:orientation="vertical"
         android:gravity="center"
-        android:orientation="vertical">
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/img_sign_up"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_fname"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/first_name"
-                android:afterTextChanged="@{viewModel::afterTextChangeFirstName}"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_lname"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/family_name"
-                android:afterTextChanged="@{viewModel::afterTextChangeLastName}"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_email"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/email_address"
-                android:afterTextChanged="@{viewModel::afterTextChangeEmail}"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:src="@drawable/img_loging"
+            android:layout_marginBottom="5dp"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -80,20 +37,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/username"
-                android:textSize="14sp"
                 android:afterTextChanged="@{viewModel::afterTextChangeUsername}"
-                />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_email_address"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/email_address"
+                android:afterTextChanged="@{viewModel::afterTextChangeEmail}"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                style="@style/Widget.MaterialComponents.Button.TextButton.PinkBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:text="@string/login"
+                android:fontFamily="@font/sahel_bold"
+                android:onClick="@{()->viewModel.onLoginBtnClickListener()}"
+                />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_up"
-            style="@style/Widget.MaterialComponents.Button.TextButton.PinkBackground"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:text="@string/sign_up"
+            android:text="@string/at_first_sign_up"
             android:fontFamily="@font/sahel_bold"
+            android:layout_marginTop="16dp"
             android:onClick="@{()->viewModel.onSignUpBtnClickListener()}"
             />
+
     </LinearLayout>
 </layout>

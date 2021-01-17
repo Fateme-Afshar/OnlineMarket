@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.example.onlinemarket.view.bindAdapter.BindingHelper"/>
+        <import type="com.example.onlinemarket.helper.BindingHelper"/>
         <import type="com.example.onlinemarket.R" />
         <import type="com.example.onlinemarket.utils.PersianNumberUtils"/>
 

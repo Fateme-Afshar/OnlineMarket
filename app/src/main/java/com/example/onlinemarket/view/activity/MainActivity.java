@@ -128,7 +128,7 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public void getCustomerFragment() {
-            navController.navigate(R.id.nav_user_account);
+            navController.navigate(R.id.nav_customer_page);
     }
 
     @Override

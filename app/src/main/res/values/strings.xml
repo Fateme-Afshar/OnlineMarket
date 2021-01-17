@@ -101,4 +101,7 @@
     <string name="active_notification"> فعال کردن اعلان</string>
     <string name="title_activity_maps">Map</string>
     <string name="available_in_stock">موجود در انبار</string>
+    <string name="enter_signup_phone_number">لطفا شماره تلفن ثبت نامی خود را وارد کنید</string>
+    <string name="at_first_sign_up">تا کنون ثبت نام نکرده ام</string>
+    <string name="login">ورود</string>
 </resources>

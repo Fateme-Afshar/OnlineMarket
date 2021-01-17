@@ -35,7 +35,8 @@ public class RetrofitInstance {
     public static Retrofit getPostRetrofit(){
         OkHttpClient client = new OkHttpClient();
         return new Retrofit.Builder().
-                baseUrl(NetworkParams.BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                baseUrl(NetworkParams.BASE_URL).
+                addConverterFactory(GsonConverterFactory.create())
                 .client(client).
                 build();
     }

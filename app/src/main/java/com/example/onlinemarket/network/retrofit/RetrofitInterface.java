@@ -33,6 +33,9 @@ public interface RetrofitInterface {
     Call<List<AttributeInfo>> getEveryAttributePart(@Path("id") String path,
                                                     @QueryMap Map<String, String> queryMap);
 
+    @GET("customers")
+    Call<Customer> getCustomer(@QueryMap Map<String, String> queryMap);
+
     @POST("customers")
     Call<Customer> postCustomer(@Body Customer customer,
                                 @QueryMap Map<String, String> queryMap);

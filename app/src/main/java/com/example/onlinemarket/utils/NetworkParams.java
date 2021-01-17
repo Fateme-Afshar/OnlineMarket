@@ -48,4 +48,14 @@ public class NetworkParams {
 
         return MAP_PARAMETERS;
     }
+
+    public static Map<String ,String> queryForFindCustomer(String email){
+        Map<String,String> MAP_PARAMETERS=new HashMap<>();
+
+        MAP_PARAMETERS.putAll(MAP_KEYS);
+        MAP_PARAMETERS.put(QueryParameters.ATTRIBUTE,"email");
+        MAP_PARAMETERS.put(QueryParameters.SEARCH,email);
+
+        return MAP_PARAMETERS;
+    }
 }
