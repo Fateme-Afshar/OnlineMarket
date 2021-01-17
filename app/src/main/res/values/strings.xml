@@ -100,4 +100,5 @@
     <string name="inactive_notification">غیر فعال کردن اعلان</string>
     <string name="active_notification"> فعال کردن اعلان</string>
     <string name="title_activity_maps">Map</string>
+    <string name="available_in_stock">موجود در انبار</string>
 </resources>

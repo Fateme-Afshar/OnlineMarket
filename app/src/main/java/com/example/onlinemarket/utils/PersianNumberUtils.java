@@ -2,7 +2,7 @@ package com.example.onlinemarket.utils;
 
 public class PersianNumberUtils {
 
-    public static String convert(long faNumbers) {
+    public static String convert(int faNumbers) {
         String numbers=String.valueOf(faNumbers);
         String[][] mChars = new String[][]{
                 {"0", "۰"},
