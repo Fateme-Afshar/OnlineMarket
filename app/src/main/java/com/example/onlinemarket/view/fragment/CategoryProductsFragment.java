@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
+import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.OpenProductPage;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class CategoryProductsFragment extends Fragment{
     private FragmentCategoryDetailBinding mBinding;
-    private ProductAdapter mAdapter;
+    private ProductSearchAdapter mAdapter;
 
     private int mCategoryId;
 
@@ -95,11 +96,11 @@ public class CategoryProductsFragment extends Fragment{
     }
 
     private void setupAdapter(List<Product> models) {
-            mAdapter = new ProductAdapter(getContext(),models);
-            mAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
+            mAdapter = new ProductSearchAdapter(getContext(),models);
+            mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
                 @Override
-                public void onProductSelected(Product productModel) {
-
+                public void onProductSelected(Product product) {
+                    mCallback.onItemClickListener(product);
                 }
             });
             mBinding.recyclerView.setAdapter(mAdapter);
