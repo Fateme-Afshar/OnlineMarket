@@ -1,7 +1,11 @@
 package com.example.onlinemarket.viewModel;
 
+import android.app.Application;
 import android.text.Editable;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
@@ -11,7 +15,7 @@ import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.repository.ReviewRepository;
 
-public class ProductViewModel extends ViewModel {
+public class ProductViewModel extends AndroidViewModel {
     private Product mProduct;
     private Review mReview;
 
@@ -23,6 +27,10 @@ public class ProductViewModel extends ViewModel {
         mPurchasedRepository = OnlineShopApplication.getProductPurchasedRepository();
         mReviewRepository = ReviewRepository.getInstance();
         mReview = new Review();
+    }
+
+    public ProductViewModel(@NonNull Application application) {
+        super(application);
     }
 
     public Product getProduct() {
@@ -58,6 +66,13 @@ public class ProductViewModel extends ViewModel {
 
     public void onPostCommentClickListener() {
         Customer customer = OnlineShopApplication.getsCustomer();
+
+        if (customer==null)
+            Toast.makeText(
+                    getApplication(),
+                    "ابتدا وارد حساب کاربری خود شوید" ,
+                    Toast.LENGTH_LONG).show();
+
         mReview.setReviewerEmail(customer.getEmail());
         mReview.setProductId(mProduct.getId());
 
