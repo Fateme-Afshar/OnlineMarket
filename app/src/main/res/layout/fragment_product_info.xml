@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+      <import type="com.example.onlinemarket.utils.PersianNumberUtils"/>
       <import type="com.example.onlinemarket.helper.BindingHelper"/>
         <variable
             name="viewModel"
@@ -103,13 +104,13 @@
             style="@style/TextStylePersian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginLeft="64dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginLeft="48dp"
             android:layout_marginTop="8dp"
             android:textSize="11sp"
             app:layout_constraintStart_toEndOf="@+id/tv_price"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            tools:text="قیمت محصول : " />
+            android:text="@string/price_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_price"
@@ -117,7 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text='@{viewModel.product.price+"تومان "}'
+            android:layout_marginBottom="0dp"
+            android:text='@{PersianNumberUtils.convert(viewModel.product.price)+"تومان "}'
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
@@ -132,7 +134,7 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_price_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_price_title"
-            tools:text="قیمت محصول با تخفیف : " />
+            android:text="@string/regular_price_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_regular_price"
@@ -140,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/green"
-            android:text='@{viewModel.product.regularPrice+"تومان "}'
+            android:text='@{PersianNumberUtils.convert(viewModel.product.regularPrice)+"تومان "}'
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_price"
             app:layout_constraintStart_toStartOf="@+id/tv_price"
@@ -153,7 +155,10 @@
             android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            android:layout_margin="20dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:onClick="@{()->viewModel.onAddCartBtnClickListener()}"
+            >
 
             <LinearLayout
                 android:id="@+id/container_cart"
@@ -191,7 +196,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_regular_price_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_regular_price_title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -219,6 +227,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/first_name_last_name"
+                        android:afterTextChanged="@{viewModel::afterTextChangeReviewer}"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -233,6 +242,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/comment"
+                        android:afterTextChanged="@{viewModel::afterTextChangeReview}"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <EditText
+                        android:id="@+id/ed_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/rate_one_to_five"
+                        android:afterTextChanged="@{viewModel::afterTextChangeRate}"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,6 +272,7 @@
                     android:textColor="@color/white"
                     android:layout_marginBottom="30dp"
                     android:layout_marginLeft="10dp"
+                    android:onClick="@{()->viewModel.onPostCommentClickListener()}"
                     />
 
             </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.onlinemarket.utils;
 
+import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Billing;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.customer.Links;
@@ -10,6 +11,16 @@ import java.util.ArrayList;
 public class ProgramUtils {
     public static final String TAG = "OnlineShop";
     public static final String TEST_TAG="TEST_ONLINE_APP";
+
+    public static Review reviewTesting(){
+        Review review=new Review(
+                "خوبه هر چند میتونست بهتر باشه" ,
+                662,
+                3,"مستانه"
+                , "leili@yahoo.com");
+
+        return review;
+    }
 
     public static Customer customerTesting(){
       Links links=new Links(new ArrayList<>(),

@@ -48,14 +48,14 @@ public class ProductPurchasedRepository implements IRepository<Product> {
         Retrofit retrofit= RetrofitInstance.getRetrofit();
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
 
-        mRetrofitInterface.postOrders(orders, NetworkParams.MAP_KEYS).enqueue(new Callback<Customer>() {
+        mRetrofitInterface.postOrders(orders, NetworkParams.MAP_KEYS).enqueue(new Callback<Orders>() {
             @Override
-            public void onResponse(Call<Customer> call, Response<Customer> response) {
+            public void onResponse(Call<Orders> call, Response<Orders> response) {
                     mResponseCode.setValue(response.code());
             }
 
             @Override
-            public void onFailure(Call<Customer> call, Throwable t) {
+            public void onFailure(Call<Orders> call, Throwable t) {
 
             }
         });

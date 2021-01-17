@@ -110,4 +110,7 @@
     <string name="first_name_last_name">نام و نام خانوادگی</string>
     <string name="comment">دیدگاه</string>
     <string name="submit_comment">ثبت</string>
+    <string name="regular_price_title">قیمت محصول با تخفیف :</string>
+    <string name="price_title">قیمت محصول :</string>
+    <string name="rate_one_to_five">از یک تا پنج امتیاز دهید</string>
 </resources>

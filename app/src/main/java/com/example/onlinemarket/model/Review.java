@@ -27,6 +27,9 @@ public class Review{
 		this.reviewerEmail = reviewerEmail;
 	}
 
+	public Review() {
+	}
+
 	public String getReview() {
 		return review;
 	}

@@ -17,8 +17,6 @@ import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
 public class ProductInfoFragment extends Fragment{
-    public static final String ARG_PRODUCT_INFO = "Product Model";
-
     private FragmentProductInfoBinding mBinding;
 
     private Product mProductModel;

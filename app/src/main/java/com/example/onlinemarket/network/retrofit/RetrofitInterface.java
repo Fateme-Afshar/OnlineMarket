@@ -2,6 +2,7 @@ package com.example.onlinemarket.network.retrofit;
 
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.Orders;
 import com.example.onlinemarket.model.response.CatObj;
@@ -40,7 +41,11 @@ public interface RetrofitInterface {
     Call<Customer> postCustomer(@Body Customer customer,
                                 @QueryMap Map<String, String> queryMap);
 
-    @POST("Orders")
-    Call<Customer> postOrders(@Body Orders orders,
+    @POST("orders")
+    Call<Orders> postOrders(@Body Orders orders,
                               @QueryMap Map<String, String> queryMap);
+
+    @POST("products/reviews")
+    Call<Review> postReview(@Body Review review,
+                            @QueryMap Map<String, String> queryMap);
 }
