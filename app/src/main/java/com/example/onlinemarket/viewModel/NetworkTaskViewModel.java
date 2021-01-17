@@ -8,9 +8,12 @@ import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.repository.CategoryRepository;
 import com.example.onlinemarket.repository.ProductRepository;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,9 +60,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
     }
 
     public void requestToServerForSearchProducts(String title,String search){
-        Map<String,String> queryParameter=new HashMap<>();
-        queryParameter.put("attributes",title);
-        queryParameter.put("search",search);
+        Map<String, String> queryParameter = NetworkParams.querySearch(title, search);
         mProductRepository.requestToServerForReceiveProducts(queryParameter);
     }
 

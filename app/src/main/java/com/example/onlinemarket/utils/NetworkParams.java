@@ -1,5 +1,7 @@
 package com.example.onlinemarket.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,5 +59,13 @@ public class NetworkParams {
         MAP_PARAMETERS.put(QueryParameters.SEARCH,email);
 
         return MAP_PARAMETERS;
+    }
+
+    @NotNull
+    public static Map<String, String> querySearch(String title, String search) {
+        Map<String,String> queryParameter=new HashMap<>();
+        queryParameter.put("attributes",title);
+        queryParameter.put("search",search);
+        return queryParameter;
     }
 }

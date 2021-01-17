@@ -266,7 +266,7 @@
                     android:id="@+id/btn_submit_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/submit_comment"
+                    android:text="@string/record"
                     android:layout_gravity="left"
                     android:textSize="12sp"
                     android:textColor="@color/white"

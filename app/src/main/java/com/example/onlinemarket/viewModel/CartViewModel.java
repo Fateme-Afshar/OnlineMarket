@@ -1,6 +1,7 @@
 package com.example.onlinemarket.viewModel;
 
 import android.app.Application;
+import android.text.Editable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,9 +14,11 @@ import androidx.lifecycle.Observer;
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.coupons.Coupons;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.LineItemsItem;
 import com.example.onlinemarket.model.orders.Orders;
+import com.example.onlinemarket.repository.CouponsRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
@@ -24,12 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartViewModel extends AndroidViewModel {
-    private ProductPurchasedRepository mRepository= OnlineShopApplication.getProductPurchasedRepository();
+    private ProductPurchasedRepository mPurchasedRepository ;
+    private CouponsRepository mCouponsRepository;
+
+    private LiveData<Coupons> mCouponsLiveData;
+
     private int mTotalPrice=0;
 
     private List<Product> mProductList=new ArrayList<>();
 
     private LifecycleOwner mLifecycleOwner;
+
+    private String mCouponCode;
 
     private Orders mOrders;
     private Customer mCustomer;
@@ -37,10 +46,14 @@ public class CartViewModel extends AndroidViewModel {
     public CartViewModel(@NonNull Application application) {
         super(application);
         mCustomer=OnlineShopSharePref.getCustomer(getApplication());
+        mPurchasedRepository=OnlineShopApplication.getProductPurchasedRepository();
+        mCouponsRepository=CouponsRepository.getInstance();
+
+        mCouponsLiveData=mCouponsRepository.getCouponsMutableLiveData();
     }
 
     public LiveData<List<Product>> getProductRegisteredForPurchase(){
-        return mRepository.getList();
+        return mPurchasedRepository.getList();
     }
 
     public void onBuyBtnClickListener(){
@@ -60,9 +73,29 @@ public class CartViewModel extends AndroidViewModel {
         postOrdersToServer(mOrders);
     }
 
+    public void onRecordCouponBtnClickListener(){
+        mCouponsRepository.searchCouponsCode(mCouponCode);
+
+        mCouponsLiveData.observe(mLifecycleOwner, new Observer<Coupons>() {
+            @Override
+            public void onChanged(Coupons coupons) {
+                if (coupons==null){
+                    Toast.makeText(
+                            getApplication(),
+                            "کد تخفیف نامعتبر است ",
+                            Toast.LENGTH_LONG).
+                            show();
+                }else {
+                    //TODO : calculate final amount
+                    Log.d(ProgramUtils.TEST_TAG,"valid coupons");
+                }
+            }
+        });
+    }
+
     private void postOrdersToServer(Orders orders) {
-        mRepository.postOrdersToServer(orders);
-        mRepository.getResponseCode().observe(mLifecycleOwner, new Observer<Integer>() {
+        mPurchasedRepository.postOrdersToServer(orders);
+        mPurchasedRepository.getResponseCode().observe(mLifecycleOwner, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer==201) {
@@ -82,6 +115,10 @@ public class CartViewModel extends AndroidViewModel {
                 }
             }
         });
+    }
+
+    public void afterTextChangeCoupon(Editable editable) {
+        mCouponCode=editable.toString();
     }
 
     public List<Product> getProductList() {

@@ -36,10 +36,10 @@ public class ReviewRepository {
             @Override
             public void onResponse(Call<Review> call, Response<Review> response) {
                 if (response.isSuccessful())
-                    Log.d(ProgramUtils.TEST_TAG,
+                    Log.d(ProgramUtils.TAG,
                             " ReviewRepository : post Review successfully");
                 else
-                    Log.e(ProgramUtils.TEST_TAG,
+                    Log.e(ProgramUtils.TAG,
                             " ReviewRepository : post Review fail response code is "+response.code());
             }
 
