@@ -106,4 +106,8 @@
     <string name="login">ورود</string>
     <string name="product_info">مشخصات محصول</string>
     <string name="add_to_cart">افزودن به سبد خرید</string>
+    <string name="post_comment">ثبت دیدگاه</string>
+    <string name="first_name_last_name">نام و نام خانوادگی</string>
+    <string name="comment">دیدگاه</string>
+    <string name="submit_comment">ثبت</string>
 </resources>
