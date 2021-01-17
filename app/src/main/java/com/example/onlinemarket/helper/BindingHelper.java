@@ -1,10 +1,12 @@
 package com.example.onlinemarket.helper;
 
 import android.graphics.Paint;
+import android.text.Html;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.text.HtmlCompat;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -22,12 +24,8 @@ public class BindingHelper {
     }
 
     @BindingAdapter("showDescription")
-    public static void setDescription(WebView webView, String description){
-        webView.loadDataWithBaseURL(null,
-                description,
-                "text/html",
-                "utf-8",
-                null);
+    public static void setDescription(TextView textView, String description){
+        textView.setText(HtmlCompat.fromHtml(description,0));
     }
 
     @BindingAdapter("strikeThrough")

@@ -104,4 +104,6 @@
     <string name="enter_signup_phone_number">لطفا شماره تلفن ثبت نامی خود را وارد کنید</string>
     <string name="at_first_sign_up">تا کنون ثبت نام نکرده ام</string>
     <string name="login">ورود</string>
+    <string name="product_info">مشخصات محصول</string>
+    <string name="add_to_cart">افزودن به سبد خرید</string>
 </resources>
