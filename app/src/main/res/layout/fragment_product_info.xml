@@ -14,11 +14,10 @@
     android:layout_height="match_parent"
     android:background="#f1f1f1"
     >
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <ViewFlipper
             android:id="@+id/img_slider"
@@ -27,6 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:background="#ffffff"
             />
 
         <com.google.android.material.textview.MaterialTextView
@@ -120,6 +120,6 @@
             android:textSize="14sp"
             android:onClick="@{()->viewModel.onAddCartBtnClickListener()}"
             />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 </layout>
