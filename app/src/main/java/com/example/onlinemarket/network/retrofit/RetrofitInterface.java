@@ -13,6 +13,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -52,6 +53,9 @@ public interface RetrofitInterface {
 
     @GET("products/reviews")
     Call<List<Review>> getReview(@QueryMap Map<String, String> queryMap);
+
+    @DELETE("products/reviews/{id}")
+    Call<Review> deleteReview(@Path("id") String reviewId,@QueryMap Map<String, String> queryMap);
 
     @GET("coupons")
     Call<Coupons> getCoupons(@QueryMap  Map<String, String> queryMap);

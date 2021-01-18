@@ -76,6 +76,7 @@ public class ReviewRepository {
                 for (Review review :
                         response.body()) {
                     Review review1=new Review(
+                            review.getId(),
                             review.getReview(),
                             review.getProductId(),
                             review.getRating(),
@@ -93,6 +94,28 @@ public class ReviewRepository {
 
             }
         });
+    }
+
+    public void deleteReview(int requestId){
+        Call<Review> reviewCall=
+                mRetrofitInterface.deleteReview(String.valueOf(requestId),NetworkParams.MAP_KEYS);
+        reviewCall.enqueue(new Callback<Review>() {
+            @Override
+            public void onResponse(Call<Review> call, Response<Review> response) {
+                if (response.isSuccessful())
+                    Log.d(ProgramUtils.TAG,
+                            " ReviewRepository : delete Review successfully");
+                else
+                    Log.e(ProgramUtils.TAG,
+                            " ReviewRepository : delete Review fail response code is "+response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Review> call, Throwable t) {
+
+            }
+        });
+
     }
 
     public MutableLiveData<List<Review>> getReviewsMutableLiveData() {

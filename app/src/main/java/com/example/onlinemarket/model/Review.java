@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Review{
 
+	@SerializedName("id")
+	private int id;
+
 	@SerializedName("review")
 	private String review;
 
@@ -19,12 +22,13 @@ public class Review{
 	@SerializedName("reviewer_email")
 	private String reviewerEmail;
 
-	public Review(String review, int productId, int rating, String reviewer, String reviewerEmail) {
+	public Review(int id,String review, int productId, int rating, String reviewer, String reviewerEmail) {
 		this.review = review;
 		this.productId = productId;
 		this.rating = rating;
 		this.reviewer = reviewer;
 		this.reviewerEmail = reviewerEmail;
+		this.id=id;
 	}
 
 	public Review() {
@@ -68,5 +72,13 @@ public class Review{
 
 	public void setReviewerEmail(String reviewerEmail) {
 		this.reviewerEmail = reviewerEmail;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

@@ -8,7 +8,7 @@
             type="com.example.onlinemarket.model.Review" />
         <variable
             name="viewModel"
-            type="com.example.onlinemarket.viewModel.ProductViewModel" />
+            type="com.example.onlinemarket.viewModel.ReviewViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -77,7 +77,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_margin="8dp"
                 android:src="@drawable/ic_delete"
-                android:onClick="@{()->viewModel}"
+                android:onClick="@{()->viewModel.requestToServerForDeleteReview(review.id)}"
                 />
 
         </RelativeLayout>

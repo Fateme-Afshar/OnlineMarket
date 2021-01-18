@@ -2,7 +2,6 @@ package com.example.onlinemarket.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.ItemReviewBinding;
 import com.example.onlinemarket.model.Review;
-import com.example.onlinemarket.viewModel.ProductViewModel;
+import com.example.onlinemarket.viewModel.ReviewViewModel;
 
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHolder> {
 
     private List<Review> mReviewList;
-    private ProductViewModel mViewModel;
+    private ReviewViewModel mViewModel;
     private Context mContext;
 
-    public ReviewAdapter(List<Review> reviewList, ProductViewModel viewModel, Context context) {
+    public ReviewAdapter(List<Review> reviewList, ReviewViewModel viewModel, Context context) {
         mReviewList = reviewList;
         mViewModel = viewModel;
         mContext = context;

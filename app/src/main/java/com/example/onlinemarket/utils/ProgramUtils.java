@@ -12,16 +12,6 @@ public class ProgramUtils {
     public static final String TAG = "OnlineShop";
     public static final String TEST_TAG="TEST_ONLINE_APP";
 
-    public static Review reviewTesting(){
-        Review review=new Review(
-                "خوبه هر چند میتونست بهتر باشه" ,
-                662,
-                3,"مستانه"
-                , "leili@yahoo.com");
-
-        return review;
-    }
-
     public static Customer customerTesting(){
       Links links=new Links(new ArrayList<>(),
                 new ArrayList<>());

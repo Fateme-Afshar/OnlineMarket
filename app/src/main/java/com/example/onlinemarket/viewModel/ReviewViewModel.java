@@ -25,6 +25,10 @@ public class ReviewViewModel extends AndroidViewModel {
         mReviewRepository.requestToReceiveProductReview(productId);
     }
 
+    public void requestToServerForDeleteReview(int reviewId){
+        mReviewRepository.deleteReview(reviewId);
+    }
+
     public LiveData<List<Review>> getListLiveData() {
         return mListLiveData;
     }

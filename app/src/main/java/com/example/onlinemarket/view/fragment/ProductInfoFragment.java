@@ -88,7 +88,7 @@ public class ProductInfoFragment extends Fragment{
     }
 
     private void setupReviewAdapter(List<Review> reviews) {
-        mReviewAdapter=new ReviewAdapter(reviews,mProductViewModel,getActivity());
+        mReviewAdapter=new ReviewAdapter(reviews,mReviewViewModel,getActivity());
 
         mBinding.recyclerViewReviewer.setAdapter(mReviewAdapter);
         mBinding.recyclerViewReviewer.setLayoutManager
