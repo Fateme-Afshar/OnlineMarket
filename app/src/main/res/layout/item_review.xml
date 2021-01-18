@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:maxHeight="300dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RatingBar
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStylePersian"
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="3dp"
+                android:text="@string/rate"
+                android:textSize="9sp"
+                android:layout_alignParentEnd="true" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_reviewer"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rating_bar"
+                android:layout_marginTop="3dp"
+                android:textSize="12sp"
+                tools:text="فاطمه افشار" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_review"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_reviewer"
+                android:textSize="12sp"
+                tools:text="مثل همیشه عالی هست" />
+
+            <View
+                android:id="@+id/v"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_review"
+                android:layout_marginTop="3dp"
+                android:background="@color/beauty_gray" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v"
+                android:layout_alignParentRight="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_edit" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_delete" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

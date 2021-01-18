@@ -50,4 +50,8 @@ public class ReviewRepository {
         });
 
     }
+
+    public void requestToReceiveProductReview(int productId){
+
+    }
 }
