@@ -193,6 +193,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_post_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -278,6 +279,26 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_comments"
+            style="@style/TextStylePersian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comments"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@+id/card_post_review"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_reviewer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_comments"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

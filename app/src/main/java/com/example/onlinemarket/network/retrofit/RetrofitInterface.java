@@ -50,6 +50,9 @@ public interface RetrofitInterface {
     Call<Review> postReview(@Body Review review,
                             @QueryMap Map<String, String> queryMap);
 
+    @GET("products/reviews")
+    Call<List<Review>> getReview(@QueryMap Map<String, String> queryMap);
+
     @GET("coupons")
     Call<Coupons> getCoupons(@QueryMap  Map<String, String> queryMap);
 }

@@ -7,21 +7,31 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.adapter.ReviewAdapter;
 import com.example.onlinemarket.databinding.FragmentProductInfoBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.activity.MainActivity;
+import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
+import com.example.onlinemarket.viewModel.ReviewViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductInfoFragment extends Fragment{
     private FragmentProductInfoBinding mBinding;
 
     private Product mProductModel;
 
-    private ProductViewModel mViewModel;
+    private ProductViewModel mProductViewModel;
+    private ReviewViewModel mReviewViewModel;
+
+    private ReviewAdapter mReviewAdapter;
 
     private ImageSlider mImageSlider;
 
@@ -43,9 +53,20 @@ public class ProductInfoFragment extends Fragment{
         mProductModel =
                 ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
 
-        mViewModel=new ViewModelProvider(this).
+        mProductViewModel =new ViewModelProvider(this).
                 get(ProductViewModel.class);
-        mViewModel.setProduct(mProductModel);
+        mProductViewModel.setProduct(mProductModel);
+
+        mReviewViewModel=new ViewModelProvider(this).
+                get(ReviewViewModel.class);
+
+        mReviewViewModel.requestToReceiveProductReview(mProductModel.getId());
+        mReviewViewModel.getListLiveData().observe(this, new Observer<List<Review>>() {
+            @Override
+            public void onChanged(List<Review> reviews) {
+                setupReviewAdapter(reviews);
+            }
+        });
     }
 
     @Override
@@ -59,10 +80,20 @@ public class ProductInfoFragment extends Fragment{
         //mBinding.webView.loadUrl(mProductUrl);
 
         mImageSlider = new ImageSlider(mBinding.imgSlider);
-        mImageSlider.startSlider(mViewModel.getProduct().getImgUrls());
+        mImageSlider.startSlider(mProductViewModel.getProduct().getImgUrls());
 
-        mBinding.setViewModel(mViewModel);
+        mBinding.setViewModel(mProductViewModel);
 
         return mBinding.getRoot();
+    }
+
+    private void setupReviewAdapter(List<Review> reviews) {
+        mReviewAdapter=new ReviewAdapter(reviews,mProductViewModel,getActivity());
+
+        mBinding.recyclerViewReviewer.setAdapter(mReviewAdapter);
+        mBinding.recyclerViewReviewer.setLayoutManager
+                (new LinearLayoutManager(getActivity(),
+                        LinearLayoutManager.HORIZONTAL,
+                        true));
     }
 }
