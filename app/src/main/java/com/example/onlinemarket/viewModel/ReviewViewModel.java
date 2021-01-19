@@ -1,14 +1,11 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.AlertDialog;
 import android.app.Application;
-import android.content.DialogInterface;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.repository.ReviewRepository;
 
@@ -16,19 +13,27 @@ import java.util.List;
 
 public class ReviewViewModel extends AndroidViewModel {
     private ReviewRepository mReviewRepository;
+
     private LiveData<List<Review>> mListLiveData;
+    private LiveData<Review> mReviewLiveData;
 
     private ReviewViewModelCallback mCallback;
 
     public ReviewViewModel(@NonNull Application application) {
         super(application);
         mReviewRepository = ReviewRepository.getInstance();
-        mListLiveData = mReviewRepository.getReviewsMutableLiveData();
+        mListLiveData = mReviewRepository.getReviewListMutableLiveData();
+        mReviewLiveData=mReviewRepository.getReviewMutableLiveData();
     }
 
-    public void requestToReceiveProductReview(int productId) {
-        mReviewRepository.requestToReceiveProductReview(productId);
+    public void requestToReceiveProductReviewList(int productId) {
+        mReviewRepository.requestToReceiveProductReviews(productId);
     }
+
+    public void requestToReceiveProductReview(int reviewId){
+        mReviewRepository.requestToReceiveProductReview(reviewId);
+    }
+
 
     public void onDeleteBtnClickListener(int reviewId){
         mCallback.onDeleteReviewClickListener(reviewId);
@@ -44,6 +49,10 @@ public class ReviewViewModel extends AndroidViewModel {
 
     public LiveData<List<Review>> getListLiveData() {
         return mListLiveData;
+    }
+
+    public LiveData<Review> getReviewLiveData() {
+        return mReviewLiveData;
     }
 
     public void setCallback(ReviewViewModelCallback callback) {

@@ -23,7 +23,9 @@ public class ReviewRepository {
     private static ReviewRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
 
-    private MutableLiveData<List<Review>> mReviewsMutableLiveData =
+    private MutableLiveData<List<Review>> mReviewListMutableLiveData =
+            new MutableLiveData<>();
+    private MutableLiveData<Review> mReviewMutableLiveData =
             new MutableLiveData<>();
 
     private ReviewRepository() {
@@ -60,11 +62,11 @@ public class ReviewRepository {
 
     }
 
-    public void requestToReceiveProductReview(int productId) {
+    public void requestToReceiveProductReviews(int productId) {
         Map<String, String> queryParameter = NetworkParams.MAP_KEYS;
         queryParameter.put("product", String.valueOf(productId));
 
-        Call<List<Review>> reviewCall=mRetrofitInterface.getReview(queryParameter);
+        Call<List<Review>> reviewCall = mRetrofitInterface.getReviews(queryParameter);
 
         reviewCall.enqueue(new Callback<List<Review>>() {
             @Override
@@ -86,7 +88,7 @@ public class ReviewRepository {
                     reviews.add(review1);
                 }
 
-                mReviewsMutableLiveData.setValue(reviews);
+                mReviewListMutableLiveData.setValue(reviews);
             }
 
             @Override
@@ -96,9 +98,34 @@ public class ReviewRepository {
         });
     }
 
-    public void deleteReview(int reviewId){
-        Call<Review> reviewCall=
-                mRetrofitInterface.deleteReview(String.valueOf(reviewId),NetworkParams.MAP_KEYS);
+    public void requestToReceiveProductReview(int reviewId) {
+        Call<Review> call =
+                mRetrofitInterface.getReview(String.valueOf(reviewId), NetworkParams.MAP_KEYS);
+
+        call.enqueue(new Callback<Review>() {
+            @Override
+            public void onResponse(Call<Review> call, Response<Review> response) {
+                Review review = new Review
+                        (response.body().getId(),
+                                response.body().getReview(),
+                                response.body().getProductId(),
+                                response.body().getRating(),
+                                response.body().getReviewer(),
+                                response.body().getReviewerEmail());
+
+                mReviewMutableLiveData.setValue(review);
+            }
+
+            @Override
+            public void onFailure(Call<Review> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteReview(int reviewId) {
+        Call<Review> reviewCall =
+                mRetrofitInterface.deleteReview(String.valueOf(reviewId), NetworkParams.MAP_KEYS);
         reviewCall.enqueue(new Callback<Review>() {
             @Override
             public void onResponse(Call<Review> call, Response<Review> response) {
@@ -129,7 +156,7 @@ public class ReviewRepository {
                             " ReviewRepository : update Review successfully   " +response.code());
                 else
                     Log.e(ProgramUtils.TAG,
-                            " ReviewRepository : update Review fail response code is "+response.code());
+                            " ReviewRepository : update Review fail response code is " + response.code());
             }
 
             @Override
@@ -139,7 +166,11 @@ public class ReviewRepository {
         });
     }
 
-    public MutableLiveData<List<Review>> getReviewsMutableLiveData() {
-        return mReviewsMutableLiveData;
+    public MutableLiveData<List<Review>> getReviewListMutableLiveData() {
+        return mReviewListMutableLiveData;
+    }
+
+    public MutableLiveData<Review> getReviewMutableLiveData() {
+        return mReviewMutableLiveData;
     }
 }

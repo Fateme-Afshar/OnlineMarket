@@ -55,13 +55,18 @@ public interface RetrofitInterface {
                             @QueryMap Map<String, String> queryMap);
 
     @GET("products/reviews")
-    Call<List<Review>> getReview(@QueryMap Map<String, String> queryMap);
+    Call<List<Review>> getReviews(@QueryMap Map<String, String> queryMap);
+
+    @GET("products/reviews/{id}")
+    Call<Review> getReview(
+            @Path("id") String id, @QueryMap Map<String, String> queryMap);
 
     @DELETE("products/reviews/{id}")
     Call<Review> deleteReview(@Path("id") String reviewId,@QueryMap Map<String, String> queryMap);
 
     @PUT("products/reviews/{id}")
-    Call<Review> updateReview(@Path("id") String reviewId,@Body Review review, @QueryMap Map<String, String> queryMap);
+    Call<Review> updateReview(
+            @Path("id") String reviewId, @Body Review review, @QueryMap Map<String, String> queryMap);
 
     @GET("coupons")
     Call<Coupons> getCoupons(@QueryMap  Map<String, String> queryMap);

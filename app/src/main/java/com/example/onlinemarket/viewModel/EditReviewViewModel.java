@@ -12,7 +12,6 @@ import com.example.onlinemarket.utils.ProgramUtils;
 
 public class EditReviewViewModel extends ViewModel {
     private ReviewRepository mReviewRepository;
-    private LiveData<Review> mReviewLiveData;
 
     private Review mReview = new Review();
 

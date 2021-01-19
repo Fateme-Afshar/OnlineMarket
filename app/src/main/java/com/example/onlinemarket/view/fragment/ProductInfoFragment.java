@@ -1,13 +1,16 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -38,6 +41,8 @@ public class ProductInfoFragment extends Fragment{
     private ReviewAdapter mReviewAdapter;
 
     private ImageSlider mImageSlider;
+
+    private int mReviewId;
 
     public ProductInfoFragment() {
         // Required empty public constructor
@@ -85,6 +90,25 @@ public class ProductInfoFragment extends Fragment{
         return mBinding.getRoot();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (resultCode!= Activity.RESULT_OK || data==null)
+            return;
+        if (requestCode==REQUEST_CODE_EDIT){
+            mReviewViewModel.requestToReceiveProductReview
+                    (data.getIntExtra(EditReviewBottomSheetFragment.EXTRA_REVIEW_ID,0));
+
+            mReviewViewModel.getReviewLiveData().observe(this, new Observer<Review>() {
+                @Override
+                public void onChanged(Review review) {
+                    //TODO : just update this review
+                    setupReviewsForProduct();
+                }
+            });
+        }
+    }
+
     private void setupReviewAdapter(List<Review> reviews) {
         mReviewAdapter=new ReviewAdapter(reviews,mReviewViewModel,getActivity());
 
@@ -96,7 +120,7 @@ public class ProductInfoFragment extends Fragment{
     }
 
     private void setupReviewsForProduct() {
-        mReviewViewModel.requestToReceiveProductReview(mProductModel.getId());
+        mReviewViewModel.requestToReceiveProductReviewList(mProductModel.getId());
         mReviewViewModel.getListLiveData().observe(this, new Observer<List<Review>>() {
             @Override
             public void onChanged(List<Review> reviews) {
@@ -136,7 +160,7 @@ public class ProductInfoFragment extends Fragment{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mReviewViewModel.deleteReview(reviewId);
-                        mReviewViewModel.requestToReceiveProductReview(mProductViewModel.getProduct().getId());
+                        mReviewViewModel.requestToReceiveProductReviewList(mProductViewModel.getProduct().getId());
 
                         Toast.
                                 makeText(getActivity(),"این چه کاری بود عاخههه؟" ,Toast.LENGTH_LONG).

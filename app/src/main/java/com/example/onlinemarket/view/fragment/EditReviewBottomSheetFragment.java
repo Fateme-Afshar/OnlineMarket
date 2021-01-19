@@ -1,9 +1,12 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -22,7 +25,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
  * create an instance of this fragment.
  */
 public class EditReviewBottomSheetFragment extends BottomSheetDialogFragment {
-    public static final String ARG_REVIEW = "Review";
+    public static final String ARG_REVIEW = "com.example.onlinemarket.Review";
+    public static final String EXTRA_REVIEW_ID = "ReviewId";
     private FragmentEditReviewBinding mBinding;
 
     private EditReviewViewModel mViewModel;
@@ -30,7 +34,6 @@ public class EditReviewBottomSheetFragment extends BottomSheetDialogFragment {
     public EditReviewBottomSheetFragment() {
         // Required empty public constructor
     }
-
 
     public static EditReviewBottomSheetFragment newInstance(Review review) {
         EditReviewBottomSheetFragment fragment = new EditReviewBottomSheetFragment();
@@ -50,6 +53,7 @@ public class EditReviewBottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onEditBtnClickListener(Review review) {
                 mViewModel.updateReview(review.getId(),review);
+                sendData(review.getId());
                 dismiss();
             }
 
@@ -58,6 +62,15 @@ public class EditReviewBottomSheetFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+
+    }
+
+    private void sendData(int reviewId) {
+        int requestCode= EditReviewBottomSheetFragment.this.getTargetRequestCode();
+        Fragment fragment=EditReviewBottomSheetFragment.this.getTargetFragment();
+        Intent intent=new Intent();
+        intent.putExtra(EXTRA_REVIEW_ID,reviewId);
+        fragment.onActivityResult(requestCode, Activity.RESULT_OK,intent);
     }
 
     @Override
