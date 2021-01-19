@@ -1,6 +1,5 @@
 package com.example.onlinemarket.utils;
 
-import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Billing;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.customer.Links;

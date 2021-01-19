@@ -77,6 +77,11 @@ public class ProductViewModel extends AndroidViewModel {
         mReview.setProductId(mProduct.getId());
 
         mReviewRepository.postReviewToServer(mReview);
+        Toast.
+                makeText(getApplication(),
+                        "دیدگاه شما با موفقیت ثبت شد و در دست بررسی است" ,
+                        Toast.LENGTH_LONG).
+                show();
     }
 
     public String getNormalText(String text) {

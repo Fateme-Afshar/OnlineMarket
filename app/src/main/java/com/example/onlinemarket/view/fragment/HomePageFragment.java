@@ -77,6 +77,42 @@ public class HomePageFragment extends Fragment{
         super.onCreate(savedInstanceState);
         PollWorkManager.enqueue(getContext(),1,false);
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_home_page,
+                container,
+                false);
+
+        mImageSlider=new ImageSlider(mBinding.vfSliderProduct);
+        mImageSlider.startSlider();
+        setupProducts();
+        return mBinding.getRoot();
+    }
+
+    private void setupAdapter(List<Product> productList, RecyclerView recyclerView) {
+        ProductAdapter productAdapter = new ProductAdapter(getContext(),productList);
+        productAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
+            @Override
+            public void onProductSelected(Product product) {
+                    mCallbacks.onItemClickListener(product);
+            }
+        });
+
+        recyclerView.setLayoutManager
+                (new LinearLayoutManager(getContext(),
+                        RecyclerView.HORIZONTAL,
+                        true));
+        recyclerView.setAdapter(productAdapter);
+    }
+
+    private void setupProducts() {
         //receive newest products
         Map<String, String> queryMapNewest = new HashMap<>();
         queryMapNewest.put(QueryParameters.ORDER_BY, "date");
@@ -99,39 +135,6 @@ public class HomePageFragment extends Fragment{
         Map<String, String> queryMapSpecial = new HashMap<>();
         queryMapSpecial.put(QueryParameters.ON_SALE, "true");
         getProducts(queryMapSpecial, Titles.SPECIAL_PRODUCT);
-
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_home_page,
-                container,
-                false);
-
-        mImageSlider=new ImageSlider(mBinding.vfSliderProduct);
-        mImageSlider.startSlider();
-
-        return mBinding.getRoot();
-    }
-
-    private void setupAdapter(List<Product> productList, RecyclerView recyclerView) {
-        ProductAdapter productAdapter = new ProductAdapter(getContext(),productList);
-        productAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
-            @Override
-            public void onProductSelected(Product product) {
-                    mCallbacks.onItemClickListener(product);
-            }
-        });
-
-        recyclerView.setLayoutManager
-                (new LinearLayoutManager(getContext(),
-                        RecyclerView.HORIZONTAL,
-                        true));
-        recyclerView.setAdapter(productAdapter);
     }
 
     private void getProducts(Map<String, String> queryMap, Titles title) {

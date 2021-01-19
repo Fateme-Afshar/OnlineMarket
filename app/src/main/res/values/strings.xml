@@ -117,4 +117,6 @@
     <string name="record_new_coupons">ثبت کد تخفیف جدید</string>
     <string name="rate">امتیاز:</string>
     <string name="comments">نظرات کاربران</string>
+    <string name="update_review">ادیتش کن</string>
+    <string name="cancel_update_review">ادیتش نکن</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.onlinemarket.network.retrofit;
 
+import androidx.room.Update;
+
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
@@ -16,6 +18,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -56,6 +59,9 @@ public interface RetrofitInterface {
 
     @DELETE("products/reviews/{id}")
     Call<Review> deleteReview(@Path("id") String reviewId,@QueryMap Map<String, String> queryMap);
+
+    @PUT("products/reviews/{id}")
+    Call<Review> updateReview(@Path("id") String reviewId,@Body Review review, @QueryMap Map<String, String> queryMap);
 
     @GET("coupons")
     Call<Coupons> getCoupons(@QueryMap  Map<String, String> queryMap);

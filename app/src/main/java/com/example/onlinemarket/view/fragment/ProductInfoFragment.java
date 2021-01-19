@@ -1,9 +1,12 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -20,10 +23,11 @@ import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 import com.example.onlinemarket.viewModel.ReviewViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductInfoFragment extends Fragment{
+    public static final int REQUEST_CODE_EDIT = 1;
+    public static final String TAG_PRODUCT_INFO_FRAGMENT = "ProductInfoFragment";
     private FragmentProductInfoBinding mBinding;
 
     private Product mProductModel;
@@ -60,14 +64,9 @@ public class ProductInfoFragment extends Fragment{
         mReviewViewModel=new ViewModelProvider(this).
                 get(ReviewViewModel.class);
 
-        mReviewViewModel.requestToReceiveProductReview(mProductModel.getId());
-        mReviewViewModel.getListLiveData().observe(this, new Observer<List<Review>>() {
-            @Override
-            public void onChanged(List<Review> reviews) {
-                setupReviewAdapter(reviews);
-            }
-        });
+        setupReviewsForProduct();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +76,6 @@ public class ProductInfoFragment extends Fragment{
                 R.layout.fragment_product_info,
                 container,
                 false);
-        //mBinding.webView.loadUrl(mProductUrl);
 
         mImageSlider = new ImageSlider(mBinding.imgSlider);
         mImageSlider.startSlider(mProductViewModel.getProduct().getImgUrls());
@@ -95,5 +93,59 @@ public class ProductInfoFragment extends Fragment{
                 (new LinearLayoutManager(getActivity(),
                         LinearLayoutManager.HORIZONTAL,
                         true));
+    }
+
+    private void setupReviewsForProduct() {
+        mReviewViewModel.requestToReceiveProductReview(mProductModel.getId());
+        mReviewViewModel.getListLiveData().observe(this, new Observer<List<Review>>() {
+            @Override
+            public void onChanged(List<Review> reviews) {
+                setupReviewAdapter(reviews);
+            }
+        });
+
+        mReviewViewModel.setCallback(new ReviewViewModel.ReviewViewModelCallback() {
+            @Override
+            public void onDeleteReviewClickListener(int reviewId) {
+                ProductInfoFragment.this.onDeleteReviewClickListener(reviewId);
+            }
+
+            @Override
+            public void onEditBtnClickListener(Review review) {
+                alertBottomSheetDialog(review);
+            }
+        });
+    }
+
+    private void alertBottomSheetDialog(Review review) {
+        EditReviewBottomSheetFragment fragment=
+                EditReviewBottomSheetFragment.newInstance(review);
+
+        //create parent-child relationship between ProductInfoFragment and EditReviewBottomSheetFragment
+        fragment.setTargetFragment(ProductInfoFragment.this, REQUEST_CODE_EDIT);
+
+        fragment.show(ProductInfoFragment.this.getParentFragmentManager(),
+                TAG_PRODUCT_INFO_FRAGMENT);
+    }
+
+    private void onDeleteReviewClickListener(int reviewId) {
+        AlertDialog questionDialog = new AlertDialog.Builder(getContext()).
+                setTitle("مطمئنی میخوای حذف کنی پیام ملتو؟ ").
+                setIcon(R.drawable.ic_luncher).
+                setPositiveButton("حذفش کن بره", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mReviewViewModel.deleteReview(reviewId);
+                        mReviewViewModel.requestToReceiveProductReview(mProductViewModel.getProduct().getId());
+
+                        Toast.
+                                makeText(getActivity(),"این چه کاری بود عاخههه؟" ,Toast.LENGTH_LONG).
+                                show();
+                    }
+                }).
+                setNegativeButton("خو حالا بزار باشه",null).
+                create();
+
+        questionDialog.show();
     }
 }

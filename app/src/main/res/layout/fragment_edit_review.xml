@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.onlinemarket.utils.PersianNumberUtils"/>
+        <variable
+            name="viewModel"
+            type="com.example.onlinemarket.viewModel.EditReviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/beauty_light_gray">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_reviewer"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_reviewer"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="13sp"
+                android:afterTextChanged="@{viewModel::afterTextChangeReviewer}"
+                android:text="@{viewModel.review.reviewer}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_review"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_reviewer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_review"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="13sp"
+                android:afterTextChanged="@{viewModel::afterTextChangeReview}"
+                showDescription="@{viewModel.review.review}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_rating"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_review">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_rating"
+                style="@style/TextStylePersian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="13sp"
+                android:afterTextChanged="@{viewModel::afterTextChangeRate}"
+                android:text="@{PersianNumberUtils.convert(viewModel.review.rating)}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/update_review"
+            app:layout_constraintEnd_toEndOf="@+id/til_rating"
+            app:layout_constraintTop_toBottomOf="@+id/til_rating"
+            android:onClick="@{()->viewModel.onEditBtnClickListener(viewModel.review)}"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:inputType="numberDecimal"
+            android:text="@string/cancel_update_review"
+            app:layout_constraintStart_toStartOf="@+id/til_rating"
+            app:layout_constraintTop_toBottomOf="@+id/til_rating"
+            android:onClick="@{()->viewModel.onCancelBtnClickListener()}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
