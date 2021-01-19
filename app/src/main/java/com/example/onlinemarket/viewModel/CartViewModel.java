@@ -38,7 +38,7 @@ public class CartViewModel extends AndroidViewModel {
 
     private LifecycleOwner mLifecycleOwner;
 
-    private String mCouponCode;
+    private String mCouponCode="";
 
     private Orders mOrders;
     private Customer mCustomer;
@@ -74,6 +74,10 @@ public class CartViewModel extends AndroidViewModel {
     }
 
     public void onRecordCouponBtnClickListener(){
+        if (mCouponCode.equals("")) {
+            Toast.makeText(getApplication(), "لطفا کد تخفیف را وارد کنید", Toast.LENGTH_LONG).show();
+            return;
+        }
         mCouponsRepository.searchCouponsCode(mCouponCode);
 
         mCouponsLiveData.observe(mLifecycleOwner, new Observer<Coupons>() {
@@ -118,7 +122,7 @@ public class CartViewModel extends AndroidViewModel {
     }
 
     public void afterTextChangeCoupon(Editable editable) {
-        mCouponCode=editable.toString();
+            mCouponCode = editable.toString();
     }
 
     public List<Product> getProductList() {

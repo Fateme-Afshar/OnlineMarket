@@ -64,7 +64,8 @@ public class NetworkParams {
     @NotNull
     public static Map<String, String> querySearch(String title, String search) {
         Map<String,String> queryParameter=new HashMap<>();
-        queryParameter.put("attributes",title);
+        queryParameter.putAll(MAP_KEYS);
+        queryParameter.put("attribute",title);
         queryParameter.put("search",search);
         return queryParameter;
     }

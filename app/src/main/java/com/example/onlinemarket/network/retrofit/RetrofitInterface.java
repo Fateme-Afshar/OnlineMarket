@@ -1,7 +1,5 @@
 package com.example.onlinemarket.network.retrofit;
 
-import androidx.room.Update;
-
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
@@ -69,5 +67,5 @@ public interface RetrofitInterface {
             @Path("id") String reviewId, @Body Review review, @QueryMap Map<String, String> queryMap);
 
     @GET("coupons")
-    Call<Coupons> getCoupons(@QueryMap  Map<String, String> queryMap);
+    Call<List<Coupons>> getCoupons(@QueryMap  Map<String, String> queryMap);
 }

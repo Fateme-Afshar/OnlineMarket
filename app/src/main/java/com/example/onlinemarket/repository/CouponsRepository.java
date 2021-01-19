@@ -1,6 +1,6 @@
 package com.example.onlinemarket.repository;
 
-import android.widget.Toast;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -8,8 +8,9 @@ import com.example.onlinemarket.model.coupons.Coupons;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
 import com.example.onlinemarket.utils.NetworkParams;
+import com.example.onlinemarket.utils.ProgramUtils;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -34,20 +35,25 @@ public class CouponsRepository {
         return sInstance;
     }
 
-    public void searchCouponsCode(String code){
-        Map<String,String> queryParameter=NetworkParams.querySearch("code",code);
-        queryParameter.putAll(NetworkParams.MAP_KEYS);
+    public void searchCouponsCode(String code) {
+        Call<List<Coupons>> couponsCall=
+                mRetrofitInterface.getCoupons(NetworkParams.querySearch("code",code));
 
-        Call<Coupons> couponsCall=mRetrofitInterface.getCoupons(queryParameter);
-        couponsCall.enqueue(new Callback<Coupons>() {
+        couponsCall.enqueue(new Callback<List<Coupons>>() {
             @Override
-            public void onResponse(Call<Coupons> call, Response<Coupons> response) {
-               mCouponsMutableLiveData.setValue(response.body());
+            public void onResponse(Call<List<Coupons>> call, Response<List<Coupons>> response) {
+                    Coupons coupons=new Coupons
+                            (response.body().get(0).getAmount(),
+                                    response.body().get(0).getCode(),
+                                    response.body().get(0).getMinimumAmount(),
+                                    response.body().get(0).getDescription());
+
+                    mCouponsMutableLiveData.setValue(coupons);
             }
 
             @Override
-            public void onFailure(Call<Coupons> call, Throwable t) {
-
+            public void onFailure(Call<List<Coupons>> call, Throwable t) {
+                Log.e(ProgramUtils.TEST_TAG,"CouponsRepository : Coupons check fail " +t.getMessage());
             }
         });
     }
