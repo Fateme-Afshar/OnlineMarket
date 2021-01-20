@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentCustmerBinding;
 import com.example.onlinemarket.databinding.FragmentCustomerInfoBinding;
 import com.example.onlinemarket.view.OpenProductPage;
+import com.example.onlinemarket.viewModel.CustomerInfoViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 /**
@@ -28,6 +30,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class CustomerInfoFragment extends Fragment {
     private FragmentCustomerInfoBinding mBinding;
     private CustomerInfoFragmentCallback mCallback;
+
+    private CustomerInfoViewModel mViewModel;
 
     public CustomerInfoFragment() {
         // Required empty public constructor
@@ -56,7 +60,14 @@ public class CustomerInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
 
+        mViewModel.setCallback(new CustomerInfoViewModel.CustomerInfoViewModelCallback() {
+            @Override
+            public void onMapButtonClickListener() {
+                mCallback.getMapFragment();
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
@@ -70,7 +81,8 @@ public class CustomerInfoFragment extends Fragment {
                 container,
                 false);
 
-      mCallback.getMapFragment();
+        mBinding.setViewModel(mViewModel);
+
         return mBinding.getRoot();
     }
 

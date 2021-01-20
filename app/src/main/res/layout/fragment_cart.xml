@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:text='@{viewModel.totalPrice+"قیمت کل : "}'
             android:textSize="15sp"
-            android:background="@drawable/solid_pink_gray"
+            android:background="@drawable/solid_light_yellow"
             android:padding="10dp"
             />
 

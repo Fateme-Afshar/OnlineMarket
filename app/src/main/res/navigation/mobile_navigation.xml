@@ -87,15 +87,14 @@
 
     <fragment
         android:id="@+id/nav_map"
-        android:name="com.example.onlinemarket.view.fragment.MapFragment"
-        android:label=" "
-        tools:layout="@layout/fragment_map"
+        android:name="com.example.onlinemarket.view.fragment.MapTestFragment"
+        android:label="نقشه"
         />
 
     <fragment
         android:id="@+id/nav_cart"
         android:name="com.example.onlinemarket.view.fragment.CartFragment"
-        android:label=" "
+        android:label="سبد خرید"
         tools:layout="@layout/fragment_cart"
         />
 

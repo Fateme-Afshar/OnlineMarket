@@ -119,4 +119,5 @@
     <string name="comments">نظرات کاربران</string>
     <string name="update_review">ادیتش کن</string>
     <string name="cancel_update_review">ادیتش نکن</string>
+    <string name="set_address_by_map">انتخاب آدرس از روی نقشه</string>
 </resources>

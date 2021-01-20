@@ -5,75 +5,80 @@
     >
 
     <data>
-
+            <variable
+                name="viewModel"
+                type="com.example.onlinemarket.viewModel.CustomerInfoViewModel" />
     </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-            <FrameLayout
-                android:id="@+id/map_fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_gravity="bottom"
-                />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".view.fragment.CustomerInfoFragment"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/img_customer_info"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_first_name"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
+                style="@style/TextStylePersian.YellowBackground"
+                android:layout_width="wrap_content"
+                android:minWidth="250dp"
                 android:layout_height="wrap_content"
-                android:text="@string/first_name"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/border_light_gray" />
+                tools:text="@string/first_name"
+                android:text="@{viewModel.customer.firstName}"
+                android:layout_gravity="center"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_last_name"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
+                style="@style/TextStylePersian.YellowBackground"
+                android:layout_width="wrap_content"
+                android:minWidth="250dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:text="@string/family_name"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/border_light_gray" />
+                android:text="@{viewModel.customer.lastName}"
+                tools:text="@string/family_name" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_email_name"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
+                style="@style/TextStylePersian.YellowBackground"
+                android:layout_width="wrap_content"
+                android:minWidth="250dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:text="@string/email_address"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/border_light_gray" />
+                android:text="@{viewModel.customer.email}"
+                tools:text="@string/email_address"
+                android:textSize="15sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_username_name"
-                style="@style/TextStylePersian"
-                android:layout_width="match_parent"
+                style="@style/TextStylePersian.YellowBackground"
+                android:layout_width="wrap_content"
+                android:minWidth="250dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:text="@string/username"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/border_light_gray" />
+                android:text="@{viewModel.customer.username}"
+                tools:text="@string/username"
+                android:textSize="15sp" />
 
 
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="24dp"
+                app:icon="@drawable/ic_location"
+                android:text="@string/set_address_by_map"
+                android:layoutDirection="rtl"
+                android:onClick="@{()->viewModel.onMapButtonClickListener()}"
+                />
         </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -11,8 +11,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -21,16 +19,11 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.AccountFragment;
-import com.example.onlinemarket.view.fragment.CartFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragmentDirections;
-import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.CustomerInfoFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragmentDirections;
-import com.example.onlinemarket.view.fragment.MapFragment;
-import com.example.onlinemarket.view.fragment.SearchFragment;
-import com.example.onlinemarket.view.fragment.SignUpPageFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity
