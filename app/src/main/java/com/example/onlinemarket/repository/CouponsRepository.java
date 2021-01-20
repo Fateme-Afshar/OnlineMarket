@@ -43,7 +43,7 @@ public class CouponsRepository {
             public void onResponse(Call<List<Coupons>> call, Response<List<Coupons>> response) {
                 Coupons coupons = null;
                 if (!response.isSuccessful() || response.body().size() == 0) {
-                    Log.e(ProgramUtils.TEST_TAG,
+                    Log.e(ProgramUtils.TAG,
                             "CouponsRepository : Coupons check fail cause by one of them : " +
                                     response.code() + " response body size:  " + response.body().size());
                 }
@@ -52,7 +52,7 @@ public class CouponsRepository {
 
             @Override
             public void onFailure(Call<List<Coupons>> call, Throwable t) {
-                Log.e(ProgramUtils.TEST_TAG,"CouponsRepository : Coupons check fail " +t.getMessage());
+                Log.e(ProgramUtils.TAG,"CouponsRepository : Coupons check fail " +t.getMessage());
             }
         });
     }

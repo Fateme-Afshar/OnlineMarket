@@ -71,13 +71,18 @@ public class CustomerRepository {
         customerCall.enqueue(new Callback<List<Customer>>() {
             @Override
             public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
-                Log.d(ProgramUtils.TEST_TAG,"CustomerRepository : receive customer from server ");
+                if (!response.isSuccessful() || response.body().size() == 0){
+                    Log.e(ProgramUtils.TAG,
+                            "CustomerRepository : can't receive customer from server cause by : one of them : response code: "+
+                                    response.code()+"response  body size"+ response.body().size());
+                }
+                Log.d(ProgramUtils.TAG,"CustomerRepository : receive customer from server successfully");
                 mCustomerLiveData.postValue(response.body().get(0));
             }
 
             @Override
             public void onFailure(Call<List<Customer>> call, Throwable t) {
-                Log.e(ProgramUtils.TEST_TAG,
+                Log.e(ProgramUtils.TAG,
                         "CustomerRepository : can't receive customer from server cause by : "+ t.getMessage());
             }
         });
