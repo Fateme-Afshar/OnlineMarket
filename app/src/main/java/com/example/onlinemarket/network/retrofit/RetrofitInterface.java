@@ -3,7 +3,7 @@ package com.example.onlinemarket.network.retrofit;
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
-import com.example.onlinemarket.model.coupons.Coupons;
+import com.example.onlinemarket.model.Coupons;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.Orders;
 import com.example.onlinemarket.model.response.CatObj;

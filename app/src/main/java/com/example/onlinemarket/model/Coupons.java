@@ -1,17 +1,20 @@
-package com.example.onlinemarket.model.coupons;
+package com.example.onlinemarket.model;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Coupons{
 
 	@SerializedName("amount")
-	private String amount;
+	private int amount;
 
 	@SerializedName("code")
 	private String code;
 
 	@SerializedName("minimum_amount")
-	private String minimumAmount;
+	private int minimumAmount;
+
+	@SerializedName("maximum_amount")
+	private int maximumAmount;
 
 	@SerializedName("description")
 	private String mDescription;
@@ -20,21 +23,23 @@ public class Coupons{
 	}
 
 	public Coupons(
-			String amount,
+			int amount,
 			String code,
-			String minimumAmount,
+			int minimumAmount,
+			int maximumAmount,
 			String description) {
 		this.amount = amount;
 		this.code = code;
 		this.minimumAmount = minimumAmount;
 		mDescription = description;
+		this.maximumAmount=maximumAmount;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
@@ -46,11 +51,11 @@ public class Coupons{
 		this.code = code;
 	}
 
-	public String getMinimumAmount() {
+	public int getMinimumAmount() {
 		return minimumAmount;
 	}
 
-	public void setMinimumAmount(String minimumAmount) {
+	public void setMinimumAmount(int minimumAmount) {
 		this.minimumAmount = minimumAmount;
 	}
 
@@ -60,5 +65,13 @@ public class Coupons{
 
 	public void setDescription(String description) {
 		mDescription = description;
+	}
+
+	public int getMaximumAmount() {
+		return maximumAmount;
+	}
+
+	public void setMaximumAmount(int maximumAmount) {
+		this.maximumAmount = maximumAmount;
 	}
 }

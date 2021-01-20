@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer;
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.model.coupons.Coupons;
+import com.example.onlinemarket.model.Coupons;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.LineItemsItem;
 import com.example.onlinemarket.model.orders.Orders;
@@ -75,7 +75,8 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onRecordCouponBtnClickListener(){
         if (mCouponCode.equals("")) {
-            Toast.makeText(getApplication(), "لطفا کد تخفیف را وارد کنید", Toast.LENGTH_LONG).show();
+            Toast.makeText
+                    (getApplication(), "لطفا کد تخفیف را وارد کنید", Toast.LENGTH_LONG).show();
             return;
         }
         mCouponsRepository.searchCouponsCode(mCouponCode);
@@ -83,15 +84,21 @@ public class CartViewModel extends AndroidViewModel {
         mCouponsLiveData.observe(mLifecycleOwner, new Observer<Coupons>() {
             @Override
             public void onChanged(Coupons coupons) {
-                if (coupons==null){
-                    Toast.makeText(
-                            getApplication(),
-                            "کد تخفیف نامعتبر است ",
-                            Toast.LENGTH_LONG).
-                            show();
-                }else {
+                if (coupons==null || !mCouponCode.equals(coupons.getCode())){
+                    Toast.makeText
+                            (getApplication(), "کد تخفیف نامعتبر است ", Toast.LENGTH_LONG).show();
+                }else{
                     //TODO : calculate final amount
-                    Log.d(ProgramUtils.TEST_TAG,"valid coupons");
+                    if (mTotalPrice<coupons.getAmount() ||
+                            mTotalPrice<coupons.getMinimumAmount() ||
+                            mTotalPrice > coupons.getMaximumAmount()){
+                        Toast.makeText
+                                (getApplication(), "به خرید شما کد تخفیف تعلق نمیگیرد", Toast.LENGTH_LONG).show();
+                    }else {
+                        mTotalPrice=mTotalPrice-coupons.getAmount();
+                        Toast.makeText
+                                (getApplication(), "تخفیف با موفقیت اعمال شد", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

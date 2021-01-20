@@ -4,14 +4,13 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.onlinemarket.model.coupons.Coupons;
+import com.example.onlinemarket.model.Coupons;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,12 +41,20 @@ public class CouponsRepository {
         couponsCall.enqueue(new Callback<List<Coupons>>() {
             @Override
             public void onResponse(Call<List<Coupons>> call, Response<List<Coupons>> response) {
-                    Coupons coupons=new Coupons
+                Coupons coupons = null;
+                if (response.isSuccessful() && response.body().size() != 0) {
+                    coupons = new Coupons
                             (response.body().get(0).getAmount(),
                                     response.body().get(0).getCode(),
                                     response.body().get(0).getMinimumAmount(),
+                                    response.body().get(0).getMaximumAmount(),
                                     response.body().get(0).getDescription());
 
+                } else {
+                    Log.e(ProgramUtils.TEST_TAG,
+                            "CouponsRepository : Coupons check fail cause by one of them : " +
+                                    response.code() + " response body size:  " + response.body().size());
+                }
                     mCouponsMutableLiveData.setValue(coupons);
             }
 
