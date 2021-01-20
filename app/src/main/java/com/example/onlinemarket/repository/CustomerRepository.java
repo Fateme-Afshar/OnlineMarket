@@ -71,13 +71,17 @@ public class CustomerRepository {
         customerCall.enqueue(new Callback<List<Customer>>() {
             @Override
             public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                Customer customer;
                 if (!response.isSuccessful() || response.body().size() == 0){
                     Log.e(ProgramUtils.TAG,
                             "CustomerRepository : can't receive customer from server cause by : one of them : response code: "+
                                     response.code()+"response  body size"+ response.body().size());
+                    customer=null;
+                }else {
+                    Log.d(ProgramUtils.TAG, "CustomerRepository : receive customer from server successfully");
+                    customer=response.body().get(0);
                 }
-                Log.d(ProgramUtils.TAG,"CustomerRepository : receive customer from server successfully");
-                mCustomerLiveData.postValue(response.body().get(0));
+                    mCustomerLiveData.postValue(customer);
             }
 
             @Override
