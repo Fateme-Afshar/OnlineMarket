@@ -76,7 +76,8 @@ public class CustomerRepository {
 
             @Override
             public void onFailure(Call<Customer> call, Throwable t) {
-
+                Log.e(ProgramUtils.TEST_TAG,
+                        "CustomerRepository : can't receive customer from server cause by : "+ t.getMessage());
             }
         });
     }

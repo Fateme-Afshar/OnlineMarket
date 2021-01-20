@@ -13,8 +13,8 @@ import androidx.lifecycle.Observer;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Coupons;
+import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.LineItemsItem;
 import com.example.onlinemarket.model.orders.Orders;
@@ -56,11 +56,17 @@ public class CartViewModel extends AndroidViewModel {
         return mPurchasedRepository.getList();
     }
 
-    public void onBuyBtnClickListener(){
-        List<LineItemsItem> productLines=new ArrayList<>();
+    public void onBuyBtnClickListener() {
+        if (mCustomer == null) {
+            Toast.makeText(getApplication(),
+                    "ابتدا وارد حساب کاربری خود شوید",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        List<LineItemsItem> productLines = new ArrayList<>();
 
         for (Product product : mProductList) {
-            LineItemsItem lineItemsItem=new LineItemsItem(
+            LineItemsItem lineItemsItem = new LineItemsItem(
                     String.valueOf(product.getRegularPrice()),
                     (int) product.getPrice(),
                     product.getId(),
@@ -68,7 +74,11 @@ public class CartViewModel extends AndroidViewModel {
 
             productLines.add(lineItemsItem);
         }
-        mOrders=new Orders(String.valueOf(mTotalPrice),mCustomer.getId(),productLines,mCustomer.getUsername());
+        mOrders = new Orders
+                (String.valueOf(mTotalPrice),
+                        mCustomer.getId(),
+                        productLines,
+                        mCustomer.getUsername());
 
         postOrdersToServer(mOrders);
     }

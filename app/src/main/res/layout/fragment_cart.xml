@@ -57,6 +57,7 @@
             android:text="@string/empty_shop_basket"
             android:textSize="12sp"
             android:visibility="gone"
+            android:layout_gravity="center"
             />
 
         <com.google.android.material.button.MaterialButton
