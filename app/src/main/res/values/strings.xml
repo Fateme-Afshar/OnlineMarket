@@ -38,6 +38,12 @@
     <string name="menu_filter">فیلتر</string>
     <string name="menu_account">حساب کاربری</string>
     <string name="menu_notification">تنظیمات اعلان</string>
+    <string name="menu_products">محصولات</string>
+    <string name="menu_map">نقشه</string>
+    <string name="menu_cart">سبد خرید</string>
+    <string name="menu_customer_info">اطلاعات مشتری</string>
+    <string name="menu_login">ورود</string>
+    <string name="menu_sign">ثبت نام</string>
     <string name="menu_product_info">اطلاعات محصول</string>
     <string name="menu_more_visited">پربازدید ترین ها</string>
     <string name="menu_best_product">بهترین ها</string>
@@ -120,4 +126,6 @@
     <string name="update_review">ادیتش کن</string>
     <string name="cancel_update_review">ادیتش نکن</string>
     <string name="set_address_by_map">انتخاب آدرس از روی نقشه</string>
+    <string name="location_dialog">ما برای نمایش این صفحه و ثبت آدرس از روی نقشه احتیاج به دسترسی به موقعیت جغرافیایی شما (Location) داریم .
+        آیا به ما این دسترسی را می دهید ؟</string>
 </resources>

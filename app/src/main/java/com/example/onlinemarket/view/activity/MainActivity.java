@@ -116,7 +116,7 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public void getSignUpFragment() {
-        navController.navigate(R.id.nav_sign);
+        navController.navigate(R.id.nav_login);
     }
 
     @Override

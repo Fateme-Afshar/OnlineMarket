@@ -21,8 +21,8 @@ public class CustomerInfoViewModel extends AndroidViewModel {
         return mCustomer;
     }
 
-    public void onMapButtonClickListener(){
-        mCallback.onMapButtonClickListener();
+    public void onMapButtonClickListener() {
+                mCallback.onMapButtonClickListener();
     }
 
     public void setCallback(CustomerInfoViewModelCallback callback) {

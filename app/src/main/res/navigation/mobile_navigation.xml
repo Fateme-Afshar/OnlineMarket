@@ -77,7 +77,7 @@
     <fragment
         android:id="@+id/nav_category_product"
         android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
-        android:label=" "
+        android:label="@string/menu_products"
         tools:layout="@layout/fragment_category_detail"
         >
         <argument
@@ -88,27 +88,33 @@
     <fragment
         android:id="@+id/nav_map"
         android:name="com.example.onlinemarket.view.fragment.MapTestFragment"
-        android:label="نقشه"
+        android:label="@string/menu_map"
         />
 
     <fragment
         android:id="@+id/nav_cart"
         android:name="com.example.onlinemarket.view.fragment.CartFragment"
-        android:label="سبد خرید"
+        android:label="@string/menu_cart"
         tools:layout="@layout/fragment_cart"
         />
 
     <fragment
-        android:id="@+id/nav_sign"
+        android:id="@+id/nav_login"
         android:name="com.example.onlinemarket.view.fragment.LoginFragment"
-        android:label="ورود"
+        android:label="@string/menu_login"
         tools:layout="@layout/fragment_login"
+        />
+
+    <fragment
+        android:id="@+id/nav_sign"
+        android:name="com.example.onlinemarket.view.fragment.SignUpPageFragment"
+        android:label="@string/menu_sign"
+        tools:layout="@layout/fragment_signup_page"
         />
 
     <fragment
         android:id="@+id/nav_customer_page"
         android:name="com.example.onlinemarket.view.fragment.CustomerFragment"
-        android:label="ورود"
-        tools:layout="@layout/fragment_custmer"
-        />
+        android:label="@string/menu_customer_info"
+        tools:layout="@layout/fragment_custmer" />
 </navigation>

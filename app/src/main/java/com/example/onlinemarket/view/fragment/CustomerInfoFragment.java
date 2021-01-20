@@ -1,6 +1,10 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -28,6 +32,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
  * create an instance of this fragment.
  */
 public class CustomerInfoFragment extends Fragment {
+    public static final int REQUEST_CODE_location_permission = 1;
     private FragmentCustomerInfoBinding mBinding;
     private CustomerInfoFragmentCallback mCallback;
 
@@ -63,11 +68,51 @@ public class CustomerInfoFragment extends Fragment {
         mViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
 
         mViewModel.setCallback(new CustomerInfoViewModel.CustomerInfoViewModelCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onMapButtonClickListener() {
-                mCallback.getMapFragment();
+                checkHasLocationPermission();
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void checkHasLocationPermission() {
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED){
+
+        }else if (getActivity().
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
+            AlertDialog alertDialog=new AlertDialog.Builder(getContext()).
+                    setView(R.layout.location_permission_dialog).
+                    setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    requestPermissions
+                            (new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    REQUEST_CODE_location_permission);
+                }
+            }).setNegativeButton( "خیر" ,null)
+                    .create();
+
+            alertDialog.show();
+        }else {
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_location_permission);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_location_permission:
+                if (grantResults.length == 0)
+                    return;
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    //TODO: get User Location.
+                   mCallback.getMapFragment();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)

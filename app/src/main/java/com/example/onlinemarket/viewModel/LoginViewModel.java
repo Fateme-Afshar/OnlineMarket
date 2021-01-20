@@ -36,7 +36,7 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void onSignUpBtnClickListener() {
-
+        mCallback.onSignUpBtnClickListener();
     }
 
     public void onLoginBtnClickListener() {
@@ -77,5 +77,6 @@ public class LoginViewModel extends AndroidViewModel {
 
     public interface LoginViewModelCallback{
         void onLoginBtnClickListener();
+        void onSignUpBtnClickListener();
     }
 }

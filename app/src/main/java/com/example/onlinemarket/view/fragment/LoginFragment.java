@@ -47,6 +47,12 @@ public class LoginFragment extends Fragment {
                 NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
                 navController.navigate(R.id.nav_customer_page);
             }
+
+            @Override
+            public void onSignUpBtnClickListener() {
+                NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_sign);
+            }
         });
     }
 

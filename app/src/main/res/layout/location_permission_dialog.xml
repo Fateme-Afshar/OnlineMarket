@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="220dp"
+    android:gravity="center"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/img_map"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextStylePersian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location_dialog"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:textAlignment="center"/>
+</LinearLayout>
