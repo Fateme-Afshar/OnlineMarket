@@ -42,20 +42,12 @@ public class CouponsRepository {
             @Override
             public void onResponse(Call<List<Coupons>> call, Response<List<Coupons>> response) {
                 Coupons coupons = null;
-                if (response.isSuccessful() && response.body().size() != 0) {
-                    coupons = new Coupons
-                            (response.body().get(0).getAmount(),
-                                    response.body().get(0).getCode(),
-                                    response.body().get(0).getMinimumAmount(),
-                                    response.body().get(0).getMaximumAmount(),
-                                    response.body().get(0).getDescription());
-
-                } else {
+                if (!response.isSuccessful() || response.body().size() == 0) {
                     Log.e(ProgramUtils.TEST_TAG,
                             "CouponsRepository : Coupons check fail cause by one of them : " +
                                     response.code() + " response body size:  " + response.body().size());
                 }
-                    mCouponsMutableLiveData.setValue(coupons);
+                mCouponsMutableLiveData.setValue(coupons);
             }
 
             @Override

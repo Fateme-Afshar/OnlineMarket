@@ -6,15 +6,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerRepository;
+import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 
 public class LoginViewModel extends AndroidViewModel {
     private Customer mCustomer=new Customer();
     private CustomerRepository mRepository;
+
+    private LifecycleOwner mLifecycleOwner;
+
+    private LoginViewModelCallback mCallback;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -36,11 +42,20 @@ public class LoginViewModel extends AndroidViewModel {
     public void onLoginBtnClickListener() {
             mRepository.requestToFindCustomer(mCustomer.getEmail());
 
-            mRepository.getCustomerLiveData().observeForever(new Observer<Customer>() {
+            mRepository.getCustomerLiveData().observe(mLifecycleOwner,new Observer<Customer>() {
                 @Override
                 public void onChanged(Customer customer) {
-                    if (mCustomer.getUsername().equals(customer.getUsername())){
-                        //TODO: get home page
+                    if (mCustomer.getUsername().equals(customer.getUsername())
+                            && mCustomer.getEmail().equals(customer.getEmail())){
+                        OnlineShopSharePref.saveCustomer(getApplication(),customer);
+
+                        mCallback.onLoginBtnClickListener();
+
+                        Toast.makeText(
+                                getApplication(),
+                                "تبریک شما با موفقیت login شدید",
+                                Toast.LENGTH_LONG).
+                                show();
                     }else {
                         Toast.makeText(
                                 getApplication(),
@@ -50,5 +65,17 @@ public class LoginViewModel extends AndroidViewModel {
                     }
                 }
             });
+    }
+
+    public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
+        mLifecycleOwner = lifecycleOwner;
+    }
+
+    public void setCallback(LoginViewModelCallback callback) {
+        mCallback = callback;
+    }
+
+    public interface LoginViewModelCallback{
+        void onLoginBtnClickListener();
     }
 }

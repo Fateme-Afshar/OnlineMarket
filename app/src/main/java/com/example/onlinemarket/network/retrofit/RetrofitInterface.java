@@ -38,7 +38,7 @@ public interface RetrofitInterface {
                                                     @QueryMap Map<String, String> queryMap);
 
     @GET("customers")
-    Call<Customer> getCustomer(@QueryMap Map<String, String> queryMap);
+    Call<List<Customer>> getCustomer(@QueryMap Map<String, String> queryMap);
 
     @POST("customers")
     Call<Customer> postCustomer(@Body Customer customer,
@@ -66,6 +66,7 @@ public interface RetrofitInterface {
     Call<Review> updateReview(
             @Path("id") String reviewId, @Body Review review, @QueryMap Map<String, String> queryMap);
 
+    // at first when we want test this method , this error occur ->BEGIN_OBJECT but was BEGIN_ARRAY - > solution : we must receive coupons into list.
     @GET("coupons")
     Call<List<Coupons>> getCoupons(@QueryMap  Map<String, String> queryMap);
 }

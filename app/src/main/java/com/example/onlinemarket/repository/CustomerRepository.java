@@ -18,6 +18,7 @@ import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -64,18 +65,18 @@ public class CustomerRepository {
     }
 
     public void requestToFindCustomer(String email){
-        Call<Customer> customerCall=
+        Call<List<Customer>> customerCall=
                 mRetrofitInterface.getCustomer(NetworkParams.queryForFindCustomer(email));
 
-        customerCall.enqueue(new Callback<Customer>() {
+        customerCall.enqueue(new Callback<List<Customer>>() {
             @Override
-            public void onResponse(Call<Customer> call, Response<Customer> response) {
+            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
                 Log.d(ProgramUtils.TEST_TAG,"CustomerRepository : receive customer from server ");
-                mCustomerLiveData.postValue(response.body());
+                mCustomerLiveData.postValue(response.body().get(0));
             }
 
             @Override
-            public void onFailure(Call<Customer> call, Throwable t) {
+            public void onFailure(Call<List<Customer>> call, Throwable t) {
                 Log.e(ProgramUtils.TEST_TAG,
                         "CustomerRepository : can't receive customer from server cause by : "+ t.getMessage());
             }

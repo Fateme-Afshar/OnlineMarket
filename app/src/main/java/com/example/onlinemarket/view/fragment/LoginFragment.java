@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +40,14 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel=new ViewModelProvider(this).get(LoginViewModel.class);
+        mViewModel.setLifecycleOwner(this);
+        mViewModel.setCallback(new LoginViewModel.LoginViewModelCallback() {
+            @Override
+            public void onLoginBtnClickListener() {
+                NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_customer_page);
+            }
+        });
     }
 
     @Override
