@@ -42,6 +42,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CustomerInfoFragment#newInstance} factory method to
@@ -90,7 +92,7 @@ public class CustomerInfoFragment extends Fragment {
             @Override
             public void onMapButtonClickListener() {
                 checkHasLocationPermission();
-                getCustomerLocation();
+                setupLocationSetting();
             }
         });
 
@@ -101,22 +103,10 @@ public class CustomerInfoFragment extends Fragment {
     private void checkHasLocationPermission() {
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED){
-            getCustomerLocation();
+            setupLocationSetting();
         }else if (getActivity().
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
-            AlertDialog alertDialog=new AlertDialog.Builder(getContext()).
-                    setView(R.layout.location_permission_dialog).
-                    setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    requestPermissions
-                            (new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                    REQUEST_CODE_LOCATION_PERMISSION);
-                }
-            }).setNegativeButton( "خیر" ,null)
-                    .create();
-
-            alertDialog.show();
+            showExpositoryAlertDialog();
         }else {
             requestPermissions(
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -131,20 +121,16 @@ public class CustomerInfoFragment extends Fragment {
                 if (grantResults.length == 0)
                     return;
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    getCustomerLocation();
+                    setupLocationSetting();
                    mCallback.getMapFragment();
                 }
         }
     }
 
-    private void getCustomerLocation() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(5000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    private void setupLocationSetting() {
 
         LocationSettingsRequest.Builder builder=
-                new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+                new LocationSettingsRequest.Builder().addLocationRequest(getLocationRequest());
 
         SettingsClient client= LocationServices.getSettingsClient(getActivity());
         Task<LocationSettingsResponse> task=client.checkLocationSettings(builder.build());
@@ -153,24 +139,7 @@ public class CustomerInfoFragment extends Fragment {
             @SuppressLint("MissingPermission")
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                LocationCallback locationCallback=new LocationCallback() {
-                    @Override
-                    public void onLocationResult(LocationResult locationResult) {
-                        Location location=locationResult.getLocations().get(0);
 
-                        CustomerLocation customerLocation=
-                                new CustomerLocation(location.getLatitude(),location.getLongitude());
-                    if(OnlineShopSharePref.getCustomerLastedLocation(getActivity())==null)
-                        OnlineShopSharePref.setCustomerLastedLocation(getActivity(),customerLocation);
-                    }
-                };
-
-                mFusedLocation.requestLocationUpdates
-                        (locationRequest,
-                                locationCallback,
-                                Looper.getMainLooper());
-
-                mCallback.getMapFragment();
             }
         });
 
@@ -188,6 +157,7 @@ public class CustomerInfoFragment extends Fragment {
             }
         });
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
@@ -211,7 +181,8 @@ public class CustomerInfoFragment extends Fragment {
         if (resultCode!= Activity.RESULT_OK && data==null)
             return;
         if (requestCode==REQUEST_CHECK_LOCATION_SETTING){
-            getCustomerLocation();
+            requestLocationUpdate();
+            mCallback.getMapFragment();
         }
     }
 
@@ -219,5 +190,56 @@ public class CustomerInfoFragment extends Fragment {
         void getMapFragment();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void showExpositoryAlertDialog() {
+        AlertDialog alertDialog=new AlertDialog.Builder(getContext()).
+                setView(R.layout.location_permission_dialog).
+                setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestPermissions
+                                (new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        REQUEST_CODE_LOCATION_PERMISSION);
+                    }
+                }).setNegativeButton( "خیر" ,null)
+                .create();
+
+        alertDialog.show();
+    }
+
+    private void saveFirstCustomerLocationIntoSharePref(Location location) {
+        CustomerLocation customerLocation=
+                new CustomerLocation(location.getLatitude(),location.getLongitude());
+        if(OnlineShopSharePref.getCustomerLastedLocation(getActivity())==null)
+            OnlineShopSharePref.setCustomerLastedLocation(getActivity(),customerLocation);
+    }
+
+    @SuppressLint("MissingPermission")
+    private void requestLocationUpdate() {
+        LocationRequest locationRequest = getLocationRequest();
+
+        LocationCallback locationCallback=new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                Location location=locationResult.getLocations().get(0);
+
+                saveFirstCustomerLocationIntoSharePref(location);
+            }
+        };
+
+        mFusedLocation.requestLocationUpdates
+                (locationRequest,
+                        locationCallback,
+                        Looper.getMainLooper());
+    }
+
+    @NotNull
+    private LocationRequest getLocationRequest() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        return locationRequest;
+    }
 
 }

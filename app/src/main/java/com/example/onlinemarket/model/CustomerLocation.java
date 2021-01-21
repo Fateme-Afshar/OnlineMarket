@@ -1,8 +1,22 @@
 package com.example.onlinemarket.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.onlinemarket.databases.OnlineShopSchema;
+import com.example.onlinemarket.databases.OnlineShopSchema.LocationTable.LocationColumn;
+
+@Entity(tableName = OnlineShopSchema.LocationTable.NAME)
 public class CustomerLocation {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = LocationColumn.ID)
+    private int id;
+    @ColumnInfo(name = LocationColumn.ADDRESS)
     private String address;
+    @ColumnInfo(name = LocationColumn.LATITUDE)
     private double latitude;
+    @ColumnInfo(name = LocationColumn.LONGITUDE)
     private double longitude;
 
     public CustomerLocation() {
@@ -36,5 +50,13 @@ public class CustomerLocation {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

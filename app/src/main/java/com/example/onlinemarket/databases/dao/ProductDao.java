@@ -1,4 +1,4 @@
-package com.example.onlinemarket.databases;
+package com.example.onlinemarket.databases.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

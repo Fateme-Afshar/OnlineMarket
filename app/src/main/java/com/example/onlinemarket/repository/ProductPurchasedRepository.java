@@ -7,9 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlinemarket.databases.IRepository;
 import com.example.onlinemarket.databases.OnlineShopDatabase;
-import com.example.onlinemarket.databases.ProductDao;
+import com.example.onlinemarket.databases.dao.ProductDao;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.orders.Orders;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;

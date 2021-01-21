@@ -19,4 +19,14 @@ public class OnlineShopSchema {
         }
     }
 
+    public static final class LocationTable{
+        public static final String NAME="locationTable";
+
+        public static final class LocationColumn{
+            public static final String ID="id";
+            public static final String LATITUDE="latitude";
+            public static final String LONGITUDE="longitude";
+            public static final String ADDRESS="address";
+        }
+    }
 }
