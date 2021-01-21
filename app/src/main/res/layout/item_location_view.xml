@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="location"
+            type="com.example.onlinemarket.model.CustomerLocation" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -33,6 +35,7 @@
                 android:layout_toStartOf="@+id/img_location"
                 android:layout_toLeftOf="@+id/img_location"
                 android:textSize="12sp"
+                android:text="@{()->location.address}"
                 tools:text="هشتگرد خیابان جلال آل احمد " />
 
             <androidx.appcompat.widget.AppCompatImageView
