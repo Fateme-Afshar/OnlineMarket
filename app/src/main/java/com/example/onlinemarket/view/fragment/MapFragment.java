@@ -4,18 +4,19 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.example.onlinemarket.viewModel.MapViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -24,12 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * create an instance of this fragment.
  */
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
-    private GoogleMap mMap;
 
-    private Marker mMarkers;
-    private LatLng mPoints;
-
-    int markerNumber;
+    private MapViewModel mViewModel;
 
     public MapFragment() {
         // Required empty public constructor
@@ -46,46 +43,35 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel=new ViewModelProvider(this).get(MapViewModel.class);
         getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-/*        mMap.setMinZoomPreference(6.0f);
+        /*        mMap.setMinZoomPreference(6.0f);
         mMap.setMaxZoomPreference(14.0f);*/
+        mViewModel.setMap(googleMap);
 
         CustomerLocation customerLocation =
                 OnlineShopSharePref.getCustomerLastedLocation(getActivity());
 
         LatLng latLng = new LatLng(customerLocation.getLatitude(), customerLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(latLng).title("my location").draggable(true));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+        googleMap.addMarker(new MarkerOptions().position(latLng).title("my location").draggable(true));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
 
-        mMap.setIndoorEnabled(false);
+        googleMap.setIndoorEnabled(false);
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
-                MarkerOptions marker =
-                        new MarkerOptions().
-                                position(new LatLng(point.latitude, point.longitude)).
-                                title("second location").
-                                draggable(true);
-
-                mMap.addMarker(marker).showInfoWindow();
-                System.out.println(point.latitude + "---" + point.longitude);
-                mPoints = new LatLng(point.latitude, point.longitude);
-
-                CustomerLocation location =
-                        new CustomerLocation(mPoints.latitude, mPoints.longitude);
-
-                OnlineShopSharePref.setCustomerLastedLocation(getActivity(), location);
+                mViewModel.setMarker(point);
+                mViewModel.getAddressFromGeocoder(point);
+                mViewModel.saveLocationOnSharePref();
 
                 setupNavigateToCustomerFragment();
             }
         });
-
     }
 
     private void setupNavigateToCustomerFragment() {

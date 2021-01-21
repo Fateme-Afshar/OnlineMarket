@@ -22,8 +22,13 @@ public class CustomerLocation {
     public CustomerLocation() {
     }
 
-    public CustomerLocation(double latitude, double longitude) {
+    public CustomerLocation(double latitude, double longitude,String address) {
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public CustomerLocation(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
