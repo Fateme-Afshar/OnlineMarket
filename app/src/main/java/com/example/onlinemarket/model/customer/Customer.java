@@ -55,7 +55,7 @@ public class Customer{
 	@SerializedName("username")
 	private String username;
 
-	private List<CustomerLocation> customerLocationList;
+	private CustomerLocation customerLocationList;
 
 	public Customer() {
 	}
@@ -211,11 +211,11 @@ public class Customer{
 		return (int) (Math.random() * (max - min + 1) + min);
 	}
 
-	public List<CustomerLocation> getCustomerLocationList() {
+	public CustomerLocation getCustomerLocationList() {
 		return customerLocationList;
 	}
 
-	public void setCustomerLocationList(List<CustomerLocation> customerLocationList) {
+	public void setCustomerLocationList(CustomerLocation customerLocationList) {
 		this.customerLocationList = customerLocationList;
 	}
 }

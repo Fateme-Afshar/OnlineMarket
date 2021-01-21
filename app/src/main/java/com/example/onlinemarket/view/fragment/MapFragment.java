@@ -3,10 +3,7 @@ package com.example.onlinemarket.view.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.CustomerLocation;
@@ -16,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -25,6 +23,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
     private GoogleMap mMap;
+
+    private Marker mMarkers;
+    private LatLng mPoints;
+
+    int markerNumber;
 
     public MapFragment() {
         // Required empty public constructor
@@ -46,15 +49,43 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap=googleMap;
+        mMap = googleMap;
 /*        mMap.setMinZoomPreference(6.0f);
         mMap.setMaxZoomPreference(14.0f);*/
 
-        CustomerLocation customerLocation=
+        CustomerLocation customerLocation =
                 OnlineShopSharePref.getCustomerLastedLocation(getActivity());
 
         LatLng latLng = new LatLng(customerLocation.getLatitude(), customerLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(latLng).title("my location"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,12.0f));
+        mMap.addMarker(new MarkerOptions().position(latLng).title("my location").draggable(true));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+
+        mMap.setIndoorEnabled(false);
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                MarkerOptions marker =
+                        new MarkerOptions().
+                                position(new LatLng(point.latitude, point.longitude)).
+                                title("second location").
+                                draggable(true);
+
+                mMap.addMarker(marker).showInfoWindow();
+                System.out.println(point.latitude + "---" + point.longitude);
+                mPoints = new LatLng(point.latitude, point.longitude);
+
+                CustomerLocation location =
+                        new CustomerLocation(mPoints.latitude, mPoints.longitude);
+
+                OnlineShopSharePref.setCustomerLastedLocation(getActivity(), location);
+
+ /*               Navigation.findNavController(
+                        getActivity(),
+                        R.id.nav_host_fragment).
+                        navigate(R.id.nav_customer_page);*/
+            }
+        });
+
     }
 }
