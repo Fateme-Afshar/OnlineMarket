@@ -1,84 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-            <variable
-                name="viewModel"
-                type="com.example.onlinemarket.viewModel.CustomerInfoViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.example.onlinemarket.viewModel.CustomerInfoViewModel" />
     </data>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.fragment.CustomerInfoFragment"
-            android:orientation="vertical"
-            android:gravity="center"
             >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".view.fragment.CustomerInfoFragment"
+                android:orientation="vertical"
+                android:gravity="center">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/img_customer_info"
-                android:layout_gravity="center"
-                android:layout_marginBottom="16dp"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/img_customer_info"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_first_name"
-                style="@style/TextStylePersian.YellowBackground"
-                android:layout_width="wrap_content"
-                android:minWidth="250dp"
-                android:layout_height="wrap_content"
-                tools:text="@string/first_name"
-                android:text="@{viewModel.customer.firstName}"
-                android:layout_gravity="center"
-                />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_first_name"
+                    style="@style/TextStylePersian.YellowBackground"
+                    android:layout_width="wrap_content"
+                    android:minWidth="250dp"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/first_name"
+                    android:text="@{viewModel.customer.firstName}"
+                    android:layout_gravity="center" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_last_name"
-                style="@style/TextStylePersian.YellowBackground"
-                android:layout_width="wrap_content"
-                android:minWidth="250dp"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.customer.lastName}"
-                tools:text="@string/family_name" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_last_name"
+                    style="@style/TextStylePersian.YellowBackground"
+                    android:layout_width="wrap_content"
+                    android:minWidth="250dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.customer.lastName}"
+                    tools:text="@string/family_name" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_email_name"
-                style="@style/TextStylePersian.YellowBackground"
-                android:layout_width="wrap_content"
-                android:minWidth="250dp"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.customer.email}"
-                tools:text="@string/email_address"
-                android:textSize="15sp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_email_name"
+                    style="@style/TextStylePersian.YellowBackground"
+                    android:layout_width="wrap_content"
+                    android:minWidth="250dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.customer.email}"
+                    tools:text="@string/email_address"
+                    android:textSize="15sp" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_username_name"
-                style="@style/TextStylePersian.YellowBackground"
-                android:layout_width="wrap_content"
-                android:minWidth="250dp"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.customer.username}"
-                tools:text="@string/username"
-                android:textSize="15sp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_username_name"
+                    style="@style/TextStylePersian.YellowBackground"
+                    android:layout_width="wrap_content"
+                    android:minWidth="250dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.customer.username}"
+                    tools:text="@string/username"
+                    android:textSize="15sp" />
 
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="24dp"
-                app:icon="@drawable/ic_location"
-                android:text="@string/set_address_by_map"
-                android:layoutDirection="rtl"
-                android:onClick="@{()->viewModel.onMapButtonClickListener()}"
-                />
-        </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="24dp"
+                    app:icon="@drawable/ic_location"
+                    android:text="@string/set_address_by_map"
+                    android:layoutDirection="rtl"
+                    android:onClick="@{()->viewModel.onMapButtonClickListener()}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="300dp"
+                    />
+            </LinearLayout>
+        </ScrollView>
 </layout>

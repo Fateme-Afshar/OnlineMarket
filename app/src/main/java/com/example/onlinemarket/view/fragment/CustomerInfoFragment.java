@@ -22,9 +22,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.adapter.LocationAdapter;
 import com.example.onlinemarket.databinding.FragmentCustomerInfoBinding;
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
@@ -43,6 +46,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,18 +90,47 @@ public class CustomerInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
-
-        mViewModel.setCallback(new CustomerInfoViewModel.CustomerInfoViewModelCallback() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onMapButtonClickListener() {
-                if (checkHasLocationPermission())
-                    setupLocationSetting();
-            }
-        });
-
+        setupViewModel();
         mFusedLocation=LocationServices.getFusedLocationProviderClient(getActivity());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mBinding= DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_customer_info,
+                container,
+                false);
+        setupAdapter();
+        mBinding.setViewModel(mViewModel);
+
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (resultCode!= Activity.RESULT_OK && data==null)
+            return;
+        if (requestCode==REQUEST_CHECK_LOCATION_SETTING){
+            requestLocationUpdate();
+            mCallback.getMapFragment();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_LOCATION_PERMISSION:
+                if (grantResults.length == 0)
+                    return;
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    setupLocationSetting();
+                }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -115,16 +149,30 @@ public class CustomerInfoFragment extends Fragment {
         return false;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_LOCATION_PERMISSION:
-                if (grantResults.length == 0)
-                    return;
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+    private void setupAdapter() {
+
+        mViewModel.getCustomerLocationList().observe(this, new Observer<List<CustomerLocation>>() {
+            @Override
+            public void onChanged(List<CustomerLocation> customerLocations) {
+                LocationAdapter locationAdapter=new LocationAdapter(getContext(),customerLocations);
+                mBinding.recyclerView.setAdapter(locationAdapter);
+            }
+        });
+
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void setupViewModel() {
+        mViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
+
+        mViewModel.setCallback(new CustomerInfoViewModel.CustomerInfoViewModelCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onMapButtonClickListener() {
+                if (checkHasLocationPermission())
                     setupLocationSetting();
-                }
-        }
+            }
+        });
     }
 
     private void setupLocationSetting() {
@@ -158,34 +206,6 @@ public class CustomerInfoFragment extends Fragment {
                 }
             }
         });
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mBinding= DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_customer_info,
-                container,
-                false);
-
-        mBinding.setViewModel(mViewModel);
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        if (resultCode!= Activity.RESULT_OK && data==null)
-            return;
-        if (requestCode==REQUEST_CHECK_LOCATION_SETTING){
-            requestLocationUpdate();
-            mCallback.getMapFragment();
-        }
     }
 
     public interface CustomerInfoFragmentCallback{
