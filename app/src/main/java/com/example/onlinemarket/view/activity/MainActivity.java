@@ -21,7 +21,7 @@ import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragmentDirections;
-import com.example.onlinemarket.view.fragment.CustomerInfoFragment;
+import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragmentDirections;
 import com.google.android.material.navigation.NavigationView;
@@ -29,7 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends SingleFragmentActivity
         implements CategoriesFragment.CategoriesFragmentCallbacks,
         OpenProductPage, AccountFragment.AccountFragmentCallback,
-        CustomerInfoFragment.CustomerInfoFragmentCallback {
+        CustomerFragment.CustomerInfoFragmentCallback {
 
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;

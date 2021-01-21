@@ -34,8 +34,10 @@
                 android:layout_margin="8dp"
                 android:layout_toStartOf="@+id/img_location"
                 android:layout_toLeftOf="@+id/img_location"
-                android:textSize="12sp"
+                android:layout_toEndOf="@+id/img_delete"
+                android:layout_toRightOf="@+id/img_delete"
                 android:text="@{location.address}"
+                android:textSize="12sp"
                 tools:text="هشتگرد خیابان جلال آل احمد " />
 
             <androidx.appcompat.widget.AppCompatImageView

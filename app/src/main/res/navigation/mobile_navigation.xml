@@ -116,5 +116,5 @@
         android:id="@+id/nav_customer_page"
         android:name="com.example.onlinemarket.view.fragment.CustomerFragment"
         android:label="@string/menu_customer_info"
-        tools:layout="@layout/fragment_custmer" />
+        tools:layout="@layout/fragment_customer" />
 </navigation>
