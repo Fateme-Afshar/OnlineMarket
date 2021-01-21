@@ -1,8 +1,10 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
@@ -80,12 +82,25 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
                 OnlineShopSharePref.setCustomerLastedLocation(getActivity(), location);
 
- /*               Navigation.findNavController(
-                        getActivity(),
-                        R.id.nav_host_fragment).
-                        navigate(R.id.nav_customer_page);*/
+                setupNavigateToCustomerFragment();
             }
         });
 
+    }
+
+    private void setupNavigateToCustomerFragment() {
+        NavOptions navOptions=new NavOptions.Builder().
+                setEnterAnim(R.anim.fade_in).
+                build();
+
+        Navigation.findNavController(
+                    getActivity(),
+                    R.id.nav_host_fragment).
+                    navigate(R.id.nav_customer_page,null,navOptions);
+
+        Toast.makeText
+                (getActivity(),"آدرس با موفقیت ثبت شد"
+                        , Toast.LENGTH_LONG).
+                show();
     }
 }

@@ -91,8 +91,8 @@ public class CustomerInfoFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onMapButtonClickListener() {
-                checkHasLocationPermission();
-                setupLocationSetting();
+                if (checkHasLocationPermission())
+                    setupLocationSetting();
             }
         });
 
@@ -100,10 +100,10 @@ public class CustomerInfoFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void checkHasLocationPermission() {
+    private boolean checkHasLocationPermission() {
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED){
-            setupLocationSetting();
+            return true;
         }else if (getActivity().
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
             showExpositoryAlertDialog();
@@ -112,6 +112,7 @@ public class CustomerInfoFragment extends Fragment {
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_CODE_LOCATION_PERMISSION);
         }
+        return false;
     }
 
     @Override
@@ -122,7 +123,6 @@ public class CustomerInfoFragment extends Fragment {
                     return;
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     setupLocationSetting();
-                   mCallback.getMapFragment();
                 }
         }
     }
@@ -140,6 +140,8 @@ public class CustomerInfoFragment extends Fragment {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
 
+                mCallback.getMapFragment();
+                requestLocationUpdate();
             }
         });
 
