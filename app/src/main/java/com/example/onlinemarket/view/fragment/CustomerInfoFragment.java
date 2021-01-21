@@ -160,7 +160,7 @@ public class CustomerInfoFragment extends Fragment {
 
                         CustomerLocation customerLocation=
                                 new CustomerLocation(location.getLatitude(),location.getLongitude());
-
+                    if(OnlineShopSharePref.getCustomerLastedLocation(getActivity())==null)
                         OnlineShopSharePref.setCustomerLastedLocation(getActivity(),customerLocation);
                     }
                 };
