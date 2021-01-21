@@ -1,5 +1,6 @@
 package com.example.onlinemarket.model.customer;
 
+import com.example.onlinemarket.model.CustomerLocation;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -53,6 +54,8 @@ public class Customer{
 
 	@SerializedName("username")
 	private String username;
+
+	private List<CustomerLocation> customerLocationList;
 
 	public Customer() {
 	}
@@ -208,4 +211,11 @@ public class Customer{
 		return (int) (Math.random() * (max - min + 1) + min);
 	}
 
+	public List<CustomerLocation> getCustomerLocationList() {
+		return customerLocationList;
+	}
+
+	public void setCustomerLocationList(List<CustomerLocation> customerLocationList) {
+		this.customerLocationList = customerLocationList;
+	}
 }
