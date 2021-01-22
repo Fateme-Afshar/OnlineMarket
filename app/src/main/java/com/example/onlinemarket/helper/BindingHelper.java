@@ -1,8 +1,6 @@
 package com.example.onlinemarket.helper;
 
 import android.graphics.Paint;
-import android.text.Html;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,7 +8,6 @@ import androidx.core.text.HtmlCompat;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.onlinemarket.R;
 
 public class BindingHelper {
@@ -25,7 +22,8 @@ public class BindingHelper {
 
     @BindingAdapter("showDescription")
     public static void setDescription(TextView textView, String description){
-        textView.setText(HtmlCompat.fromHtml(description,0));
+        if (description != null)
+            textView.setText(HtmlCompat.fromHtml(description, 0));
     }
 
     @BindingAdapter("strikeThrough")

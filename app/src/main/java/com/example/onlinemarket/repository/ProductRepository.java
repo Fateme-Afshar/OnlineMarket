@@ -5,10 +5,11 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.network.retrofit.gson.ProductGsonConverterCustomize;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
-import com.example.onlinemarket.network.retrofit.gson.ProductGsonConverterCustomize;
+import com.example.onlinemarket.network.retrofit.gson.ProductListGsonConverterCustomize;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.google.gson.reflect.TypeToken;
@@ -32,12 +33,14 @@ public class ProductRepository {
     private MutableLiveData<List<Product>> mSpecialProductLiveData=new MutableLiveData<>();
     private MutableLiveData<List<Product>> mProducts =new MutableLiveData<>();
 
+    private MutableLiveData<Product> mProductLiveData=new MutableLiveData<>();
+
     private RetrofitInterface mRetrofitInterface;
 
     private ProductRepository() {
         Retrofit retrofit=RetrofitInstance.getRetrofit
                 (new TypeToken<List<Product>>(){}.getType()
-                ,new ProductGsonConverterCustomize());
+                ,new ProductListGsonConverterCustomize());
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
     }
 
@@ -89,6 +92,24 @@ public class ProductRepository {
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void requestToServerForReceiveProductById(int productId){
+        Retrofit retrofit=RetrofitInstance.getRetrofit
+                (Product.class,new ProductGsonConverterCustomize());
+        RetrofitInterface retrofitInterface=retrofit.create(RetrofitInterface.class);
+
+        retrofitInterface.getProduct(productId,NetworkParams.MAP_KEYS).enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                mProductLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+            Log.e(ProgramUtils.TEST_TAG,"Fail receive Product cause by "+ t.getMessage());
             }
         });
     }
@@ -148,5 +169,9 @@ public class ProductRepository {
 
     public MutableLiveData<List<Product>> getProducts() {
         return mProducts;
+    }
+
+    public MutableLiveData<Product> getProductLiveData() {
+        return mProductLiveData;
     }
 }

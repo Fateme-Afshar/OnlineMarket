@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
@@ -13,24 +14,34 @@ import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
+import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.repository.ReviewRepository;
+
+import java.util.Map;
 
 public class ProductViewModel extends AndroidViewModel {
     private Product mProduct;
     private Review mReview;
 
+    private LiveData<Product> mProductLiveData;
+
     private ProductPurchasedRepository mPurchasedRepository;
+    private ProductRepository mProductRepository;
 
     private ReviewRepository mReviewRepository;
 
-    {
+    public ProductViewModel(@NonNull Application application) {
+        super(application);
         mPurchasedRepository = OnlineShopApplication.getProductPurchasedRepository();
         mReviewRepository = ReviewRepository.getInstance();
+        mProductRepository=ProductRepository.getInstance();
+
+        mProductLiveData=mProductRepository.getProductLiveData();
         mReview = new Review();
     }
 
-    public ProductViewModel(@NonNull Application application) {
-        super(application);
+    public void requestToServerForReceiveProductById(int productId){
+        mProductRepository.requestToServerForReceiveProductById(productId);
     }
 
     public Product getProduct() {
@@ -84,11 +95,7 @@ public class ProductViewModel extends AndroidViewModel {
                 show();
     }
 
-    public String getNormalText(String text) {
-        if (text.length() <= 20)
-            return text;
-        else
-            return text.substring(0, 21) + "...";
+    public LiveData<Product> getProductLiveData() {
+        return mProductLiveData;
     }
-
 }

@@ -45,6 +45,7 @@
     <string name="menu_login">ورود</string>
     <string name="menu_sign">ثبت نام</string>
     <string name="menu_product_info">اطلاعات محصول</string>
+    <string name="menu_loading_product">بارگزاری اطلاعات محصول</string>
     <string name="menu_more_visited">پربازدید ترین ها</string>
     <string name="menu_best_product">بهترین ها</string>
     <string name="menu_newest_product">جدیدترن ها</string>
@@ -128,4 +129,6 @@
     <string name="set_address_by_map">انتخاب آدرس از روی نقشه</string>
     <string name="location_dialog">ما برای نمایش این صفحه و ثبت آدرس از روی نقشه احتیاج به دسترسی به موقعیت جغرافیایی شما (Location) داریم .
         آیا به ما این دسترسی را می دهید ؟</string>
+    <string name="no_internet">خطا در برقرار ارتباط</string>
+    <string name="try_again">تلاش مجدد</string>
 </resources>

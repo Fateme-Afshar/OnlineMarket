@@ -28,6 +28,9 @@ public interface RetrofitInterface {
     @GET("products")
     Call<List<Product>> getListProductObjects(@QueryMap Map<String, String> queryMap);
 
+    @GET("products/{id}")
+    Call<Product> getProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
+
     //for receive filter sections such as color,size
     @GET("products/attributes")
     Call<List<AttributeInfo>> getAttributes(@QueryMap Map<String, String> queryMap);
