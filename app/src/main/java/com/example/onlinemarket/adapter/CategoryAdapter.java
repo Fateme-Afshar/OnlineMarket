@@ -9,16 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.databinding.CategoryViewBinding;
+import com.example.onlinemarket.databinding.ItemCategoryViewBinding;
 import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.viewModel.CategoryViewModel;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHolder> {
-    private CategoryViewBinding mBinding;
+    private ItemCategoryViewBinding mBinding;
     private List<Category> mCategories;
     private Context mContext;
 
@@ -42,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHol
     public CatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mBinding= DataBindingUtil.inflate(
                 LayoutInflater.from(mContext),
-                R.layout.category_view,
+                R.layout.item_category_view,
                 parent,
                 false);
 
@@ -67,8 +65,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHol
     }
 
     class CatHolder extends RecyclerView.ViewHolder {
-        CategoryViewBinding mBinding;
-        public CatHolder(@NonNull CategoryViewBinding binding) {
+        ItemCategoryViewBinding mBinding;
+        public CatHolder(@NonNull ItemCategoryViewBinding binding) {
             super(binding.getRoot());
             mBinding=binding;
         }
@@ -77,7 +75,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatHol
                 mBinding.setCategory(categoriesModel);
         }
     }
-
 
     public interface CatAdapterCallbacks{
         void OnSelectedItem(int catId);

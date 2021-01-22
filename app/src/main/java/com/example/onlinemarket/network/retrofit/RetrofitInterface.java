@@ -22,7 +22,7 @@ import retrofit2.http.QueryMap;
 
 public interface RetrofitInterface {
 
-    @GET("products/{path}")
+    @GET("products/{path}?per_page=100")
     Call<List<CatObj>> getListCatObjects(@Path("path") String path, @QueryMap Map<String, String> queryMap);
 
     @GET("products")

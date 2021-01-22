@@ -55,8 +55,8 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         return mProductRepository.requestToServerForSpecificCatProduct(catId);
     }
 
-    public List<Category> requestToServerForCategories(){
-        return mCategoryRepository.requestToServerForCategories();
+    public void requestToServerForCategories(){
+        mCategoryRepository.requestToServerForCategories();
     }
 
     public void requestToServerForSearchProducts(String title,String search){

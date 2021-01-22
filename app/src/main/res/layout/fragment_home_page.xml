@@ -109,7 +109,7 @@
                 app:layout_constraintGuide_percent=".1" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_best_product_head"
+                android:id="@+id/tv_special_product_head"
                 style="@style/HeadTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,19 +117,19 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/best_products"
+                android:text="@string/special_product"
                 app:layout_constraintEnd_toEndOf="@id/guid_right"
                 app:layout_constraintTop_toBottomOf="@+id/imv_asus"
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_best_product"
+                android:id="@+id/recycler_view_special_product"
                 android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="@id/guid_right"
                 app:layout_constraintStart_toStartOf="@id/guid_left"
-                app:layout_constraintTop_toBottomOf="@+id/tv_best_product_head"
+                app:layout_constraintTop_toBottomOf="@+id/tv_special_product_head"
                 />
 
             <com.google.android.material.textview.MaterialTextView
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/most_visited_products"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_view_best_product"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_special_product"
                 app:layout_constraintEnd_toEndOf="@id/guid_right"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
@@ -179,11 +179,11 @@
                 />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_special_product"
+                android:id="@+id/tv_best_product"
                 style="@style/HeadTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/special_product"
+                android:text="@string/best_products"
                 app:layout_constraintTop_toBottomOf="@+id/recycler_view_newest_product"
                 app:layout_constraintEnd_toEndOf="@id/guid_right"
                 android:layout_marginStart="10dp"
@@ -192,13 +192,13 @@
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_special_product"
+                android:id="@+id/recycler_view_best_product"
                 android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="@id/guid_right"
                 app:layout_constraintStart_toStartOf="@id/guid_left"
-                app:layout_constraintTop_toBottomOf="@+id/tv_special_product"
+                app:layout_constraintTop_toBottomOf="@+id/tv_best_product"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

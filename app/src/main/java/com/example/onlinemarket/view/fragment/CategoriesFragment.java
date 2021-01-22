@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
@@ -59,20 +59,6 @@ public class CategoriesFragment extends Fragment{
         super.onCreate(savedInstanceState);
 
         mViewModel=new ViewModelProvider(this).get(NetworkTaskViewModel.class);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<Category> categories=mViewModel.requestToServerForCategories();
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateUI(categories);
-                    }
-                });
-            }
-        }).start();
-
     }
 
     @Override
@@ -84,8 +70,18 @@ public class CategoriesFragment extends Fragment{
                 R.layout.fragment_categories,
                 container,
                 false);
-
+        setupRequestForReceiveData();
         return mBinding.getRoot();
+    }
+
+    private void setupRequestForReceiveData() {
+        mViewModel.requestToServerForCategories();
+        mViewModel.getCategoryLiveData().observe(getActivity(), new Observer<List<Category>>() {
+            @Override
+            public void onChanged(List<Category> categories) {
+                setupAdapter(categories);
+            }
+        });
     }
 
     private void setupAdapter(List<Category> models) {
@@ -101,15 +97,6 @@ public class CategoriesFragment extends Fragment{
                 }
             });
         }else {
-            mCatAdapter.setCategories(models);
-            mCatAdapter.notifyDataSetChanged();
-        }
-    }
-
-    public void updateUI(List<Category> models){
-        if (mCatAdapter==null)
-            setupAdapter(models);
-        else {
             mCatAdapter.setCategories(models);
             mCatAdapter.notifyDataSetChanged();
         }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -37,47 +38,36 @@ public class CategoryRepository {
         return sInstance;
     }
 
-    public List<Category> requestToServerForCategories() {
+    public void requestToServerForCategories() {
         List<Category> categoriesList = new ArrayList<>();
         Retrofit retrofit =RetrofitInstance.getRetrofit();
 
-        int page = 1;
-
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        List<CatObj> catObjList = null;
-        try {
-            catObjList = getCatObjs(page);
+        Call<List<CatObj>> catObjects =
+                mRetrofitInterface.getListCatObjects("categories",NetworkParams.MAP_KEYS);
+        catObjects.enqueue(new Callback<List<CatObj>>() {
+            @Override
+            public void onResponse(Call<List<CatObj>> call, Response<List<CatObj>> response) {
+                    if (response.body()!=null){
+                        for (CatObj catObj : response.body()) {
+                                Category category=new Category
+                                        (catObj.getId(),
+                                                catObj.getName(),
+                                                catObj.getImage().getSrc());
 
-            while (catObjList.size() != 0) {
+                                categoriesList.add(category);
+                        }
 
-                for (CatObj catObj : catObjList) {
-                    Category categoriesModel = new Category(
-                            catObj.getId(),
-                            catObj.getName(),
-                            catObj.getImage().getSrc());
-
-                    categoriesList.add(categoriesModel);
-                }
-
-                catObjList = getCatObjs(++page);
+                        mCategoryLiveData.setValue(categoriesList);
+                    }
             }
 
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+            @Override
+            public void onFailure(Call<List<CatObj>> call, Throwable t) {
 
-        return categoriesList;
-    }
-
-    private  List<CatObj> getCatObjs(int pageNumber) throws IOException {
-        Log.d(ProgramUtils.TAG, "Start request to Server for receive Categories");
-
-        Call<List<CatObj>> catObjects = mRetrofitInterface.
-                getListCatObjects("categories", NetworkParams.queryForReceivePages(pageNumber));
-        Response<List<CatObj>> response = catObjects.execute();
-
-        return response.body();
+            }
+        });
     }
 
     public MutableLiveData<List<Category>> getCategoryLiveData() {
