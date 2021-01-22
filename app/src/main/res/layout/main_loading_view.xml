@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_pink">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_online_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/b_jadid_bold"
+            android:text="@string/online_shop"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.475" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_online_shop_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/online_shop_en"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:fontFamily="@font/magnolia_script"
+            app:layout_constraintStart_toStartOf="@+id/tv_online_shop"
+            app:layout_constraintTop_toBottomOf="@+id/tv_online_shop" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_online_shop"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_online_shop_en"
+            app:layout_constraintTop_toBottomOf="@+id/tv_online_shop" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_loader"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loader_animation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

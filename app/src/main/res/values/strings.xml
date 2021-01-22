@@ -132,4 +132,6 @@
     <string name="no_internet">خطا در برقرار ارتباط</string>
     <string name="try_again">تلاش مجدد</string>
     <string name="set_first_comment">اولین نظر درباره ی محصول را ثبت کنید</string>
+    <string name="online_shop">فروشگاه آنلاین</string>
+    <string name="online_shop_en">Online Shop</string>
 </resources>
