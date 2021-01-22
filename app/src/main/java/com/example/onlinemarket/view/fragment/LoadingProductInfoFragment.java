@@ -1,7 +1,6 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,31 +16,25 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.databinding.FragmentLoadProductBinding;
+import com.example.onlinemarket.databinding.LoadingViewBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
-public class LoadProductFragment extends Fragment {
-    private FragmentLoadProductBinding mBinding;
+public class LoadingProductInfoFragment extends Fragment {
+    private LoadingViewBinding mBinding;
     private ProductViewModel mViewModel;
 
     private int mProductId;
 
-    public LoadProductFragment() {
+    public LoadingProductInfoFragment() {
         // Required empty public constructor
-    }
-
-    public static LoadProductFragment newInstance() {
-        LoadProductFragment fragment = new LoadProductFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductId = LoadProductFragmentArgs.fromBundle(getArguments()).getProductId();
+        mProductId = LoadingProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
         mViewModel = new ViewModelProvider(getActivity()).get(ProductViewModel.class);
     }
 
@@ -51,7 +44,7 @@ public class LoadProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         mBinding= DataBindingUtil.inflate
                 (inflater,
-                        R.layout.fragment_load_product,
+                        R.layout.loading_view,
                         container,
                         false);
 
@@ -61,7 +54,7 @@ public class LoadProductFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setupLoadProduct() {
-        if (checkHasInternet()) {
+        if (LoadingUtils.checkHasInternet(getActivity().getSystemService(ConnectivityManager.class))) {
             mViewModel.requestToServerForReceiveProductById(mProductId);
 
             mViewModel.getProductLiveData().observe(getActivity(), new Observer<Product>() {
@@ -93,16 +86,5 @@ public class LoadProductFragment extends Fragment {
         mBinding.animNoInternet.setVisibility(visible);
         mBinding.tvNoInternet.setVisibility(visible);
         mBinding.btnRefresh.setVisibility(visible);
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean checkHasInternet() {
-        ConnectivityManager connectivityManager =
-                getActivity().getSystemService(ConnectivityManager.class);
-
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        return networkInfo!=null;
     }
 }

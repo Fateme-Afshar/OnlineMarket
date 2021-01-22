@@ -65,7 +65,7 @@
 
     <fragment
         android:id="@+id/nav_loading_product"
-        android:name="com.example.onlinemarket.view.fragment.LoadProductFragment"
+        android:name="com.example.onlinemarket.view.fragment.LoadingProductInfoFragment"
         android:label="@string/menu_loading_product"
         tools:layout="@layout/item_location_view">
         <argument

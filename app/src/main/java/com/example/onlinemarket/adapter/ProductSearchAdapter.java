@@ -53,6 +53,19 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.bind(mProducts.get(position));
+
+        holder.mBindingView.btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mCallback.onProductSelected(mProducts.get(position));
+                }catch (Exception e){
+                    Log.e(ProgramUtils.TAG,
+                            "ProductSearchAdapter : if you want when click item, " +
+                                    "get product information page must implement callback with setCallback method");
+                }
+            }
+        });
     }
 
     @Override
@@ -70,18 +83,6 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
 
         public void bind(Product product) {
             mBinding.setProduct(product);
-            mBinding.btnMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        mCallback.onProductSelected(product);
-                    }catch (Exception e){
-                        Log.e(ProgramUtils.TAG,
-                                "ProductSearchAdapter : if you want when click item, " +
-                                        "get product information page must implement callback with setCallback method");
-                    }
-                }
-            });
         }
     }
 

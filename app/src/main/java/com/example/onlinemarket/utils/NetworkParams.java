@@ -22,22 +22,12 @@ public class NetworkParams {
                 put("consumer_secret", CONS_SECRET);
             }};
 
-    public static Map<String, String> queryForReceivePages(int pageNumber) {
-        Map<String, String> MAP_KEYS_PAGE = new HashMap<>();
-
-        MAP_KEYS_PAGE.putAll(MAP_KEYS);
-        MAP_KEYS_PAGE.put("page", String.valueOf(pageNumber));
-
-        return MAP_KEYS_PAGE;
-    }
-
     public static Map<String, String>
-    queryForReceiveSpecificCategoryProduct(int catId, int pageNumber) {
+    queryForReceiveSpecificCategoryProduct(int catId) {
         Map<String, String> MAP_PARAMETERS_CATEGORY = new HashMap<>();
 
         MAP_PARAMETERS_CATEGORY.putAll(MAP_KEYS);
         MAP_PARAMETERS_CATEGORY.put("category", String.valueOf(catId));
-        MAP_PARAMETERS_CATEGORY.put("page", String.valueOf(pageNumber));
 
         return MAP_PARAMETERS_CATEGORY;
     }

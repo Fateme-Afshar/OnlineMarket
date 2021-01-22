@@ -22,15 +22,12 @@ import java.util.Map;
 
 public class NetworkTaskViewModel extends AndroidViewModel {
     private ProductRepository mProductRepository;
-    private CategoryRepository mCategoryRepository;
 
     private LiveData<List<Product>> mNewestProductLiveData;
     private LiveData<List<Product>> mPopulateProductLiveData;
     private LiveData<List<Product>> mBestProductLiveData;
     private LiveData<List<Product>> mSpecialProductLiveData;
     private LiveData<List<Product>> mSearchProductLiveData;
-
-    private LiveData<List<Category>> mCategoryLiveData;
 
     public NetworkTaskViewModel(@NonNull Application application) {
         super(application);
@@ -42,21 +39,14 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         mBestProductLiveData= mProductRepository.getBestProductLiveData() ;
         mSpecialProductLiveData=mProductRepository.getSpecialProductLiveData();
         mSearchProductLiveData=mProductRepository.getProducts();
-
-        mCategoryRepository= CategoryRepository.getInstance();
-        mCategoryLiveData=mCategoryRepository.getCategoryLiveData();
     }
 
     public void requestToServerForReceiveProducts(Map<String,String> queryMap, Titles title){
         mProductRepository.requestToServerForReceiveProducts(queryMap,title);
     }
 
-    public List<Product> requestToServerForSpecificCatProduct(int catId){
-        return mProductRepository.requestToServerForSpecificCatProduct(catId);
-    }
-
-    public void requestToServerForCategories(){
-        mCategoryRepository.requestToServerForCategories();
+    public void requestToServerForSpecificCatProduct(int catId){
+         mProductRepository.requestToServerForSpecificCatProduct(catId);
     }
 
     public void requestToServerForSearchProducts(String title,String search){
@@ -74,10 +64,6 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Product>> getBestProductLiveData() {
         return mBestProductLiveData;
-    }
-
-    public LiveData<List<Category>> getCategoryLiveData() {
-        return mCategoryLiveData;
     }
 
     public LiveData<List<Product>> getSearchProductLiveData() {

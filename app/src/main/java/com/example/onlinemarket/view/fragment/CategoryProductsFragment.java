@@ -15,12 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.OpenProductPage;
-import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
@@ -66,22 +64,8 @@ public class CategoryProductsFragment extends Fragment{
         mNetworkTaskViewModel =
                 new ViewModelProvider(this).get(NetworkTaskViewModel.class);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    List<Product> productModels=
-                            mNetworkTaskViewModel.requestToServerForSpecificCatProduct(mCategoryId);
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateUI(productModels);
-                        }
-                    });
-                }
-            }).start();
-        }
-
+        mNetworkTaskViewModel.requestToServerForSpecificCatProduct(mCategoryId);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

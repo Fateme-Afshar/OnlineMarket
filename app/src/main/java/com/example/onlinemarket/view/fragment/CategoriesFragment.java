@@ -19,6 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 import com.example.onlinemarket.model.Category;
+import com.example.onlinemarket.viewModel.CategoryViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class CategoriesFragment extends Fragment{
 
     private CategoriesFragmentCallbacks mCallbacks;
 
-    private NetworkTaskViewModel mViewModel;
+    private CategoryViewModel mViewModel;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -58,7 +59,7 @@ public class CategoriesFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel=new ViewModelProvider(this).get(NetworkTaskViewModel.class);
+        mViewModel=new ViewModelProvider(this).get(CategoryViewModel.class);
     }
 
     @Override
