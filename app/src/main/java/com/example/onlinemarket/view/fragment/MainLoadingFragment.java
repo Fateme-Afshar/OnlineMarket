@@ -1,30 +1,27 @@
 package com.example.onlinemarket.view.fragment;
 
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.MainLoadingViewBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.Titles;
-import com.example.onlinemarket.viewModel.HomeViewModel;
+import com.example.onlinemarket.view.activity.MainActivity;
+import com.example.onlinemarket.repository.HomePageRepository;
+import com.example.onlinemarket.viewModel.MainLoadingViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
@@ -39,7 +36,7 @@ import static com.example.onlinemarket.utils.Titles.NEWEST_PRODUCT;
  */
 public class MainLoadingFragment extends Fragment {
     private NetworkTaskViewModel mNetworkTaskViewModel;
-    private HomeViewModel mHomeViewModel;
+    private MainLoadingViewModel mMainLoadingViewModel;
 
     private MainLoadingViewBinding mBinding;
 
@@ -59,8 +56,8 @@ public class MainLoadingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHomeViewModel=
-                new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        mMainLoadingViewModel =
+                new ViewModelProvider(getActivity()).get(MainLoadingViewModel.class);
         mNetworkTaskViewModel=
                 new ViewModelProvider(this).get(NetworkTaskViewModel.class);
     }
@@ -105,7 +102,7 @@ public class MainLoadingFragment extends Fragment {
                 productNewestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        mHomeViewModel.setNewestProductList(products);
+                        mMainLoadingViewModel.setNewestProductList(products);
 
                         flags[0]=true;
                         completeLoadingData();
@@ -119,7 +116,7 @@ public class MainLoadingFragment extends Fragment {
                 productBestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        mHomeViewModel.setBestProductList(products);
+                        mMainLoadingViewModel.setBestProductList(products);
 
                         flags[1]=true;
                         completeLoadingData();
@@ -134,7 +131,7 @@ public class MainLoadingFragment extends Fragment {
                 productMostReviewLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        mHomeViewModel.setPopulateProductList(products);
+                        mMainLoadingViewModel.setPopulateProductList(products);
                         flags[2]=true;
                         completeLoadingData();
                     }
@@ -147,7 +144,7 @@ public class MainLoadingFragment extends Fragment {
                 specialProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> productList) {
-                        mHomeViewModel.setSpecialProductList(productList);
+                        mMainLoadingViewModel.setSpecialProductList(productList);
                         flags[3]=true;
                         completeLoadingData();
                     }
@@ -160,9 +157,8 @@ public class MainLoadingFragment extends Fragment {
 
     private void completeLoadingData(){
         if (flags[0] && flags[1] && flags[2] && flags[3]){
-            NavController navController=
-                    Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-            navController.navigate(R.id.nav_home);
+            MainActivity.start(getContext());
+            getActivity().finish();
         }
     }
 

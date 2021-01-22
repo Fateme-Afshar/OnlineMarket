@@ -5,7 +5,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerLocationRepository;
@@ -13,7 +17,7 @@ import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 
-public class OnlineShopApplication extends Application {
+public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
     private static ProductPurchasedRepository sProductPurchasedRepository;
     private static CustomerRepository sCustomerRepository;
@@ -61,4 +65,5 @@ public class OnlineShopApplication extends Application {
     public static Customer getsCustomer() {
         return sCustomer;
     }
+
 }

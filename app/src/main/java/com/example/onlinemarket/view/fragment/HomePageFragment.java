@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,19 +20,13 @@ import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.services.PollWorkManager;
-import com.example.onlinemarket.utils.NetworkParams;
-import com.example.onlinemarket.utils.QueryParameters;
-import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.slider.ImageSlider;
-import com.example.onlinemarket.viewModel.HomeViewModel;
+import com.example.onlinemarket.repository.HomePageRepository;
+import com.example.onlinemarket.viewModel.HomePageViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static com.example.onlinemarket.utils.Titles.NEWEST_PRODUCT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +37,7 @@ public class HomePageFragment extends Fragment{
     private FragmentHomePageBinding mBinding;
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
-    private HomeViewModel mHomeViewModel;
+    private HomePageViewModel mHomePageViewModel;
 
     private OpenProductPage mCallbacks;
 
@@ -80,7 +72,7 @@ public class HomePageFragment extends Fragment{
         super.onCreate(savedInstanceState);
         PollWorkManager.enqueue(getContext(),1,false);
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
-        mHomeViewModel=new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        mHomePageViewModel =new ViewModelProvider(this).get(HomePageViewModel.class);
 
         setHasOptionsMenu(true);
     }
@@ -101,16 +93,16 @@ public class HomePageFragment extends Fragment{
     }
 
     private void setupProducts() {
-        setupAdapter(mHomeViewModel.getNewestProductList(),
+        setupAdapter(mHomePageViewModel.getNewestProductList(),
                 mBinding.recyclerViewNewestProduct);
 
-        setupAdapter(mHomeViewModel.getBestProductList(),
+        setupAdapter(mHomePageViewModel.getBestProductList(),
                 mBinding.recyclerViewBestProduct);
 
-        setupAdapter(mHomeViewModel.getPopulateProductList(),
+        setupAdapter(mHomePageViewModel.getPopulateProductList(),
                 mBinding.recyclerViewPopulateProduct);
 
-        setupAdapter(mHomeViewModel.getSpecialProductList(),
+        setupAdapter(mHomePageViewModel.getSpecialProductList(),
                 mBinding.recyclerViewSpecialProduct);
     }
 
