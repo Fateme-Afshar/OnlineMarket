@@ -80,7 +80,7 @@ public class HomePageFragment extends Fragment{
         super.onCreate(savedInstanceState);
         PollWorkManager.enqueue(getContext(),1,false);
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
-        mHomeViewModel=new ViewModelProvider(this).get(HomeViewModel.class);
+        mHomeViewModel=new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
         setHasOptionsMenu(true);
     }
@@ -100,6 +100,20 @@ public class HomePageFragment extends Fragment{
         return mBinding.getRoot();
     }
 
+    private void setupProducts() {
+        setupAdapter(mHomeViewModel.getNewestProductList(),
+                mBinding.recyclerViewNewestProduct);
+
+        setupAdapter(mHomeViewModel.getBestProductList(),
+                mBinding.recyclerViewBestProduct);
+
+        setupAdapter(mHomeViewModel.getPopulateProductList(),
+                mBinding.recyclerViewPopulateProduct);
+
+        setupAdapter(mHomeViewModel.getSpecialProductList(),
+                mBinding.recyclerViewSpecialProduct);
+    }
+
     private void setupAdapter(List<Product> productList, RecyclerView recyclerView) {
         ProductAdapter productAdapter = new ProductAdapter(getContext(),productList);
         productAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
@@ -116,67 +130,4 @@ public class HomePageFragment extends Fragment{
         recyclerView.setAdapter(productAdapter);
     }
 
-    private void setupProducts() {
-        getProducts(mHomeViewModel.getQueryMapNewest(), NEWEST_PRODUCT);
-        getProducts(mHomeViewModel.getQueryMapBest(), Titles.BEST_PRODUCT);
-        getProducts(mHomeViewModel.getQueryMapPopulate(), Titles.MORE_REVIEWS_PRODUCT);
-        getProducts(mHomeViewModel.getQueryMapSpecial(), Titles.SPECIAL_PRODUCT);
-    }
-
-    private void getProducts(Map<String, String> queryMap, Titles title) {
-        mNetworkTaskViewModel.requestToServerForReceiveProducts(queryMap,title);
-
-        switch (title) {
-            case NEWEST_PRODUCT:
-                LiveData<List<Product>> productNewestLiveData =
-                        mNetworkTaskViewModel.geNewestProductLiveData();
-                productNewestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        setupAdapter(products,mBinding.recyclerViewNewestProduct);
-                        mBinding.notifyChange();
-                    }
-                });
-
-                break;
-            case BEST_PRODUCT:
-                LiveData<List<Product>> productBestLiveData=
-                        mNetworkTaskViewModel.getBestProductLiveData();
-                productBestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        setupAdapter(products,mBinding.recyclerViewBestProduct);
-                        mBinding.notifyChange();
-                    }
-                });
-
-                break;
-            case MORE_REVIEWS_PRODUCT:
-
-                LiveData<List<Product>> productMostReviewLiveData =
-                        mNetworkTaskViewModel.getPopulateProductLiveData();
-                productMostReviewLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        setupAdapter(products,mBinding.recyclerViewPopulateProduct);
-                        mBinding.notifyChange();
-                    }
-                });
-                break;
-            case SPECIAL_PRODUCT:
-
-                LiveData<List<Product>> specialProductLiveData=
-                        mNetworkTaskViewModel.getSpecialProductLiveData();
-                specialProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> productList) {
-                        setupAdapter(productList,mBinding.recyclerViewSpecialProduct);
-                        mBinding.notifyChange();
-                    }
-                });
-
-            default:
-                break;
-        }
-    }
 }

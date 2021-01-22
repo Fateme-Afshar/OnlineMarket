@@ -24,6 +24,7 @@ import com.example.onlinemarket.view.fragment.CategoriesFragmentDirections;
 import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragmentDirections;
+import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity
@@ -93,7 +94,7 @@ public class MainActivity extends SingleFragmentActivity
 
     @Override
     public Fragment getFragment() {
-        return HomePageFragment.newInstance();
+        return MainLoadingFragment.newInstance();
     }
 
     @Override
