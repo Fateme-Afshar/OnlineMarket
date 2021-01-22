@@ -65,19 +65,8 @@ public class ProductInfoFragment extends Fragment{
         mReviewViewModel=new ViewModelProvider(this).
                 get(ReviewViewModel.class);
 
-        OnBackPressedCallback onBackPressedCallback=new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                NavController navController=
-                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-
-                navController.navigate(R.id.nav_home);
-            }
-        };
-
-        requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+        setupBackButton();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,6 +103,20 @@ public class ProductInfoFragment extends Fragment{
                 }
             });
         }
+    }
+
+    private void setupBackButton() {
+        OnBackPressedCallback onBackPressedCallback=new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                navController.navigate(R.id.nav_home);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
 
     private void setupReviewAdapter(List<Review> reviews) {

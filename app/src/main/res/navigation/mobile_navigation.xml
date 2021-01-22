@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_category_detail" >
         <action
             android:id="@+id/action_nav_categories_to_nav_category_product"
-            app:destination="@id/nav_category_product"
+            app:destination="@id/nav_category_product_loading"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:enterAnim="@anim/fade_in"
             >
@@ -87,15 +87,22 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_category_product"
-        android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
-        android:label="@string/menu_products"
-        tools:layout="@layout/fragment_category_detail"
+        android:id="@+id/nav_category_product_loading"
+        android:name="com.example.onlinemarket.view.fragment.LoadingCategoryProductFragment"
+        android:label="@string/menu_loading_product"
+        tools:layout="@layout/loading_view"
         >
         <argument
             android:name="catId"
             app:argType="integer"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_category_product"
+        android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_category_detail"
+        />
 
     <fragment
         android:id="@+id/nav_map"

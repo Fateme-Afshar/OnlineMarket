@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        mViewModel.getSearchProductLiveData().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
+        mViewModel.getProductLiveData().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> productList) {
                 setupAdapter(productList);

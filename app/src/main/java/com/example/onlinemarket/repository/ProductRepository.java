@@ -114,28 +114,6 @@ public class ProductRepository {
         });
     }
 
-    public void requestToServerForSpecificCatProduct(int catId) {
-        Call<List<Product>> productObjects=
-                mRetrofitInterface.getListProductObjects
-                        (NetworkParams.queryForReceiveSpecificCategoryProduct(catId));
-
-        productObjects.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                Log.d(ProgramUtils.TAG,
-                        "ProductRepository : request Server for receive products for Category by id = "+catId);
-
-                mProducts.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-
-            }
-        });
-
-    }
-
     private Call<List<Product>> getListCall(Map<String, String> queryMap) {
         return mRetrofitInterface.getListProductObjects(NetworkParams.queryForReceiveProduct(queryMap));
     }
