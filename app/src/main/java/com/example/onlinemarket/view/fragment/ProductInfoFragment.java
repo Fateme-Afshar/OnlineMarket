@@ -33,8 +33,6 @@ public class ProductInfoFragment extends Fragment{
     public static final String TAG_PRODUCT_INFO_FRAGMENT = "ProductInfoFragment";
     private FragmentProductInfoBinding mBinding;
 
-    private Product mProductModel;
-
     private ProductViewModel mProductViewModel;
     private ReviewViewModel mReviewViewModel;
 
@@ -58,10 +56,8 @@ public class ProductInfoFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO: this is wrong
-        mProductViewModel =new ViewModelProvider(this).
+        mProductViewModel =new ViewModelProvider(getActivity()).
                 get(ProductViewModel.class);
-        mProductViewModel.setProduct(mProductModel);
 
         mReviewViewModel=new ViewModelProvider(this).
                 get(ReviewViewModel.class);
@@ -114,10 +110,14 @@ public class ProductInfoFragment extends Fragment{
                 (new LinearLayoutManager(getActivity(),
                         LinearLayoutManager.HORIZONTAL,
                         true));
+
+        if (reviews.size()==0)
+            mBinding.tvFirstComment.setVisibility(View.VISIBLE);
     }
 
     private void setupReviewsForProduct() {
-        mReviewViewModel.requestToReceiveProductReviewList(mProductModel.getId());
+        mReviewViewModel.
+                requestToReceiveProductReviewList(mProductViewModel.getProduct().getId());
         mReviewViewModel.getListLiveData().observe(this, new Observer<List<Review>>() {
             @Override
             public void onChanged(List<Review> reviews) {

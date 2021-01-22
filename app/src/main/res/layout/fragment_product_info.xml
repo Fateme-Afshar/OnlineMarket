@@ -94,7 +94,7 @@
             tools:text="@tools:sample/avatars"
             showDescription="@{viewModel.product.description}"
             android:layout_marginTop="5dp"
-            android:padding="5dp"
+            android:padding="16dp"
             android:minHeight="100dp"
             android:textSize="11sp"
             app:layout_constraintTop_toBottomOf="@id/tv_title_product_inifo" />
@@ -151,14 +151,13 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/add_to_cart"
-            android:layout_width="152dp"
+            android:layout_width="146dp"
             android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:onClick="@{()->viewModel.onAddCartBtnClickListener()}"
-            >
+            app:layout_constraintBottom_toTopOf="@+id/card_post_review"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description">
 
             <LinearLayout
                 android:id="@+id/container_cart"
@@ -173,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/add_to_cart"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btn_add_cart"
@@ -185,10 +184,10 @@
                     android:id="@+id/anim_add_to_cart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/add_to_cart_shopping"
-                    android:visibility="gone" />
+                    app:lottie_rawRes="@raw/add_to_cart_shopping" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -301,6 +300,18 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_first_comment"
+            style="@style/TextStylePersian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_first_comment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comments"
+            android:textSize="14sp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
