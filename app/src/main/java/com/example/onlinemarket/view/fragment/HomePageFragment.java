@@ -27,6 +27,7 @@ import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.slider.ImageSlider;
+import com.example.onlinemarket.viewModel.HomeViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.HashMap;
@@ -44,6 +45,8 @@ public class HomePageFragment extends Fragment{
     private FragmentHomePageBinding mBinding;
 
     private NetworkTaskViewModel mNetworkTaskViewModel;
+    private HomeViewModel mHomeViewModel;
+
     private OpenProductPage mCallbacks;
 
     private ImageSlider mImageSlider;
@@ -77,6 +80,7 @@ public class HomePageFragment extends Fragment{
         super.onCreate(savedInstanceState);
         PollWorkManager.enqueue(getContext(),1,false);
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
+        mHomeViewModel=new ViewModelProvider(this).get(HomeViewModel.class);
 
         setHasOptionsMenu(true);
     }
@@ -113,28 +117,10 @@ public class HomePageFragment extends Fragment{
     }
 
     private void setupProducts() {
-        //receive newest products
-        Map<String, String> queryMapNewest = new HashMap<>();
-        queryMapNewest.put(QueryParameters.ORDER_BY, "date");
-        queryMapNewest.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
-        getProducts(queryMapNewest, NEWEST_PRODUCT);
-
-        //receive best products
-        Map<String, String> queryMapBest = new HashMap<>();
-        queryMapBest.put(QueryParameters.ORDER_BY, "rating");
-        queryMapBest.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
-        getProducts(queryMapBest, Titles.BEST_PRODUCT);
-
-        //receive most review products
-        Map<String, String> queryMapPopulate = new HashMap<>();
-        queryMapPopulate.put(QueryParameters.ORDER_BY, "popularity");
-        queryMapPopulate.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
-        getProducts(queryMapPopulate, Titles.MORE_REVIEWS_PRODUCT);
-
-        //receive special products
-        Map<String, String> queryMapSpecial = new HashMap<>();
-        queryMapSpecial.put(QueryParameters.ON_SALE, "true");
-        getProducts(queryMapSpecial, Titles.SPECIAL_PRODUCT);
+        getProducts(mHomeViewModel.getQueryMapNewest(), NEWEST_PRODUCT);
+        getProducts(mHomeViewModel.getQueryMapBest(), Titles.BEST_PRODUCT);
+        getProducts(mHomeViewModel.getQueryMapPopulate(), Titles.MORE_REVIEWS_PRODUCT);
+        getProducts(mHomeViewModel.getQueryMapSpecial(), Titles.SPECIAL_PRODUCT);
     }
 
     private void getProducts(Map<String, String> queryMap, Titles title) {
@@ -144,7 +130,7 @@ public class HomePageFragment extends Fragment{
             case NEWEST_PRODUCT:
                 LiveData<List<Product>> productNewestLiveData =
                         mNetworkTaskViewModel.geNewestProductLiveData();
-                productNewestLiveData.observe(this, new Observer<List<Product>>() {
+                productNewestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
                         setupAdapter(products,mBinding.recyclerViewNewestProduct);
@@ -156,7 +142,7 @@ public class HomePageFragment extends Fragment{
             case BEST_PRODUCT:
                 LiveData<List<Product>> productBestLiveData=
                         mNetworkTaskViewModel.getBestProductLiveData();
-                productBestLiveData.observe(this, new Observer<List<Product>>() {
+                productBestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
                         setupAdapter(products,mBinding.recyclerViewBestProduct);
@@ -169,7 +155,7 @@ public class HomePageFragment extends Fragment{
 
                 LiveData<List<Product>> productMostReviewLiveData =
                         mNetworkTaskViewModel.getPopulateProductLiveData();
-                productMostReviewLiveData.observe(this, new Observer<List<Product>>() {
+                productMostReviewLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
                         setupAdapter(products,mBinding.recyclerViewPopulateProduct);
@@ -181,7 +167,7 @@ public class HomePageFragment extends Fragment{
 
                 LiveData<List<Product>> specialProductLiveData=
                         mNetworkTaskViewModel.getSpecialProductLiveData();
-                specialProductLiveData.observe(this, new Observer<List<Product>>() {
+                specialProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> productList) {
                         setupAdapter(productList,mBinding.recyclerViewSpecialProduct);
