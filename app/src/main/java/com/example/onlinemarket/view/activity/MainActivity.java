@@ -29,7 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends SingleFragmentActivity
         implements CategoriesFragment.CategoriesFragmentCallbacks,
-        OpenProductPage, AccountFragment.AccountFragmentCallback,
+       AccountFragment.AccountFragmentCallback,
         CustomerFragment.CustomerInfoFragmentCallback {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -95,15 +95,6 @@ public class MainActivity extends SingleFragmentActivity
     @Override
     public Fragment getFragment() {
         return MainLoadingFragment.newInstance();
-    }
-
-    @Override
-    public void onItemClickListener(Product product) {
-        HomePageFragmentDirections.ActionNavHomeToNavProductInfo actionNavHomeToNavProductInfo=
-                HomePageFragmentDirections.actionNavHomeToNavProductInfo(product.getId());
-
-        actionNavHomeToNavProductInfo.setProductId(product.getId());
-        navController.navigate(actionNavHomeToNavProductInfo);
     }
 
     @Override

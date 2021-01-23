@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -24,6 +25,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
@@ -107,8 +110,22 @@ public class CustomerFragment extends Fragment {
                 false);
         setupAdapter();
         mBinding.setViewModel(mViewModel);
-
+        setupBackButton();
         return mBinding.getRoot();
+    }
+
+    private void setupBackButton() {
+        OnBackPressedCallback onBackPressedCallback=new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                navController.navigate(R.id.nav_home);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
 
     @Override

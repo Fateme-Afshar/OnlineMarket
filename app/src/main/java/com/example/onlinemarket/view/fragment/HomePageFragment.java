@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,8 +41,6 @@ public class HomePageFragment extends Fragment{
     private NetworkTaskViewModel mNetworkTaskViewModel;
     private HomePageViewModel mHomePageViewModel;
 
-    private OpenProductPage mCallbacks;
-
     private ImageSlider mImageSlider;
 
     public HomePageFragment() {
@@ -52,18 +52,6 @@ public class HomePageFragment extends Fragment{
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        if (context instanceof OpenProductPage)
-            mCallbacks=(OpenProductPage) context;
-        else
-            throw new ClassCastException(
-                    "Must implement OpenProductPage interface");
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -110,8 +98,15 @@ public class HomePageFragment extends Fragment{
         ProductAdapter productAdapter = new ProductAdapter(getContext(),productList);
         productAdapter.setCallback(new ProductAdapter.ProductAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
-                    mCallbacks.onItemClickListener(product);
+            public void onProductSelected(int productId) {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+                HomePageFragmentDirections.
+                        ActionNavHomeToNavProductInfo actionNavHomeToNavProductInfo=
+                        HomePageFragmentDirections.actionNavHomeToNavProductInfo(productId);
+
+                actionNavHomeToNavProductInfo.setProductId(productId);
+                navController.navigate(actionNavHomeToNavProductInfo);
             }
         });
 

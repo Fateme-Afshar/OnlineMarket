@@ -41,13 +41,29 @@
         android:id="@+id/nav_search"
         android:name="com.example.onlinemarket.view.fragment.SearchFragment"
         android:label="@string/menu_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_nav_loading_product"
+            app:destination="@id/nav_loading_product" >
+            <argument
+                android:name="productId"
+                app:argType="integer"/>
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_filter"
         android:name="com.example.onlinemarket.view.fragment.FilterFragment"
         android:label="@string/menu_filter"
-        tools:layout="@layout/fragment_filter" />
+        tools:layout="@layout/fragment_filter" >
+        <action
+            android:id="@+id/action_nav_filter_to_nav_loading_product"
+            app:destination="@id/nav_loading_product" >
+            <argument
+                android:name="productId"
+                app:argType="integer"/>
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_user_account"
@@ -71,6 +87,9 @@
         <argument
             android:name="productId"
             app:argType="integer"/>
+        <action
+            android:id="@+id/action_nav_loading_product_to_nav_product_info"
+            app:destination="@id/nav_product_info" />
     </fragment>
 
     <fragment
@@ -102,7 +121,15 @@
         android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
         android:label="@string/menu_products"
         tools:layout="@layout/fragment_category_detail"
-        />
+        >
+        <action
+            android:id="@+id/action_nav_category_product_to_nav_loading_product"
+            app:destination="@id/nav_loading_product" >
+            <argument
+                android:name="productId"
+                app:argType="integer"/>
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_map"
@@ -115,7 +142,15 @@
         android:name="com.example.onlinemarket.view.fragment.CartFragment"
         android:label="@string/menu_cart"
         tools:layout="@layout/fragment_cart"
-        />
+        >
+        <action
+            android:id="@+id/action_nav_cart_to_nav_loading_product"
+            app:destination="@id/nav_loading_product" >
+            <argument
+                android:name="productId"
+                app:argType="integer"/>
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_login"

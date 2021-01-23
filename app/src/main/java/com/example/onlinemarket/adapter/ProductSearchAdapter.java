@@ -29,10 +29,6 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         mCallback = callback;
     }
 
-    public void setProducts(List<Product> products) {
-        mProducts = products;
-    }
-
     public ProductSearchAdapter(Context context,List<Product> products) {
         mContext = context;
         mProducts = products;
@@ -57,13 +53,13 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         holder.mBindingView.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    mCallback.onProductSelected(mProducts.get(position));
-               /* }catch (Exception e){
+                try{
+                    mCallback.onProductSelected(mProducts.get(position).getId());
+                }catch (Exception e){
                     Log.e(ProgramUtils.TAG,
                             "ProductSearchAdapter : if you want when click item, " +
                                     "get product information page must implement callback with setCallback method"+e.getMessage());
-                }*/
+                }
             }
         });
     }
@@ -87,6 +83,6 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
     }
 
     public interface ProductSearchAdapterCallback {
-        void onProductSelected(Product product);
+        void onProductSelected(int productId);
     }
 }

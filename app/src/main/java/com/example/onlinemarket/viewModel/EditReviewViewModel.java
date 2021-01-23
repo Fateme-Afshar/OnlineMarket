@@ -3,7 +3,6 @@ package com.example.onlinemarket.viewModel;
 import android.text.Editable;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.Review;
@@ -22,15 +21,18 @@ public class EditReviewViewModel extends ViewModel {
     }
 
     public void afterTextChangeReviewer(Editable editable) {
-        mReview.setReviewer(editable.toString());
+        if (!editable.toString().equals(""))
+            mReview.setReviewer(editable.toString());
     }
 
     public void afterTextChangeReview(Editable editable) {
-        mReview.setReview(editable.toString());
+        if (!editable.toString().equals(""))
+            mReview.setReview(editable.toString());
     }
 
     public void afterTextChangeRate(Editable editable) {
-        mReview.setRating(Integer.parseInt(editable.toString()));
+        if (!editable.toString().equals(""))
+            mReview.setRating(Integer.parseInt(editable.toString()));
     }
 
     public void onEditBtnClickListener(Review review) {

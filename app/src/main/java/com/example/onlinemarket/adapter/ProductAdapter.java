@@ -55,7 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallback.onProductSelected(mProducts.get(position));
+                mCallback.onProductSelected(mProducts.get(position).getId());
             }
         });
     }
@@ -79,6 +79,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     }
 
     public interface ProductAdapterCallback{
-        void onProductSelected(Product product);
+        void onProductSelected(int productId);
     }
 }

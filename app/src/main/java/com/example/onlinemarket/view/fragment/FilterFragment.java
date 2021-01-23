@@ -16,6 +16,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
@@ -48,17 +50,6 @@ public class FilterFragment extends Fragment{
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        if (context instanceof OpenProductPage)
-            mCallback=(OpenProductPage) context;
-        else
-            throw new ClassCastException(
-                    "Must implement OpenProductPage interface");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -149,8 +140,16 @@ public class FilterFragment extends Fragment{
 
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
-                mCallback.onItemClickListener(product);
+            public void onProductSelected(int productId) {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                FilterFragmentDirections.ActionNavFilterToNavLoadingProduct
+                        actionNavFilterToNavLoadingProduct=
+                        FilterFragmentDirections.actionNavFilterToNavLoadingProduct(productId);
+
+                actionNavFilterToNavLoadingProduct.setProductId(productId);
+                navController.navigate(actionNavFilterToNavLoadingProduct);
             }
         });
 

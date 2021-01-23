@@ -1,24 +1,23 @@
 package com.example.onlinemarket.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
+import androidx.activity.OnBackPressedCallback;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCartBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.CartViewModel;
 
 import java.util.List;
@@ -33,7 +32,6 @@ public class CartFragment extends Fragment{
     private CartViewModel mViewModel;
     private ProductSearchAdapter mAdapter;
 
-    private OpenProductPage mCallback;
     public CartFragment() {
         // Required empty public constructor
     }
@@ -43,17 +41,6 @@ public class CartFragment extends Fragment{
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        if (context instanceof OpenProductPage)
-            mCallback=(OpenProductPage) context;
-        else
-            throw new ClassCastException(
-                    "Must implement OpenProductPage interface");
     }
 
     @Override
@@ -98,8 +85,18 @@ public class CartFragment extends Fragment{
 
         mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
             @Override
-            public void onProductSelected(Product product) {
-                mCallback.onItemClickListener(product);
+            public void onProductSelected(int productId) {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                CartFragmentDirections.
+                        ActionNavCartToNavLoadingProduct
+                        actionNavCartToNavLoadingProduct=
+                        CartFragmentDirections.
+                                actionNavCartToNavLoadingProduct(productId);
+
+                actionNavCartToNavLoadingProduct.setProductId(productId);
+                navController.navigate(actionNavCartToNavLoadingProduct);
             }
         });
 

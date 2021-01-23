@@ -32,7 +32,6 @@ public class CategoryProductsFragment extends Fragment{
     private ProductSearchAdapter mAdapter;
 
     private CategoryViewModel mViewModel;
-    private OpenProductPage mCallback;
     
     public CategoryProductsFragment() {
         // Required empty public constructor
@@ -43,18 +42,6 @@ public class CategoryProductsFragment extends Fragment{
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        if (context instanceof OpenProductPage)
-            mCallback=(OpenProductPage) context;
-        else
-            throw new ClassCastException(
-                    "Must implement OpenProductPage interface");
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -99,18 +86,22 @@ public class CategoryProductsFragment extends Fragment{
             mAdapter = new ProductSearchAdapter(getContext(),models);
             mAdapter.setCallback(new ProductSearchAdapter.ProductSearchAdapterCallback() {
                 @Override
-                public void onProductSelected(Product product) {
-                    mCallback.onItemClickListener(product);
+                public void onProductSelected(int productId) {
+                    NavController navController=
+                            Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                    CategoryProductsFragmentDirections.
+                            ActionNavCategoryProductToNavLoadingProduct
+                            actionNavCategoryProductToNavLoadingProduct=
+                            CategoryProductsFragmentDirections.
+                                    actionNavCategoryProductToNavLoadingProduct(productId);
+
+                    actionNavCategoryProductToNavLoadingProduct.setProductId(productId);
+                    navController.navigate(actionNavCategoryProductToNavLoadingProduct);
                 }
             });
             mBinding.recyclerView.setAdapter(mAdapter);
             mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mViewModel.getProductLiveData().removeObservers(getActivity());
-    }
 }

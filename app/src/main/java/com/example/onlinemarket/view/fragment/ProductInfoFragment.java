@@ -130,6 +130,8 @@ public class ProductInfoFragment extends Fragment{
 
         if (reviews.size()==0)
             mBinding.tvFirstComment.setVisibility(View.VISIBLE);
+        else
+            mBinding.tvFirstComment.setVisibility(View.GONE);
     }
 
     private void setupReviewsForProduct() {
