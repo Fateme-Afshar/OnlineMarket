@@ -126,6 +126,8 @@ public class CartViewModel extends AndroidViewModel {
                             R.string.order_success,
                             Toast.LENGTH_LONG).
                             show();
+
+                    mPurchasedRepository.deleteAll();
                 } else {
                     Log.e(ProgramUtils.TAG,
                             "CartViewModel : Orders post fail response code is  " + integer);

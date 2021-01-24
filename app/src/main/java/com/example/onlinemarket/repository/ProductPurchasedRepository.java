@@ -42,7 +42,6 @@ public class ProductPurchasedRepository implements IRepository<Product> {
         return sInstance;
     }
 
-
     public void postOrdersToServer(Orders orders){
         Retrofit retrofit= RetrofitInstance.getRetrofit();
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
@@ -83,6 +82,10 @@ public class ProductPurchasedRepository implements IRepository<Product> {
     @Override
     public void update(Product product) {
         OnlineShopDatabase.databaseWriteExecutor.execute(()->mDao.update(product));
+    }
+
+    public void deleteAll(){
+        OnlineShopDatabase.databaseWriteExecutor.execute(mDao::deleteAll);
     }
 
     public MutableLiveData<Integer> getResponseCode() {
