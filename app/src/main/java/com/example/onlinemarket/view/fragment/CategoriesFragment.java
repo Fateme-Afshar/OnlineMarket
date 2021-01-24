@@ -71,18 +71,8 @@ public class CategoriesFragment extends Fragment{
                 R.layout.fragment_categories,
                 container,
                 false);
-        setupRequestForReceiveData();
+        setupAdapter(mViewModel.getCategoryList());
         return mBinding.getRoot();
-    }
-
-    private void setupRequestForReceiveData() {
-        mViewModel.requestToServerForCategories();
-        mViewModel.getCategoryLiveData().observe(getActivity(), new Observer<List<Category>>() {
-            @Override
-            public void onChanged(List<Category> categories) {
-                setupAdapter(categories);
-            }
-        });
     }
 
     private void setupAdapter(List<Category> models) {

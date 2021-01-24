@@ -40,6 +40,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_online_market"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/img_online_shop"

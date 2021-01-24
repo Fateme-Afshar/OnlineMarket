@@ -16,11 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.MainLoadingViewBinding;
+import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.view.activity.MainActivity;
-import com.example.onlinemarket.repository.HomePageRepository;
 import com.example.onlinemarket.viewModel.MainLoadingViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
@@ -40,7 +40,7 @@ public class MainLoadingFragment extends Fragment {
 
     private MainLoadingViewBinding mBinding;
 
-    private boolean[] flags=new boolean[4];
+    private boolean[] flags=new boolean[5];
 
     public MainLoadingFragment() {
         // Required empty public constructor
@@ -71,21 +71,42 @@ public class MainLoadingFragment extends Fragment {
                R.layout.main_loading_view,
                container,
                false);
-       setupLoadData();
+       setupLoadingData();
        return mBinding.getRoot();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void setupLoadData() {
+    private void setupLoadingData() {
         if (LoadingUtils.checkHasInternet(getActivity().getSystemService(ConnectivityManager.class))){
             setupVisibility(View.VISIBLE,View.GONE);
-            setupProducts();
+            setupLoadingProducts();
+            setupLoadingCategories();
         }else {
             setupVisibility(View.GONE,View.VISIBLE);
+            mBinding.btnRefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setupLoadingData();
+
+                    setupVisibility(View.VISIBLE,View.GONE);
+                }
+            });
         }
     }
 
-    private void setupProducts() {
+    private void setupLoadingCategories() {
+        mNetworkTaskViewModel.requestToServerForCategories();
+        mNetworkTaskViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
+            @Override
+            public void onChanged(List<Category> categories) {
+                mMainLoadingViewModel.setCategories(categories);
+                flags[4]=true;
+                completeLoadingData();
+            }
+        });
+    }
+
+    private void setupLoadingProducts() {
         getProducts(mNetworkTaskViewModel.getQueryMapNewest(), NEWEST_PRODUCT);
         getProducts(mNetworkTaskViewModel.getQueryMapBest(), Titles.BEST_PRODUCT);
         getProducts(mNetworkTaskViewModel.getQueryMapPopulate(), Titles.MORE_REVIEWS_PRODUCT);
@@ -156,7 +177,7 @@ public class MainLoadingFragment extends Fragment {
     }
 
     private void completeLoadingData(){
-        if (flags[0] && flags[1] && flags[2] && flags[3]){
+        if (flags[0] && flags[1] && flags[2] && flags[3] && flags[4]){
             MainActivity.start(getContext());
             getActivity().finish();
         }
@@ -168,5 +189,9 @@ public class MainLoadingFragment extends Fragment {
         mBinding.animNoInternet.setVisibility(visible);
         mBinding.tvNoInternet.setVisibility(visible);
         mBinding.btnRefresh.setVisibility(visible);
+
+        mBinding.tvOnlineShop.setVisibility(gone);
+        mBinding.tvOnlineShopEn.setVisibility(gone);
+        mBinding.imvOnlineMarket.setVisibility(gone);
     }
 }

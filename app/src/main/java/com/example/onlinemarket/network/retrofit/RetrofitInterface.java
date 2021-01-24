@@ -22,8 +22,8 @@ import retrofit2.http.QueryMap;
 
 public interface RetrofitInterface {
 
-    @GET("products/{path}?per_page=100")
-    Call<List<CatObj>> getListCatObjects(@Path("path") String path, @QueryMap Map<String, String> queryMap);
+    @GET("products/categories?per_page=100")
+    Call<List<CatObj>> getListCatObjects(@QueryMap Map<String, String> queryMap);
 
     @GET("products?per_page=100")
     Call<List<Product>> getListProductObjects(@QueryMap Map<String, String> queryMap);

@@ -6,35 +6,32 @@ import androidx.lifecycle.ViewModel;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.CategoryRepository;
+import com.example.onlinemarket.repository.MainLoadingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryViewModel extends ViewModel {
     private CategoryRepository mCategoryRepository;
-    private LiveData<List<Category>> mCategoryLiveData;
+    private List<Category> mCategoryList;
     private LiveData<List<Product>> mProductLiveData;
 
+    private MainLoadingRepository mMainLoadingRepository;
+
     private List<Product> mProductList=new ArrayList<>();
-    private List<Category> mCategory;
 
     {
         mCategoryRepository=CategoryRepository.getInstance();
-        mCategoryLiveData=mCategoryRepository.getCategoryLiveData();
+        mMainLoadingRepository=MainLoadingRepository.getInstance();
+
         mProductLiveData=mCategoryRepository.getProducts();
+        mCategoryList=mMainLoadingRepository.getCategoryList();
     }
 
-    public LiveData<List<Category>> getCategoryLiveData() {
-        return mCategoryLiveData;
+    public List<Category> getCategoryList() {
+        return mCategoryList;
     }
 
-    public List<Category> getCategory() {
-        return mCategory;
-    }
-
-    public void setCategory(List<Category> category) {
-        mCategory = category;
-    }
 
     public LiveData<List<Product>> getProductLiveData() {
         return mProductLiveData;

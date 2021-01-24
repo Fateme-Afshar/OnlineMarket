@@ -3,15 +3,15 @@ package com.example.onlinemarket.viewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.repository.HomePageRepository;
+import com.example.onlinemarket.repository.MainLoadingRepository;
 
 import java.util.List;
 
 public class HomePageViewModel extends ViewModel {
-    private HomePageRepository mRepository;
+    private MainLoadingRepository mRepository;
 
     {
-        mRepository=HomePageRepository.getInstance();
+        mRepository= MainLoadingRepository.getInstance();
     }
 
     public List<Product> getNewestProductList(){

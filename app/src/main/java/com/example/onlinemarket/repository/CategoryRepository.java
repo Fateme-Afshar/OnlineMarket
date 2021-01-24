@@ -49,7 +49,7 @@ public class CategoryRepository {
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
 
         Call<List<CatObj>> catObjects =
-                mRetrofitInterface.getListCatObjects("categories",NetworkParams.MAP_KEYS);
+                mRetrofitInterface.getListCatObjects(NetworkParams.MAP_KEYS);
         catObjects.enqueue(new Callback<List<CatObj>>() {
             @Override
             public void onResponse(Call<List<CatObj>> call, Response<List<CatObj>> response) {
@@ -104,7 +104,7 @@ public class CategoryRepository {
         return mProducts;
     }
 
-    public MutableLiveData<List<Category>> getCategoryLiveData() {
+    public MutableLiveData<List<Category>> getCategoryListLiveData() {
         return mCategoryLiveData;
     }
 }

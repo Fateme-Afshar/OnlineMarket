@@ -2,16 +2,17 @@ package com.example.onlinemarket.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.repository.HomePageRepository;
+import com.example.onlinemarket.repository.MainLoadingRepository;
 
 import java.util.List;
 
 public class MainLoadingViewModel extends ViewModel {
-    private HomePageRepository mRepository;
+    private MainLoadingRepository mRepository;
 
     {
-        mRepository=HomePageRepository.getInstance();
+        mRepository= MainLoadingRepository.getInstance();
     }
 
 
@@ -29,5 +30,9 @@ public class MainLoadingViewModel extends ViewModel {
 
     public void setSpecialProductList(List<Product> specialProductList) {
         mRepository.setSpecialProductList(specialProductList);
+    }
+
+    public void setCategories(List<Category> categories){
+        mRepository.setCategoryList(categories);
     }
 }

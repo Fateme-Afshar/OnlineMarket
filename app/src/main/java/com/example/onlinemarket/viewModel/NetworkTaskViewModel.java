@@ -5,8 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
+import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.repository.CategoryRepository;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
@@ -19,16 +22,21 @@ import java.util.Map;
 
 public class NetworkTaskViewModel extends AndroidViewModel {
     private ProductRepository mProductRepository;
+    private CategoryRepository mCategoryRepository;
+
     private LiveData<List<Product>> mNewestProductLiveData;
     private LiveData<List<Product>> mPopulateProductLiveData;
     private LiveData<List<Product>> mBestProductLiveData;
     private LiveData<List<Product>> mSpecialProductLiveData;
     private LiveData<List<Product>> mProductLiveData;
 
+    private LiveData<List<Category>> mCategoryLiveData;
+
     public NetworkTaskViewModel(@NonNull Application application) {
         super(application);
 
         mProductRepository = ProductRepository.getInstance();
+        mCategoryRepository=CategoryRepository.getInstance();
 
         mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
         mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
@@ -36,6 +44,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         mSpecialProductLiveData=mProductRepository.getSpecialProductLiveData();
         mProductLiveData =mProductRepository.getProducts();
 
+        mCategoryLiveData=mCategoryRepository.getCategoryListLiveData();
     }
 
     public void requestToServerForReceiveProducts(Map<String,String> queryMap, Titles title){
@@ -45,6 +54,14 @@ public class NetworkTaskViewModel extends AndroidViewModel {
     public void requestToServerForSearchProducts(String title,String search){
         Map<String, String> queryParameter = NetworkParams.querySearch(title, search);
         mProductRepository.requestToServerForReceiveProducts(queryParameter);
+    }
+
+    public void requestToServerForCategories(){
+        mCategoryRepository.requestToServerForCategories();
+    }
+
+    public LiveData<List<Category>> getCategoryLiveData() {
+        return mCategoryLiveData;
     }
 
     public LiveData<List<Product>> geNewestProductLiveData() {

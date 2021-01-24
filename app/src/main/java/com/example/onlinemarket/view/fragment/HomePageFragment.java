@@ -1,13 +1,12 @@
 package com.example.onlinemarket.view.fragment;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -22,9 +21,7 @@ import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.services.PollWorkManager;
-import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.slider.ImageSlider;
-import com.example.onlinemarket.repository.HomePageRepository;
 import com.example.onlinemarket.viewModel.HomePageViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
@@ -61,7 +58,7 @@ public class HomePageFragment extends Fragment{
         PollWorkManager.enqueue(getContext(),1,false);
         mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
         mHomePageViewModel =new ViewModelProvider(this).get(HomePageViewModel.class);
-
+        setupBackButton();
         setHasOptionsMenu(true);
     }
 
@@ -117,4 +114,14 @@ public class HomePageFragment extends Fragment{
         recyclerView.setAdapter(productAdapter);
     }
 
+    private void setupBackButton() {
+        OnBackPressedCallback onBackPressedCallback=new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                    getActivity().finish();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+    }
 }
