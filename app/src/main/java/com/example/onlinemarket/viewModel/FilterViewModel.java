@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.FilterRepository;
+import com.example.onlinemarket.repository.MainLoadingRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.QueryParameters;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class FilterViewModel extends AndroidViewModel {
     private FilterRepository mRepository;
     private ProductRepository mProductRepository;
+    private MainLoadingRepository mMainLoadingRepository;
     private OnBtnClickListener mOnBtnClickListener;
 
     private List<Integer> mFilterIds;
@@ -29,14 +31,11 @@ public class FilterViewModel extends AndroidViewModel {
         super(application);
         mRepository = FilterRepository.getInstance();
         mProductRepository = ProductRepository.getInstance();
+        mMainLoadingRepository=MainLoadingRepository.getInstance();
     }
 
     public void requestToServerForReceiveAttributes() {
         mRepository.requestToServerForReceiveAttributes();
-    }
-
-    public void requestToServerForReceiveInfoSectionAttribute(int attributeId) {
-        mRepository.requestToServerForReceiveInfoSectionAttribute(attributeId);
     }
 
     public void requestToServerForReceiveFilterProductsOnAttributeTerm(List<Integer> filterItemIds, String filterName) {
@@ -69,8 +68,12 @@ public class FilterViewModel extends AndroidViewModel {
         mOnBtnClickListener.onFilterBtnClickListener();
     }
 
-    public LiveData<List<AttributeInfo>> getAttributeListLiveData() {
-        return mRepository.getAttributeListLiveData();
+    public List<AttributeInfo> getColorAttributeInfoList() {
+        return mMainLoadingRepository.getColorAttributeInfoList();
+    }
+
+    public List<AttributeInfo> getSizeAttributeInfoList() {
+        return mMainLoadingRepository.getSizeAttributeInfoList();
     }
 
     public LiveData<AttributeInfo> getAttributeLiveData() {

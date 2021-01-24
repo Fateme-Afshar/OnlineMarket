@@ -59,13 +59,6 @@ public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
             mAttributeId=getArguments().getInt(ARG_ATTRIBUTE_ID);
         }
         mViewModel=new ViewModelProvider(getActivity()).get(FilterViewModel.class);
-        mViewModel.requestToServerForReceiveInfoSectionAttribute(mAttributeId);
-        mViewModel.getAttributeListLiveData().observe(this, new Observer<List<AttributeInfo>>() {
-            @Override
-            public void onChanged(List<AttributeInfo> attributeInfoList) {
-                setupAdapter(attributeInfoList);
-            }
-        });
     }
 
     @Override
@@ -90,8 +83,15 @@ public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-
+        setupAttributeList();
         return mBinding.getRoot();
+    }
+
+    private void setupAttributeList() {
+        if (mAttributeId==3)
+            setupAdapter(mViewModel.getColorAttributeInfoList());
+        else if (mAttributeId==4)
+            setupAdapter(mViewModel.getSizeAttributeInfoList());
     }
 
     private void setupAdapter(List<AttributeInfo> attributeInfoList) {

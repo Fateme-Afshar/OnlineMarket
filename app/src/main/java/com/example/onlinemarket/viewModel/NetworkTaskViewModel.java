@@ -5,11 +5,12 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
+import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.CategoryRepository;
+import com.example.onlinemarket.repository.FilterRepository;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class NetworkTaskViewModel extends AndroidViewModel {
     private ProductRepository mProductRepository;
     private CategoryRepository mCategoryRepository;
+    private FilterRepository mFilterRepository;
 
     private LiveData<List<Product>> mNewestProductLiveData;
     private LiveData<List<Product>> mPopulateProductLiveData;
@@ -32,11 +34,15 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     private LiveData<List<Category>> mCategoryLiveData;
 
+    private LiveData<List<AttributeInfo>> mColorAttributeInfoList;
+    private LiveData<List<AttributeInfo>> mSizeAttributeInfoList;
+
     public NetworkTaskViewModel(@NonNull Application application) {
         super(application);
 
         mProductRepository = ProductRepository.getInstance();
         mCategoryRepository=CategoryRepository.getInstance();
+        mFilterRepository=FilterRepository.getInstance();
 
         mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
         mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
@@ -45,6 +51,9 @@ public class NetworkTaskViewModel extends AndroidViewModel {
         mProductLiveData =mProductRepository.getProducts();
 
         mCategoryLiveData=mCategoryRepository.getCategoryListLiveData();
+
+        mColorAttributeInfoList=mFilterRepository.getColorAttributeListLiveData();
+        mSizeAttributeInfoList=mFilterRepository.getSizeAttributeListLiveData();
     }
 
     public void requestToServerForReceiveProducts(Map<String,String> queryMap, Titles title){
@@ -58,6 +67,14 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     public void requestToServerForCategories(){
         mCategoryRepository.requestToServerForCategories();
+    }
+
+    public void requestToServerForReceiveInfoColorAttribute(){
+        mFilterRepository.requestToServerForReceiveInfoColorAttribute();
+    }
+
+    public void requestToServerForReceiveInfoSizeAttribute(){
+        mFilterRepository.requestToServerForReceiveInfoSizeAttribute();
     }
 
     public LiveData<List<Category>> getCategoryLiveData() {
@@ -82,6 +99,12 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Product>> getSpecialProductLiveData() {
         return mSpecialProductLiveData;
+    }
+
+    public LiveData<List<AttributeInfo>> getColorAttributeInfoList(){return mColorAttributeInfoList;}
+
+    public LiveData<List<AttributeInfo>> getSizeAttributeInfoList() {
+        return mSizeAttributeInfoList;
     }
 
     public Map<String, String> getQueryMapNewest() {

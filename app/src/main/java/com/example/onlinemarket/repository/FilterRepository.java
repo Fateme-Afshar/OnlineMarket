@@ -20,7 +20,8 @@ import retrofit2.Retrofit;
 
 public class FilterRepository {
     private static FilterRepository sInstance;
-    private MutableLiveData<List<AttributeInfo>> mAttributeListLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<AttributeInfo>> mColorAttributeListLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<AttributeInfo>> mSizeAttributeListLiveData = new MutableLiveData<>();
     private MutableLiveData<AttributeInfo> mAttributeLiveData = new MutableLiveData<>();
 
     private RetrofitInterface mRetrofitInterface;
@@ -40,12 +41,12 @@ public class FilterRepository {
 
     public void requestToServerForReceiveAttributes() {
         Call<List<AttributeInfo>> call = mRetrofitInterface.getAttributes(NetworkParams.MAP_KEYS);
-        Log.d(ProgramUtils.TAG, "AttributeRepository : Request to server for Receive Attributes");
+        Log.d(ProgramUtils.TAG, "FilterRepository : Request to server for Receive Attributes");
         call.enqueue(new Callback<List<AttributeInfo>>() {
             @Override
             public void onResponse(Call<List<AttributeInfo>> call, Response<List<AttributeInfo>> response) {
-                mAttributeListLiveData.setValue(response.body());
-                Log.d(ProgramUtils.TAG, "AttributeRepository : Receive Attributes");
+                mColorAttributeListLiveData.setValue(response.body());
+                Log.d(ProgramUtils.TAG, "FilterRepository : Receive Attributes");
             }
 
             @Override
@@ -57,16 +58,16 @@ public class FilterRepository {
 
     /*    Request to server for Receive Information Every Section Attributes (for example if id=3 receive all colors that define in site)
          reuse same live data that use in requestToServerForReceiveAttributes method*/
-    public void requestToServerForReceiveInfoSectionAttribute(int attributeId) {
+    public void requestToServerForReceiveInfoColorAttribute() {
         Call<List<AttributeInfo>> call = mRetrofitInterface.
-                getEveryAttributePart(String.valueOf(attributeId), NetworkParams.MAP_KEYS);
+                getEveryAttributePart(String.valueOf(3), NetworkParams.MAP_KEYS);
 
         call.enqueue(new Callback<List<AttributeInfo>>() {
             @Override
             public void onResponse(Call<List<AttributeInfo>> call, Response<List<AttributeInfo>> response) {
                 Log.d(ProgramUtils.TAG,
-                        "AttributeRepository : Request to server for Receive Information Every Section Attributes");
-                mAttributeListLiveData.setValue(response.body());
+                        "FilterRepository : Request to server for Receive Information Color Attributes");
+                mColorAttributeListLiveData.setValue(response.body());
             }
 
             @Override
@@ -76,8 +77,31 @@ public class FilterRepository {
         });
     }
 
-    public MutableLiveData<List<AttributeInfo>> getAttributeListLiveData() {
-        return mAttributeListLiveData;
+    public void requestToServerForReceiveInfoSizeAttribute(){
+        Call<List<AttributeInfo>> call = mRetrofitInterface.
+                getEveryAttributePart(String.valueOf(4), NetworkParams.MAP_KEYS);
+
+        call.enqueue(new Callback<List<AttributeInfo>>() {
+            @Override
+            public void onResponse(Call<List<AttributeInfo>> call, Response<List<AttributeInfo>> response) {
+                Log.d(ProgramUtils.TAG,
+                        "FilterRepository : Request to server for Receive Information Size Attributes");
+                mSizeAttributeListLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<AttributeInfo>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public MutableLiveData<List<AttributeInfo>> getColorAttributeListLiveData() {
+        return mColorAttributeListLiveData;
+    }
+
+    public MutableLiveData<List<AttributeInfo>> getSizeAttributeListLiveData() {
+        return mSizeAttributeListLiveData;
     }
 
     public MutableLiveData<AttributeInfo> getAttributeLiveData() {

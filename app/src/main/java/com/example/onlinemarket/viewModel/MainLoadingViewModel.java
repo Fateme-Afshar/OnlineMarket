@@ -2,6 +2,7 @@ package com.example.onlinemarket.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.MainLoadingRepository;
@@ -34,5 +35,13 @@ public class MainLoadingViewModel extends ViewModel {
 
     public void setCategories(List<Category> categories){
         mRepository.setCategoryList(categories);
+    }
+
+    public void setColorAttributeInfoList(List<AttributeInfo> colorAttributeInfoList) {
+        mRepository.setColorAttributeInfoList(colorAttributeInfoList);
+    }
+
+    public void setSizeAttributeInfoList(List<AttributeInfo> sizeAttributeInfoList) {
+        mRepository.setSizeAttributeInfoList(sizeAttributeInfoList);
     }
 }

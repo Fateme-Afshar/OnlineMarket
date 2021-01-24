@@ -1,10 +1,12 @@
 package com.example.onlinemarket.repository;
 
+import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 public class MainLoadingRepository {
     private static MainLoadingRepository sMainLoadingRepository;
@@ -24,6 +26,9 @@ public class MainLoadingRepository {
    private List<Product> mSpecialProductList=new ArrayList<>();
 
    private List<Category> mCategoryList=new ArrayList<>();
+
+   private List<AttributeInfo> mColorAttributeInfoList=new ArrayList<>();
+   private List<AttributeInfo> mSizeAttributeInfoList=new ArrayList<>();
 
     public List<Product> getNewestProductList() {
         return mNewestProductList;
@@ -63,5 +68,21 @@ public class MainLoadingRepository {
 
     public void setCategoryList(List<Category> categoryList) {
         mCategoryList = categoryList;
+    }
+
+    public List<AttributeInfo> getColorAttributeInfoList() {
+        return mColorAttributeInfoList;
+    }
+
+    public void setColorAttributeInfoList(List<AttributeInfo> colorAttributeInfoList) {
+        mColorAttributeInfoList = colorAttributeInfoList;
+    }
+
+    public List<AttributeInfo> getSizeAttributeInfoList() {
+        return mSizeAttributeInfoList;
+    }
+
+    public void setSizeAttributeInfoList(List<AttributeInfo> sizeAttributeInfoList) {
+        mSizeAttributeInfoList = sizeAttributeInfoList;
     }
 }

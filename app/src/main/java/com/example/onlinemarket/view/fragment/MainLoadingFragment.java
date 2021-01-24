@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.MainLoadingViewBinding;
+import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.LoadingUtils;
@@ -40,7 +41,7 @@ public class MainLoadingFragment extends Fragment {
 
     private MainLoadingViewBinding mBinding;
 
-    private boolean[] flags=new boolean[5];
+    private boolean[] flags=new boolean[7];
 
     public MainLoadingFragment() {
         // Required empty public constructor
@@ -81,6 +82,7 @@ public class MainLoadingFragment extends Fragment {
             setupVisibility(View.VISIBLE,View.GONE);
             setupLoadingProducts();
             setupLoadingCategories();
+            setupLoadingAttributes();
         }else {
             setupVisibility(View.GONE,View.VISIBLE);
             mBinding.btnRefresh.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +94,31 @@ public class MainLoadingFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void setupLoadingAttributes() {
+        mNetworkTaskViewModel.requestToServerForReceiveInfoColorAttribute();
+        mNetworkTaskViewModel.requestToServerForReceiveInfoSizeAttribute();
+
+        mNetworkTaskViewModel.getColorAttributeInfoList().observe(getActivity(), new Observer<List<AttributeInfo>>() {
+            @Override
+            public void onChanged(List<AttributeInfo> attributeInfoList) {
+                mMainLoadingViewModel.setColorAttributeInfoList(attributeInfoList);
+
+                flags[6]=true;
+                completeLoadingData();
+            }
+        });
+
+        mNetworkTaskViewModel.getSizeAttributeInfoList().observe(getActivity(), new Observer<List<AttributeInfo>>() {
+            @Override
+            public void onChanged(List<AttributeInfo> attributeInfoList) {
+                mMainLoadingViewModel.setSizeAttributeInfoList(attributeInfoList);
+                flags[5]=true;
+                completeLoadingData();
+            }
+        });
+
     }
 
     private void setupLoadingCategories() {
