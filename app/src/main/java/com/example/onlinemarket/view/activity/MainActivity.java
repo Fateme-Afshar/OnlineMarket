@@ -16,14 +16,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragmentDirections;
 import com.example.onlinemarket.view.fragment.CustomerFragment;
-import com.example.onlinemarket.view.fragment.HomePageFragment;
-import com.example.onlinemarket.view.fragment.HomePageFragmentDirections;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -67,7 +63,7 @@ public class MainActivity extends SingleFragmentActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 

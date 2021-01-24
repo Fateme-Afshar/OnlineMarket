@@ -6,7 +6,7 @@
         android:id="@+id/menu_basket"
         android:orderInCategory="100"
         android:title="@string/action_basket"
-        android:icon="@drawable/ic_basket"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
         app:showAsAction="always" />
 
     <item

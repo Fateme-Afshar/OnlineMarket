@@ -67,14 +67,12 @@ public class MainLoadingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       mBinding= DataBindingUtil.inflate(
+       mBinding = DataBindingUtil.inflate(
                inflater,
                R.layout.main_loading_view,
                container,
                false);
-       /*setupLoadingData();*/
-        MainActivity.start(getContext());
-        getActivity().finish();
+        setupLoadingData();
        return mBinding.getRoot();
     }
 
