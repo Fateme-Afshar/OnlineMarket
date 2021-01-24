@@ -46,7 +46,8 @@ public class CouponsRepository {
                     Log.e(ProgramUtils.TAG,
                             "CouponsRepository : Coupons check fail cause by one of them : " +
                                     response.code() + " response body size:  " + response.body().size());
-                }
+                }else
+                    coupons=response.body().get(0);
                 mCouponsMutableLiveData.setValue(coupons);
             }
 

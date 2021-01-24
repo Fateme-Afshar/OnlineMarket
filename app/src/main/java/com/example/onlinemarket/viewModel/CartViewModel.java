@@ -98,7 +98,6 @@ public class CartViewModel extends AndroidViewModel {
                     Toast.makeText
                             (getApplication(), "کد تخفیف نامعتبر است ", Toast.LENGTH_LONG).show();
                 }else{
-                    //TODO : calculate final amount
                     if (mTotalPrice<coupons.getAmount() ||
                             mTotalPrice<coupons.getMinimumAmount() ||
                             mTotalPrice > coupons.getMaximumAmount()){

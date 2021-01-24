@@ -72,8 +72,9 @@ public class MainLoadingFragment extends Fragment {
                R.layout.main_loading_view,
                container,
                false);
-       setupLoadingData();
-
+       /*setupLoadingData();*/
+        MainActivity.start(getContext());
+        getActivity().finish();
        return mBinding.getRoot();
     }
 
