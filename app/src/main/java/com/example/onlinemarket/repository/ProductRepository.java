@@ -91,7 +91,7 @@ public class ProductRepository {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-
+                Log.e(ProgramUtils.TEST_TAG,"Fail receive Product cause by "+ t.getMessage());
             }
         });
     }

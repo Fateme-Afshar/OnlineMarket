@@ -13,9 +13,6 @@ public class NetworkParams {
     public static final String CONS_SECRET =
             "cs_45ceb9de983308785f5affc3b5648a48101b4b67";
 
-    public static final String ORDER_ASC = "asc";
-    public static final String ORDER_DESC = "desc";
-
     public static final Map<String, String> MAP_KEYS =
             new HashMap<String, String>() {{
                 put("consumer_key", CONS_KEY);

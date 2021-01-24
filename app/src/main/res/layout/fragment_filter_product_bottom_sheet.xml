@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("date","desc")}'
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener(QueryParameters.DATE,QueryParameters.ORDER_DESC)}'
             android:text="@string/newest_filter"
             app:layout_constraintEnd_toStartOf="@+id/btn_best_sellers"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/best_sellers_filter"
-            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("popularity","desc")}'
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener(QueryParameters.POPULARITY,QueryParameters.ORDER_DESC)}'
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_newest"
@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("price","asc")}'
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener(QueryParameters.PRICE,QueryParameters.ORDER_ASC)}'
             android:text="@string/price_low_to_high"
             app:layout_constraintEnd_toStartOf="@+id/btn_price_high_to_law"
             app:layout_constraintStart_toEndOf="@+id/btn_newest"
@@ -61,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener("price","desc")}'
+            android:onClick='@{()->viewModel.onMoreFilterBtnClickListener(QueryParameters.PRICE,QueryParameters.ORDER_DESC)}'
             android:text="@string/price_high_to_law"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"

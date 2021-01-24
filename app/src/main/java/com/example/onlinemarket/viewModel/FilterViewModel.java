@@ -12,8 +12,10 @@ import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.FilterRepository;
 import com.example.onlinemarket.repository.MainLoadingRepository;
 import com.example.onlinemarket.repository.ProductRepository;
+import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.QueryParameters;
+import com.example.onlinemarket.utils.Titles;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +58,7 @@ public class FilterViewModel extends AndroidViewModel {
     public void requestToServerForReceiveFilterProductsOnMore(String orderby,String order){
         Map<String,String> queryParameter=new HashMap<>();
         queryParameter.put(QueryParameters.ORDER_BY,orderby);
-        queryParameter.put(order,order);
+        queryParameter.put(QueryParameters.ORDER,order);
         mProductRepository.requestToServerForReceiveProducts(queryParameter);
     }
 

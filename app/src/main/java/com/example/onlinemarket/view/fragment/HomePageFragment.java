@@ -20,12 +20,21 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
+import com.example.onlinemarket.network.retrofit.RetrofitInterface;
+import com.example.onlinemarket.network.retrofit.gson.ProductGsonConverterCustomize;
 import com.example.onlinemarket.services.PollWorkManager;
+import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.HomePageViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.

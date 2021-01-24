@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.ItemSearchViewBinding;
+import com.example.onlinemarket.databinding.ItemViewBindingImpl;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.ProgramUtils;
 
@@ -20,8 +21,6 @@ import java.util.List;
 public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdapter.Holder>{
     private List<Product> mProducts;
     private Context mContext;
-
-    private ItemSearchViewBinding mBinding;
 
     private ProductSearchAdapterCallback mCallback;
 
@@ -37,13 +36,13 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mBinding= DataBindingUtil.inflate(
+        ItemSearchViewBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(mContext),
                 R.layout.item_search_view,
                 parent,
                 false);
 
-        return new Holder(mBinding);
+        return new Holder(binding);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class ProductSearchAdapter extends RecyclerView.Adapter<ProductSearchAdap
         }
 
         public void bind(Product product) {
-            mBinding.setProduct(product);
+            mBindingView.setProduct(product);
         }
     }
 

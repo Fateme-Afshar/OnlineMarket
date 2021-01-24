@@ -109,22 +109,22 @@ public class NetworkTaskViewModel extends AndroidViewModel {
 
     public Map<String, String> getQueryMapNewest() {
         Map<String, String> queryMapNewest = new HashMap<>();
-        queryMapNewest.put(QueryParameters.ORDER_BY, "date");
-        queryMapNewest.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
+        queryMapNewest.put(QueryParameters.ORDER_BY, QueryParameters.DATE);
+        queryMapNewest.put(QueryParameters.ORDER, QueryParameters.ORDER_DESC);
         return queryMapNewest;
     }
 
     public Map<String, String> getQueryMapBest() {
         Map<String, String> queryMapBest = new HashMap<>();
-        queryMapBest.put(QueryParameters.ORDER_BY, "rating");
-        queryMapBest.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
+        queryMapBest.put(QueryParameters.ORDER_BY, QueryParameters.RATE);
+        queryMapBest.put(QueryParameters.ORDER, QueryParameters.ORDER_DESC);
         return queryMapBest;
     }
 
     public Map<String, String> getQueryMapPopulate() {
         Map<String, String> queryMapPopulate = new HashMap<>();
-        queryMapPopulate.put(QueryParameters.ORDER_BY, "popularity");
-        queryMapPopulate.put(QueryParameters.ORDER, NetworkParams.ORDER_DESC);
+        queryMapPopulate.put(QueryParameters.ORDER_BY, QueryParameters.POPULARITY);
+        queryMapPopulate.put(QueryParameters.ORDER, QueryParameters.ORDER_DESC);
         return queryMapPopulate;
     }
 

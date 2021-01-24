@@ -31,6 +31,9 @@ public interface RetrofitInterface {
     @GET("products/{id}")
     Call<Product> getProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
 
+    @DELETE("products/{id}?force=true")
+    Call<Product> deleteProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
+
     //for receive filter sections such as color,size
     @GET("products/attributes")
     Call<List<AttributeInfo>> getAttributes(@QueryMap Map<String, String> queryMap);

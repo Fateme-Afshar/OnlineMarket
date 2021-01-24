@@ -73,6 +73,7 @@ public class MainLoadingFragment extends Fragment {
                container,
                false);
        setupLoadingData();
+
        return mBinding.getRoot();
     }
 
