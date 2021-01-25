@@ -8,7 +8,8 @@ import android.os.Bundle;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends AppCompatActivity implements
+        MainLoadingFragment.MainLoadingFragmentCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +24,11 @@ public class LoadingActivity extends AppCompatActivity {
                     beginTransaction().
                     add(R.id.loading_fragment_container, MainLoadingFragment.newInstance()).
                     commit();
+    }
+
+    @Override
+    public void onStartMainActivity() {
+        MainActivity.start(this);
+        finish();
     }
 }

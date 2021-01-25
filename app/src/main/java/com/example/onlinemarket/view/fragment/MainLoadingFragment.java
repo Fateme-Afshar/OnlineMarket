@@ -1,5 +1,6 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -21,7 +23,6 @@ import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.Titles;
-import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.MainLoadingViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
@@ -41,10 +42,24 @@ public class MainLoadingFragment extends Fragment {
 
     private MainLoadingViewBinding mBinding;
 
+    private MainLoadingFragmentCallback mCallback;
+
     private boolean[] flags=new boolean[7];
 
     public MainLoadingFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainLoadingFragmentCallback)
+            mCallback=(MainLoadingFragmentCallback) context;
+        else
+            throw new ClassCastException
+                    ("Mast be implement MainLoadingFragmentCallback");
+
     }
 
     public static MainLoadingFragment newInstance() {
@@ -89,8 +104,6 @@ public class MainLoadingFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     setupLoadingData();
-
-                    setupVisibility(View.VISIBLE,View.GONE);
                 }
             });
         }
@@ -204,9 +217,9 @@ public class MainLoadingFragment extends Fragment {
     }
 
     private void completeLoadingData(){
-        if (flags[0] && flags[1] && flags[2] && flags[3] && flags[4]){
-            MainActivity.start(getContext());
-            getActivity().finish();
+        if (flags[0] && flags[1] && flags[2] &&
+                flags[3] && flags[4] && flags[5] && flags[6]){
+                mCallback.onStartMainActivity();
         }
     }
 
@@ -220,5 +233,9 @@ public class MainLoadingFragment extends Fragment {
         mBinding.tvOnlineShop.setVisibility(gone);
         mBinding.tvOnlineShopEn.setVisibility(gone);
         mBinding.imvOnlineMarket.setVisibility(gone);
+    }
+
+    public interface MainLoadingFragmentCallback{
+        void onStartMainActivity();
     }
 }

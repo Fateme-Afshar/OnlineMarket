@@ -38,8 +38,7 @@ public class ImageSlider {
         mViewFlipper.setFlipInterval(4000);
         mViewFlipper.setAutoStart(true);
 
-        mViewFlipper.setInAnimation(mViewFlipper.getContext(), android.R.anim.slide_in_left);
-        mViewFlipper.setInAnimation(mViewFlipper.getContext(), android.R.anim.slide_out_right);
+        mViewFlipper.setInAnimation(mViewFlipper.getContext(), R.anim.slide_in_left);
     }
 
     public  void flipperImages(String imgUrl){

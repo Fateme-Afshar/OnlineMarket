@@ -44,7 +44,6 @@ import retrofit2.Retrofit;
 public class HomePageFragment extends Fragment{
     private FragmentHomePageBinding mBinding;
 
-    private NetworkTaskViewModel mNetworkTaskViewModel;
     private HomePageViewModel mHomePageViewModel;
 
     private ImageSlider mImageSlider;
@@ -65,7 +64,7 @@ public class HomePageFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PollWorkManager.enqueue(getContext(),1,false);
-        mNetworkTaskViewModel = new ViewModelProvider(this).get(NetworkTaskViewModel.class);
+
         mHomePageViewModel =new ViewModelProvider(this).get(HomePageViewModel.class);
         setupBackButton();
         setHasOptionsMenu(true);
