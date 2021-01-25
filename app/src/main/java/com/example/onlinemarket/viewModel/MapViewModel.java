@@ -53,6 +53,10 @@ public class MapViewModel extends AndroidViewModel {
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
+
+            mLocation= new CustomerLocation(point.latitude,point.longitude,"متاسفانه سرویس گوگل قادر به یافت آدرس محل مورد نظر شما نیست");
+
+            mLocationRepository.insert(mLocation);
         }
     }
 

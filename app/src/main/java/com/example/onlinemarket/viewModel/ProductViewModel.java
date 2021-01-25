@@ -78,11 +78,13 @@ public class ProductViewModel extends AndroidViewModel {
     public void onPostCommentClickListener() {
         Customer customer = OnlineShopApplication.getsCustomer();
 
-        if (customer==null)
+        if (customer==null) {
             Toast.makeText(
                     getApplication(),
-                    "ابتدا وارد حساب کاربری خود شوید" ,
+                    "ابتدا وارد حساب کاربری خود شوید",
                     Toast.LENGTH_LONG).show();
+            return;
+        }
 
         mReview.setReviewerEmail(customer.getEmail());
         mReview.setProductId(mProduct.getId());

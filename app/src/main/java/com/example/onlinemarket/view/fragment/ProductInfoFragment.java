@@ -43,8 +43,6 @@ public class ProductInfoFragment extends Fragment{
 
     private ImageSlider mImageSlider;
 
-    private int mReviewId;
-
     public ProductInfoFragment() {
         // Required empty public constructor
     }

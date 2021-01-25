@@ -21,7 +21,7 @@ public class AccountManagerViewModel extends AndroidViewModel {
                 if (OnlineShopSharePref.getCustomer(getApplication())!=null)
                     mCallback.getCustomerFragment();
                 else
-                    mCallback.getSignUpFragment();
+                    mCallback.getLoginFragment();
             }catch (NullPointerException e){
                 Log.e(ProgramUtils.TAG,
                         "AccountManagerViewModel : " +
@@ -34,7 +34,7 @@ public class AccountManagerViewModel extends AndroidViewModel {
     }
 
     public interface AccountManagerViewModelCallback{
-        void getSignUpFragment();
+        void getLoginFragment();
         void getCustomerFragment();
     }
 }

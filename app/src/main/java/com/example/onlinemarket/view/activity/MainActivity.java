@@ -92,7 +92,7 @@ public class MainActivity extends SingleFragmentActivity
     }
 
     @Override
-    public void getSignUpFragment() {
+    public void getLoginFragment() {
         navController.navigate(R.id.nav_login);
     }
 

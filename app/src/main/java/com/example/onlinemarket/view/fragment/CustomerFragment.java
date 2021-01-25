@@ -169,7 +169,7 @@ public class CustomerFragment extends Fragment {
 
     private void setupAdapter() {
 
-        mViewModel.getCustomerLocationList().observe(this, new Observer<List<CustomerLocation>>() {
+        mViewModel.getCustomerLocationList().observe(getViewLifecycleOwner(), new Observer<List<CustomerLocation>>() {
             @Override
             public void onChanged(List<CustomerLocation> customerLocations) {
                 LocationAdapter locationAdapter=new LocationAdapter(getContext(),customerLocations);
@@ -248,6 +248,8 @@ public class CustomerFragment extends Fragment {
     }
 
     private void saveFirstCustomerLocationIntoSharePref(Location location) {
+        if (location==null)
+            return;
         CustomerLocation customerLocation=
                 new CustomerLocation(location.getLatitude(),location.getLongitude());
         if(OnlineShopSharePref.getCustomerLastedLocation(getActivity())==null)

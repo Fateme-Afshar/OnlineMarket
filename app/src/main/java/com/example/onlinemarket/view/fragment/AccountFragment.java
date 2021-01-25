@@ -55,8 +55,8 @@ public class AccountFragment extends Fragment{
         mViewModel=new ViewModelProvider(this).get(AccountManagerViewModel.class);
         mViewModel.setCallback(new AccountManagerViewModel.AccountManagerViewModelCallback() {
             @Override
-            public void getSignUpFragment() {
-                mCallback.getSignUpFragment();
+            public void getLoginFragment() {
+                mCallback.getLoginFragment();
             }
 
             @Override
@@ -80,7 +80,7 @@ public class AccountFragment extends Fragment{
     }
 
     public interface AccountFragmentCallback{
-        void getSignUpFragment();
+        void getLoginFragment();
         void getCustomerFragment();
     }
 }

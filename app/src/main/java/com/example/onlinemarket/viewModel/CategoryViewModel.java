@@ -45,10 +45,6 @@ public class CategoryViewModel extends ViewModel {
         mProductList = productList;
     }
 
-    public void requestToServerForCategories(){
-        mCategoryRepository.requestToServerForCategories();
-    }
-
     public void requestToServerForSpecificCatProduct(int catId){
         mCategoryRepository.requestToServerForSpecificCatProduct(catId);
     }

@@ -45,6 +45,15 @@ public class LoginViewModel extends AndroidViewModel {
             mRepository.getCustomerLiveData().observe(mLifecycleOwner,new Observer<Customer>() {
                 @Override
                 public void onChanged(Customer customer) {
+                    if (customer==null) {
+                        Toast.makeText(
+                                getApplication(),
+                                "اطلاعات وارد شده نا معتبر است",
+                                Toast.LENGTH_LONG).
+                                show();
+
+                        return;
+                    }
                     if (mCustomer.getUsername().equals(customer.getUsername())
                             && mCustomer.getEmail().equals(customer.getEmail())){
                         OnlineShopSharePref.saveCustomer(getApplication(),customer);

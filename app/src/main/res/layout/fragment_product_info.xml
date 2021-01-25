@@ -180,14 +180,6 @@
                     android:layout_height="40dp"
                     android:src="@drawable/imv_add_cart" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/anim_add_to_cart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/add_to_cart_shopping" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
