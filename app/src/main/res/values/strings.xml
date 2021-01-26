@@ -134,4 +134,6 @@
     <string name="set_first_comment">اولین نظر درباره ی محصول را ثبت کنید</string>
     <string name="online_shop">فروشگاه آنلاین</string>
     <string name="online_shop_en">Online Shop</string>
+    <string name="off_notification">اعلان خاموش</string>
+    <string name="on_notification">اعلان روشن</string>
 </resources>

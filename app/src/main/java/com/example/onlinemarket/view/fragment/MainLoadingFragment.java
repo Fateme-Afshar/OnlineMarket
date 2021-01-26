@@ -21,6 +21,7 @@ import com.example.onlinemarket.databinding.MainLoadingViewBinding;
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.viewModel.MainLoadingViewModel;
@@ -164,7 +165,7 @@ public class MainLoadingFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         mMainLoadingViewModel.setNewestProductList(products);
-
+                        OnlineShopSharePref.setLastedProductId(getContext(),products.get(products.size()-1).getId());
                         flags[0]=true;
                         completeLoadingData();
                     }

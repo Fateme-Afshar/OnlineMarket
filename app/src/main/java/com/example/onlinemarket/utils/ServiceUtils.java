@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ServiceUtils {
     public static void checkLastProductId(Context context) {
-        ProductRepository productRepository =ProductRepository.getInstance();
+        ProductRepository productRepository=ProductRepository.getInstance();
         productRepository.requestToServerForReceiveProducts(NetworkParams.MAP_KEYS);
 
         Handler handler = new Handler(context.getMainLooper());
@@ -36,7 +36,6 @@ public class ServiceUtils {
                     public void onChanged(List<Product> productList) {
                         int lastedProductId = productList.get(productList.size() - 1).getId();
                         if (lastedProductId != OnlineShopSharePref.getLastedProductId(context.getApplicationContext())) {
-                            //TODO: show notification.
                             Log.d(ProgramUtils.TEST_TAG,"show notification");
                             showNotification(context);
                             OnlineShopSharePref.setLastedProductId(context.getApplicationContext(), lastedProductId);

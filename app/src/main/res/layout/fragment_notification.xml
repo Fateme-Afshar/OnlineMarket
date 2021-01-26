@@ -9,10 +9,29 @@
             type="com.example.onlinemarket.viewModel.NotificationViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragment.NotificationFragment">
+        tools:context=".view.fragment.NotificationFragment"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_state_notification"
+            style="@style/TextStylePersian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            />
+
+        <ImageView
+            android:id="@+id/btn_setup_notification"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="@{()->viewModel.setupNotification()}"
+            app:srcCompat="@drawable/ic_notif_red"
+            />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStylePersian"
@@ -21,14 +40,10 @@
             android:text="@string/setup_notification"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.14" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -43,9 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/three_hour"
-                app:layout_constraintBottom_toTopOf="@+id/guide_top"
-                app:layout_constraintEnd_toStartOf="@+id/radio_btn_five_hour"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:onClick="@{()->viewModel.setTime(3)}"
+                />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radio_btn_five_hour"
@@ -53,9 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/five_hour"
-                app:layout_constraintBottom_toTopOf="@+id/guide_top"
-                app:layout_constraintEnd_toStartOf="@+id/radio_btn_eight_hour"
-                app:layout_constraintStart_toEndOf="@id/radio_btn_three_hour" />
+                android:onClick="@{()->viewModel.setTime(5)}"
+                />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radio_btn_eight_hour"
@@ -63,9 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/eight_hour"
-                app:layout_constraintBottom_toTopOf="@+id/guide_top"
-                app:layout_constraintEnd_toStartOf="@+id/radio_btn_twelve_hour"
-                app:layout_constraintStart_toEndOf="@id/radio_btn_five_hour" />
+                android:onClick="@{()->viewModel.setTime(8)}"
+                />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radio_btn_twelve_hour"
@@ -73,12 +85,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/twelve_hour"
-                app:layout_constraintBottom_toTopOf="@+id/guide_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/radio_btn_eight_hour" />
+                android:onClick="@{()->viewModel.setTime(12)}"
+                />
         </RadioGroup>
 
-        <com.google.android.material.textview.MaterialTextView
+<!--        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_custom_time"
             style="@style/TextStylePersian"
             android:layout_width="wrap_content"
@@ -86,9 +97,9 @@
             android:text="@string/setup_custom_notification"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guide_top" />
+            app:layout_constraintTop_toTopOf="@id/guide_top" />-->
 
-        <NumberPicker
+        <!--<NumberPicker
             android:id="@+id/number_picker_hours"
             style="@style/MyNumberPickerTheme"
             android:layout_width="wrap_content"
@@ -96,19 +107,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_custom_time" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_custom_time" />-->
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btn_setup_notification"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:onClick="@{()->viewModel.setupNotification()}"
-            app:icon="@drawable/ic_notif_red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/number_picker_hours" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </layout>

@@ -8,20 +8,28 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.onlinemarket.services.PollWorkManager;
 
 public class NotificationViewModel extends AndroidViewModel {
-    int time;
+    private int time;
+    private boolean flag;
     public NotificationViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void setupNotification(){
         if (!PollWorkManager.isWorkEnqueued(getApplication())){
+            flag=true;
             PollWorkManager.enqueue(getApplication(),time,false);
 
-        }else
-            PollWorkManager.enqueue(getApplication(),time,true);
+        }else {
+            flag=false;
+            PollWorkManager.enqueue(getApplication(), time, true);
+        }
     }
 
-    public boolean isWorkEnqueue(){
-        return PollWorkManager.isWorkEnqueued(getApplication());
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 }

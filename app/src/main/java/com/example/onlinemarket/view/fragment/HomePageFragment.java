@@ -63,8 +63,6 @@ public class HomePageFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PollWorkManager.enqueue(getContext(),1,false);
-
         mHomePageViewModel =new ViewModelProvider(this).get(HomePageViewModel.class);
         setupBackButton();
         setHasOptionsMenu(true);
