@@ -16,7 +16,7 @@ This is a online market application.
 <br>
 
  ## Features
- - [x] Request to Woocamerce Rest api and receive products detail such as : name, description, price, regular price rate, reviews, images
+ - [x] Request to Woocamerce Rest api and receive products with product detail such as : name, description, price, regular price, rate, reviews, images
  - [x] Post customer to server and save customer information in share prefrences file
  - [x] Post comment for a product 
  - [x] Delete , Edit a review
