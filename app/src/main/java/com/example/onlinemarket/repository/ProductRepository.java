@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.network.retrofit.gson.ProductGsonConverterCustomize;
+import com.example.onlinemarket.repository.liveDataSolid.NestedLiveData;
+import com.example.onlinemarket.repository.liveDataSolid.NewestProductLiveData;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
@@ -26,7 +28,6 @@ import retrofit2.Retrofit;
 
 public class ProductRepository {
     private static ProductRepository sInstance;
-
     private MutableLiveData<List<Product>> mNewestProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mPopulateProductLiveData =new MutableLiveData<>();
     private MutableLiveData<List<Product>> mBestProductLiveData=new MutableLiveData<>();

@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.example.onlinemarket.viewModel.NotificationViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.onlinemarket.view.fragment.NotificationFragment" />
     </data>
 
     <LinearLayout
@@ -17,21 +20,13 @@
         android:gravity="center"
         >
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_state_notification"
-            style="@style/TextStylePersian"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_setup_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            />
-
-        <ImageView
-            android:id="@+id/btn_setup_notification"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:onClick="@{()->viewModel.setupNotification()}"
-            app:srcCompat="@drawable/ic_notif_red"
-            />
+            app:icon="@drawable/ic_notifications"
+            android:layoutDirection="rtl"
+            android:onClick="@{()->viewModel.setupNotification()+fragment.setupNotificationText()}"/>
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStylePersian"
@@ -89,25 +84,21 @@
                 />
         </RadioGroup>
 
-<!--        <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_custom_time"
             style="@style/TextStylePersian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setup_custom_notification"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guide_top" />-->
+            android:layout_gravity="right"
+            />
 
-        <!--<NumberPicker
+        <NumberPicker
             android:id="@+id/number_picker_hours"
             style="@style/MyNumberPickerTheme"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_custom_time" />-->
+            android:layout_height="wrap_content"/>
 
 
 

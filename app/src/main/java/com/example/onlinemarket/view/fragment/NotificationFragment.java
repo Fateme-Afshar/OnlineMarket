@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentNotificationBinding;
+import com.example.onlinemarket.services.PollWorkManager;
 import com.example.onlinemarket.viewModel.NotificationViewModel;
 
 /**
@@ -18,9 +20,10 @@ import com.example.onlinemarket.viewModel.NotificationViewModel;
  * Use the {@link NotificationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationFragment extends Fragment{
+public class NotificationFragment extends Fragment {
     private FragmentNotificationBinding mBinding;
     private NotificationViewModel mViewModel;
+
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -35,7 +38,7 @@ public class NotificationFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(NotificationViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
     }
 
     @Override
@@ -47,32 +50,32 @@ public class NotificationFragment extends Fragment{
                 R.layout.fragment_notification,
                 container,
                 false);
-        //setupNumberPicker();
+
         mBinding.setViewModel(mViewModel);
-
+        mBinding.setFragment(this);
+        setupNumberPicker();
         setupNotificationText();
-
         return mBinding.getRoot();
     }
 
-    private void setupNotificationText() {
-                    if (mViewModel.isFlag()){
-                        mBinding.tvStateNotification.setText(R.string.on_notification);
-                    }else {
-                        mBinding.tvStateNotification.setText(R.string.off_notification);
-                    }
-                    mBinding.notifyChange();
-                }
+    public void setupNotificationText() {
+        if (mViewModel.isFlag()) {
+            mBinding.btnSetupNotification.setText(R.string.on_notification);
+        } else {
+            mBinding.btnSetupNotification.setText(R.string.off_notification);
+        }
+        mBinding.notifyChange();
     }
 
-    /*private void setupNumberPicker() {
+    private void setupNumberPicker() {
         mBinding.numberPickerHours.setMaxValue(24);
         mBinding.numberPickerHours.setMinValue(1);
 
         mBinding.numberPickerHours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                PollWorkManager.enqueue(getContext(),newVal,false);
+                PollWorkManager.enqueue(getContext(), newVal, false);
             }
         });
-    }*/
+    }
+}
