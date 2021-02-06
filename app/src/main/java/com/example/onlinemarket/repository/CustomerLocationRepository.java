@@ -8,6 +8,7 @@ import com.example.onlinemarket.databases.IRepository;
 import com.example.onlinemarket.databases.OnlineShopDatabase;
 import com.example.onlinemarket.databases.dao.LocationDao;
 import com.example.onlinemarket.model.CustomerLocation;
+import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class CustomerLocationRepository implements IRepository<CustomerLocation>
     @Override
     public void delete(CustomerLocation customerLocation) {
         OnlineShopDatabase.databaseWriteExecutor.execute(()->mDao.delete(customerLocation));
+    }
+
+    public void deleteAll(){
+        OnlineShopDatabase.databaseWriteExecutor.execute(()->mDao.deleteAll());
     }
 
     @Override

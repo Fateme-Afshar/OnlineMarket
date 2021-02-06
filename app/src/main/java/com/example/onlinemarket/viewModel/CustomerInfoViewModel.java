@@ -37,11 +37,18 @@ public class CustomerInfoViewModel extends AndroidViewModel {
                 mCallback.onMapButtonClickListener();
     }
 
+    public void onLogoutBtnClickListener(){
+        OnlineShopSharePref.saveCustomer(getApplication(),null);
+        mLocationRepository.deleteAll();
+        mCallback.onLogoutBtnClickListener();
+    }
+
     public void setCallback(CustomerInfoViewModelCallback callback) {
         mCallback = callback;
     }
 
     public interface CustomerInfoViewModelCallback{
         void onMapButtonClickListener();
+        void onLogoutBtnClickListener();
     }
 }

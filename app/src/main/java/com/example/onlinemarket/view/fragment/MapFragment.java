@@ -55,6 +55,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
         CustomerLocation customerLocation =
                 OnlineShopSharePref.getCustomerLastedLocation(getActivity());
+        if (customerLocation==null)
+            return;
 
         LatLng latLng = new LatLng(customerLocation.getLatitude(), customerLocation.getLongitude());
         googleMap.addMarker(new MarkerOptions().position(latLng).title("my location").draggable(true));

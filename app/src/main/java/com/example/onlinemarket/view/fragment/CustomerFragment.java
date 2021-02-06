@@ -190,6 +190,14 @@ public class CustomerFragment extends Fragment {
                 if (checkHasLocationPermission())
                     setupLocationSetting();
             }
+
+            @Override
+            public void onLogoutBtnClickListener() {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                navController.navigate(R.id.nav_user_account);
+            }
         });
     }
 

@@ -1,25 +1,16 @@
 package com.example.onlinemarket.repository;
 
-import android.content.Context;
-import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
-import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +21,6 @@ public class CustomerRepository {
     private static CustomerRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
 
-    private Response<Customer> mResponse;
     private final MutableLiveData<Integer> mResponseCode=new MutableLiveData<>();
 
     private MutableLiveData<Customer> mCustomerLiveData=new MutableLiveData<>();

@@ -136,4 +136,5 @@
     <string name="online_shop_en">Online Shop</string>
     <string name="off_notification">اعلان خاموش</string>
     <string name="on_notification">اعلان روشن</string>
+    <string name="log_out">خروج از حساب کاربری</string>
 </resources>
