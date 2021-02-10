@@ -12,6 +12,7 @@ import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.example.onlinemarket.utils.UiUtils;
 
 public class LoginViewModel extends AndroidViewModel {
     private Customer mCustomer=new Customer();
@@ -45,7 +46,7 @@ public class LoginViewModel extends AndroidViewModel {
                 @Override
                 public void onChanged(Customer customer) {
                     if (customer==null) {
-                        OnlineShopApplication.getUiUtils().returnToast("اطلاعات وارد شده نا معتبر است");
+                        UiUtils.returnToast(getApplication(),"اطلاعات وارد شده نا معتبر است");
                         return;
                     }
                     if (mCustomer.getUsername().equals(customer.getUsername())
@@ -54,9 +55,9 @@ public class LoginViewModel extends AndroidViewModel {
 
                         mCallback.onLoginBtnClickListener();
 
-                        OnlineShopApplication.getUiUtils().returnToast("تبریک شما با موفقیت login شدید");
+                        UiUtils.returnToast(getApplication(),"تبریک شما با موفقیت login شدید");
                     }else {
-                        OnlineShopApplication.getUiUtils().returnToast("اطلاعات وارد شده نا معتبر است");
+                        UiUtils.returnToast(getApplication(),"اطلاعات وارد شده نا معتبر است");
                     }
                 }
             });

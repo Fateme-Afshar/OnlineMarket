@@ -1,8 +1,11 @@
 package com.example.onlinemarket.viewModel;
 
+import android.app.Application;
 import android.text.Editable;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -13,8 +16,10 @@ import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.repository.ReviewRepository;
+import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.example.onlinemarket.utils.UiUtils;
 
-public class ProductViewModel extends ViewModel {
+public class ProductViewModel extends AndroidViewModel {
     private Product mProduct;
     private Review mReview;
 
@@ -25,14 +30,16 @@ public class ProductViewModel extends ViewModel {
 
     private ReviewRepository mReviewRepository;
 
-    public ProductViewModel() {
-        mPurchasedRepository = OnlineShopApplication.getProductPurchasedRepository();
+    public ProductViewModel(@NonNull Application application) {
+        super(application);
+        mPurchasedRepository = ProductPurchasedRepository.getInstance(getApplication());
         mReviewRepository = ReviewRepository.getInstance();
         mProductRepository=ProductRepository.getInstance();
 
         mProductLiveData=mProductRepository.getProductLiveData();
         mReview = new Review();
     }
+
 
     public void requestToServerForReceiveProductById(int productId){
         mProductRepository.requestToServerForReceiveProductById(productId);
@@ -70,10 +77,10 @@ public class ProductViewModel extends ViewModel {
     }
 
     public void onPostCommentClickListener() {
-        Customer customer = OnlineShopApplication.getCustomer();
+        Customer customer = OnlineShopSharePref.getCustomer(getApplication());
 
         if (customer==null) {
-          OnlineShopApplication.getUiUtils().returnToast("ابتدا وارد حساب کاربری خود شوید");
+          UiUtils.returnToast(getApplication(),"ابتدا وارد حساب کاربری خود شوید");
             return;
         }
 
@@ -81,7 +88,7 @@ public class ProductViewModel extends ViewModel {
         mReview.setProductId(mProduct.getId());
 
         mReviewRepository.postReviewToServer(mReview);
-       OnlineShopApplication.getUiUtils().returnToast("دیدگاه شما با موفقیت ثبت شد و در دست بررسی است");
+       UiUtils.returnToast(getApplication(),"دیدگاه شما با موفقیت ثبت شد و در دست بررسی است");
     }
 
     public LiveData<Product> getProductLiveData() {

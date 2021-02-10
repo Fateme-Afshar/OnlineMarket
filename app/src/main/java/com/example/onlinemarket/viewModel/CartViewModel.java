@@ -22,6 +22,7 @@ import com.example.onlinemarket.repository.CouponsRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
+import com.example.onlinemarket.utils.UiUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class CartViewModel extends AndroidViewModel {
     public CartViewModel(@NonNull Application application) {
         super(application);
         mCustomer= OnlineShopSharePref.getCustomer(getApplication());
-        mPurchasedRepository=OnlineShopApplication.getProductPurchasedRepository();
+        mPurchasedRepository=ProductPurchasedRepository.getInstance(getApplication());
         mCouponsRepository=CouponsRepository.getInstance();
 
         mCouponsLiveData=mCouponsRepository.getCouponsMutableLiveData();
@@ -60,8 +61,7 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onBuyBtnClickListener() {
         if (mCustomer == null) {
-                OnlineShopApplication.getUiUtils().
-                        returnToast("ابتدا وارد حساب کاربری خود شوید");
+                UiUtils.returnToast(getApplication(),"ابتدا وارد حساب کاربری خود شوید");
             return;
         }
         List<LineItemsItem> productLines = new ArrayList<>();
@@ -86,7 +86,7 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onRecordCouponBtnClickListener(){
         if (mCouponCode.equals("")) {
-            OnlineShopApplication.getUiUtils().returnToast("لطفا کد تخفیف را وارد کنید");
+            UiUtils.returnToast(getApplication(),"لطفا کد تخفیف را وارد کنید");
             return;
         }
         mCouponsRepository.searchCouponsCode(mCouponCode);
@@ -95,15 +95,15 @@ public class CartViewModel extends AndroidViewModel {
             @Override
             public void onChanged(Coupons coupons) {
                 if (coupons==null || !mCouponCode.equals(coupons.getCode())){
-                    OnlineShopApplication.getUiUtils().returnToast("کد تخفیف نامعتبر است ");
+                    UiUtils.returnToast(getApplication(),"کد تخفیف نامعتبر است ");
                 }else{
                     if (mTotalPrice<coupons.getAmount() ||
                             mTotalPrice<coupons.getMinimumAmount() ||
                             mTotalPrice > coupons.getMaximumAmount()){
-                        OnlineShopApplication.getUiUtils().returnToast("به خرید شما کد تخفیف تعلق نمیگیرد");
+                        UiUtils.returnToast(getApplication(),"به خرید شما کد تخفیف تعلق نمیگیرد");
                     }else {
                         mTotalPrice=mTotalPrice-coupons.getAmount();
-                        OnlineShopApplication.getUiUtils().returnToast("تخفیف با موفقیت اعمال شد");
+                        UiUtils.returnToast(getApplication(),"تخفیف با موفقیت اعمال شد");
                     }
                 }
             }
@@ -118,13 +118,13 @@ public class CartViewModel extends AndroidViewModel {
                 if (integer==201) {
                     Log.d(ProgramUtils.TAG,
                             "CartViewModel : Orders post successfully" + integer);
-                   OnlineShopApplication.getUiUtils().returnToast( R.string.order_success);
+                   UiUtils.returnToast(getApplication(),R.string.order_success);
 
                     mPurchasedRepository.deleteAll();
                 } else {
                     Log.e(ProgramUtils.TAG,
                             "CartViewModel : Orders post fail response code is  " + integer);
-                    OnlineShopApplication.getUiUtils().returnToast(R.string.order_fail);
+                    UiUtils.returnToast(getApplication(),R.string.order_fail);
                 }
             }
         });

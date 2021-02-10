@@ -25,7 +25,7 @@ public class MapViewModel extends AndroidViewModel {
 
     public MapViewModel(@NonNull Application application) {
         super(application);
-        mLocationRepository= OnlineShopApplication.getLocationRepository();
+        mLocationRepository= CustomerLocationRepository.getInstance(getApplication());
     }
 
     public void saveLocationOnSharePref() {

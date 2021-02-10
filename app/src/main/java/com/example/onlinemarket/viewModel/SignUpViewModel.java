@@ -19,6 +19,7 @@ import com.example.onlinemarket.model.customer.Shipping;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
+import com.example.onlinemarket.utils.UiUtils;
 
 import java.util.ArrayList;
 
@@ -102,12 +103,12 @@ public class SignUpViewModel extends AndroidViewModel {
                         try {
                             mCallback.startHomePage();
                         }catch (NullPointerException exception){
-                            OnlineShopApplication.getUiUtils().returnToast("#DEVELOPER : implement SignUpViewModelCallback callback");
+                            UiUtils.returnToast(getApplication(),"#DEVELOPER : implement SignUpViewModelCallback callback");
                         }
                     } else {
                         Log.e(ProgramUtils.TAG,
                                 "SignUpViewModel : Customer post fail response code is  " + integer);
-                        OnlineShopApplication.getUiUtils().returnToast(R.string.repetitive_email);
+                        UiUtils.returnToast(getApplication(),R.string.repetitive_email);
                     }
                 }
             });

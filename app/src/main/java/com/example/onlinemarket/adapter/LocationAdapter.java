@@ -28,7 +28,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Holder
         mContext = context;
         mCustomerLocationList = customerLocationList;
 
-        mRepository= OnlineShopApplication.getLocationRepository();
+        mRepository= CustomerLocationRepository.getInstance(mContext);
     }
 
     @NonNull

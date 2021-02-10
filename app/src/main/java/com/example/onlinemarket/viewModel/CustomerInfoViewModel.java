@@ -22,7 +22,7 @@ public class CustomerInfoViewModel extends AndroidViewModel {
     public CustomerInfoViewModel(@NonNull Application application) {
         super(application);
         mCustomer= OnlineShopSharePref.getCustomer(getApplication());
-        mLocationRepository= OnlineShopApplication.getLocationRepository();
+        mLocationRepository= CustomerLocationRepository.getInstance(getApplication());
     }
 
     public Customer getCustomer() {

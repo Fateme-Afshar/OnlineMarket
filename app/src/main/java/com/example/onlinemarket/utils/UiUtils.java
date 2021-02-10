@@ -6,20 +6,15 @@ import android.widget.Toast;
 import com.example.onlinemarket.OnlineShopApplication;
 
 public class UiUtils {
-    private Context mContext;
 
-    public UiUtils(Context context) {
-        mContext = context;
-    }
-
-    public void returnToast(String text){
-        Toast.makeText(mContext,
+    public static void returnToast(Context context,String text){
+        Toast.makeText(context.getApplicationContext(),
                 text,
                 Toast.LENGTH_LONG).show();
     }
 
-    public void returnToast(int text){
-        Toast.makeText(mContext,
+    public static void returnToast(Context context, int text){
+        Toast.makeText(context.getApplicationContext(),
                 text,
                 Toast.LENGTH_LONG).show();
     }

@@ -1,18 +1,26 @@
 package com.example.onlinemarket.viewModel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
+import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
 
-public class AccountManagerViewModel extends ViewModel {
+public class AccountManagerViewModel extends AndroidViewModel {
     private AccountManagerViewModelCallback mCallback;
+
+    public AccountManagerViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     public void getAccountFragment(){
             try {
-                if (OnlineShopApplication.getCustomer() !=null)
+                if (OnlineShopSharePref.getCustomer(getApplication()) !=null)
                     mCallback.getCustomerFragment();
                 else
                     mCallback.getLoginFragment();
