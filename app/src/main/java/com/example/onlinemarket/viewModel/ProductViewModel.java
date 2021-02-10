@@ -1,12 +1,10 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.text.Editable;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.model.Product;
@@ -16,7 +14,7 @@ import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.repository.ReviewRepository;
 
-public class ProductViewModel extends AndroidViewModel {
+public class ProductViewModel extends ViewModel {
     private Product mProduct;
     private Review mReview;
 
@@ -27,8 +25,7 @@ public class ProductViewModel extends AndroidViewModel {
 
     private ReviewRepository mReviewRepository;
 
-    public ProductViewModel(@NonNull Application application) {
-        super(application);
+    public ProductViewModel() {
         mPurchasedRepository = OnlineShopApplication.getProductPurchasedRepository();
         mReviewRepository = ReviewRepository.getInstance();
         mProductRepository=ProductRepository.getInstance();
@@ -76,10 +73,7 @@ public class ProductViewModel extends AndroidViewModel {
         Customer customer = OnlineShopApplication.getCustomer();
 
         if (customer==null) {
-            Toast.makeText(
-                    getApplication(),
-                    "ابتدا وارد حساب کاربری خود شوید",
-                    Toast.LENGTH_LONG).show();
+          OnlineShopApplication.getUiUtils().returnToast("ابتدا وارد حساب کاربری خود شوید");
             return;
         }
 
@@ -87,11 +81,7 @@ public class ProductViewModel extends AndroidViewModel {
         mReview.setProductId(mProduct.getId());
 
         mReviewRepository.postReviewToServer(mReview);
-        Toast.
-                makeText(getApplication(),
-                        "دیدگاه شما با موفقیت ثبت شد و در دست بررسی است" ,
-                        Toast.LENGTH_LONG).
-                show();
+       OnlineShopApplication.getUiUtils().returnToast("دیدگاه شما با موفقیت ثبت شد و در دست بررسی است");
     }
 
     public LiveData<Product> getProductLiveData() {

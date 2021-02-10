@@ -3,13 +3,13 @@ package com.example.onlinemarket.viewModel;
 import android.app.Application;
 import android.text.Editable;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
@@ -45,12 +45,13 @@ public class CartViewModel extends AndroidViewModel {
 
     public CartViewModel(@NonNull Application application) {
         super(application);
-        mCustomer=OnlineShopSharePref.getCustomer(getApplication());
+        mCustomer= OnlineShopSharePref.getCustomer(getApplication());
         mPurchasedRepository=OnlineShopApplication.getProductPurchasedRepository();
         mCouponsRepository=CouponsRepository.getInstance();
 
         mCouponsLiveData=mCouponsRepository.getCouponsMutableLiveData();
     }
+
 
     public LiveData<List<Product>> getProductRegisteredForPurchase(){
         return mPurchasedRepository.getList();
@@ -58,9 +59,8 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onBuyBtnClickListener() {
         if (mCustomer == null) {
-            Toast.makeText(getApplication(),
-                    "ابتدا وارد حساب کاربری خود شوید",
-                    Toast.LENGTH_LONG).show();
+                OnlineShopApplication.getUiUtils().
+                        returnToast("ابتدا وارد حساب کاربری خود شوید");
             return;
         }
         List<LineItemsItem> productLines = new ArrayList<>();
@@ -85,8 +85,7 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onRecordCouponBtnClickListener(){
         if (mCouponCode.equals("")) {
-            Toast.makeText
-                    (getApplication(), "لطفا کد تخفیف را وارد کنید", Toast.LENGTH_LONG).show();
+            OnlineShopApplication.getUiUtils().returnToast("لطفا کد تخفیف را وارد کنید");
             return;
         }
         mCouponsRepository.searchCouponsCode(mCouponCode);
@@ -95,18 +94,15 @@ public class CartViewModel extends AndroidViewModel {
             @Override
             public void onChanged(Coupons coupons) {
                 if (coupons==null || !mCouponCode.equals(coupons.getCode())){
-                    Toast.makeText
-                            (getApplication(), "کد تخفیف نامعتبر است ", Toast.LENGTH_LONG).show();
+                    OnlineShopApplication.getUiUtils().returnToast("کد تخفیف نامعتبر است ");
                 }else{
                     if (mTotalPrice<coupons.getAmount() ||
                             mTotalPrice<coupons.getMinimumAmount() ||
                             mTotalPrice > coupons.getMaximumAmount()){
-                        Toast.makeText
-                                (getApplication(), "به خرید شما کد تخفیف تعلق نمیگیرد", Toast.LENGTH_LONG).show();
+                        OnlineShopApplication.getUiUtils().returnToast("به خرید شما کد تخفیف تعلق نمیگیرد");
                     }else {
                         mTotalPrice=mTotalPrice-coupons.getAmount();
-                        Toast.makeText
-                                (getApplication(), "تخفیف با موفقیت اعمال شد", Toast.LENGTH_LONG).show();
+                        OnlineShopApplication.getUiUtils().returnToast("تخفیف با موفقیت اعمال شد");
                     }
                 }
             }
@@ -121,19 +117,13 @@ public class CartViewModel extends AndroidViewModel {
                 if (integer==201) {
                     Log.d(ProgramUtils.TAG,
                             "CartViewModel : Orders post successfully" + integer);
-                    Toast.makeText(getApplication(),
-                            R.string.order_success,
-                            Toast.LENGTH_LONG).
-                            show();
+                   OnlineShopApplication.getUiUtils().returnToast( R.string.order_success);
 
                     mPurchasedRepository.deleteAll();
                 } else {
                     Log.e(ProgramUtils.TAG,
                             "CartViewModel : Orders post fail response code is  " + integer);
-                    Toast.makeText(getApplication(),
-                            R.string.order_fail,
-                            Toast.LENGTH_LONG).
-                            show();
+                    OnlineShopApplication.getUiUtils().returnToast(R.string.order_fail);
                 }
             }
         });

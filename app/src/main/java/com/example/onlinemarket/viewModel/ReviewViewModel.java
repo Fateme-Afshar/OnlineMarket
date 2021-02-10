@@ -5,13 +5,14 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.repository.ReviewRepository;
 
 import java.util.List;
 
-public class ReviewViewModel extends AndroidViewModel {
+public class ReviewViewModel extends ViewModel {
     private ReviewRepository mReviewRepository;
 
     private LiveData<List<Review>> mListLiveData;
@@ -19,8 +20,7 @@ public class ReviewViewModel extends AndroidViewModel {
 
     private ReviewViewModelCallback mCallback;
 
-    public ReviewViewModel(@NonNull Application application) {
-        super(application);
+    public ReviewViewModel() {
         mReviewRepository = ReviewRepository.getInstance();
         mListLiveData = mReviewRepository.getReviewListMutableLiveData();
         mReviewLiveData=mReviewRepository.getReviewMutableLiveData();

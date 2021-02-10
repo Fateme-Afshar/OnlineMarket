@@ -9,12 +9,15 @@ import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerLocationRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.example.onlinemarket.utils.UiUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
     private static ProductPurchasedRepository sProductPurchasedRepository;
     private static CustomerLocationRepository sLocationRepository;
+
+    private static UiUtils sUiUtils;
 
     private static Customer sCustomer;
 
@@ -24,8 +27,11 @@ public class OnlineShopApplication extends Application{
         sProductPurchasedRepository = ProductPurchasedRepository.getInstance(this);
         sLocationRepository=CustomerLocationRepository.getInstance(this);
         sCustomer= OnlineShopSharePref.getCustomer(this);
+        sUiUtils=new UiUtils(this);
 
         LeakCanary.install(this);
+
+        createNotificationChannel();
     }
 
     public static ProductPurchasedRepository getProductPurchasedRepository() {
@@ -42,7 +48,7 @@ public class OnlineShopApplication extends Application{
                     new NotificationChannel(
                             CHANNEL_ID,
                             "Online shop",
-                            NotificationManager.IMPORTANCE_HIGH);
+                            NotificationManager.IMPORTANCE_LOW);
 
             NotificationManager notificationManager=this.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
@@ -51,5 +57,9 @@ public class OnlineShopApplication extends Application{
 
     public static Customer getCustomer() {
         return sCustomer;
+    }
+
+    public static UiUtils getUiUtils() {
+        return sUiUtils;
     }
 }

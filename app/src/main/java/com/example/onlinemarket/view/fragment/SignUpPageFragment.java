@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentSignupPageBinding;
@@ -37,6 +39,13 @@ public class SignUpPageFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel=new ViewModelProvider(this).get(SignUpViewModel.class);
+        mViewModel.setCallback(new SignUpViewModel.SignUpViewModelCallback() {
+            @Override
+            public void startHomePage() {
+                NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_host_fragment);
+            }
+        });
         mViewModel.setLifecycleOwner(this);
     }
 

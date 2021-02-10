@@ -2,7 +2,6 @@ package com.example.onlinemarket.viewModel;
 
 import android.app.Application;
 import android.text.Editable;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -46,12 +45,7 @@ public class LoginViewModel extends AndroidViewModel {
                 @Override
                 public void onChanged(Customer customer) {
                     if (customer==null) {
-                        Toast.makeText(
-                                getApplication(),
-                                "اطلاعات وارد شده نا معتبر است",
-                                Toast.LENGTH_LONG).
-                                show();
-
+                        OnlineShopApplication.getUiUtils().returnToast("اطلاعات وارد شده نا معتبر است");
                         return;
                     }
                     if (mCustomer.getUsername().equals(customer.getUsername())
@@ -60,17 +54,9 @@ public class LoginViewModel extends AndroidViewModel {
 
                         mCallback.onLoginBtnClickListener();
 
-                        Toast.makeText(
-                                getApplication(),
-                                "تبریک شما با موفقیت login شدید",
-                                Toast.LENGTH_LONG).
-                                show();
+                        OnlineShopApplication.getUiUtils().returnToast("تبریک شما با موفقیت login شدید");
                     }else {
-                        Toast.makeText(
-                                getApplication(),
-                                "اطلاعات وارد شده نا معتبر است",
-                                Toast.LENGTH_LONG).
-                                show();
+                        OnlineShopApplication.getUiUtils().returnToast("اطلاعات وارد شده نا معتبر است");
                     }
                 }
             });

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.text.Editable;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -20,10 +19,8 @@ import com.example.onlinemarket.model.customer.Shipping;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
-import com.example.onlinemarket.view.activity.MainActivity;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 //TODO: implementation billing and shipping part
 public class SignUpViewModel extends AndroidViewModel {
@@ -32,6 +29,8 @@ public class SignUpViewModel extends AndroidViewModel {
     private CustomerRepository mRepository;
 
     private LifecycleOwner mLifecycleOwner;
+
+    private SignUpViewModelCallback mCallback;
 
     private Links links = new Links(new ArrayList<>(),
             new ArrayList<>());
@@ -100,15 +99,15 @@ public class SignUpViewModel extends AndroidViewModel {
                                 "SignUpViewModel : Customer post successfully" + integer);
                         OnlineShopSharePref.saveCustomer(context, mCustomer);
 
-                        //TODO: this is anti pattern, using callback or use another way :))
-                        MainActivity.start(getApplication());
+                        try {
+                            mCallback.startHomePage();
+                        }catch (NullPointerException exception){
+                            OnlineShopApplication.getUiUtils().returnToast("#DEVELOPER : implement SignUpViewModelCallback callback");
+                        }
                     } else {
                         Log.e(ProgramUtils.TAG,
                                 "SignUpViewModel : Customer post fail response code is  " + integer);
-                        Toast.makeText(context.getApplicationContext(),
-                                R.string.repetitive_email,
-                                Toast.LENGTH_LONG).
-                                show();
+                        OnlineShopApplication.getUiUtils().returnToast(R.string.repetitive_email);
                     }
                 }
             });
@@ -117,6 +116,14 @@ public class SignUpViewModel extends AndroidViewModel {
 
     public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
         mLifecycleOwner = lifecycleOwner;
+    }
+
+    public void setCallback(SignUpViewModelCallback callback) {
+        mCallback = callback;
+    }
+
+    public interface SignUpViewModelCallback{
+        void startHomePage();
     }
 }
 

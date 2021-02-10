@@ -196,7 +196,7 @@ public class CustomerFragment extends Fragment {
                 NavController navController=
                         Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
 
-                navController.navigate(R.id.nav_user_account);
+                navController.navigate(R.id.nav_login);
             }
         });
     }

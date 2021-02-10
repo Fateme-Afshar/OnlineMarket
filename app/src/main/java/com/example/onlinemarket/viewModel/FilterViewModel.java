@@ -82,11 +82,6 @@ public class FilterViewModel extends ViewModel {
         return mRepository.getAttributeLiveData();
     }
 
-    public interface OnBtnClickListener {
-        void onAttributeSelected(int attributeId);
-        void onFilterBtnClickListener();
-    }
-
     public void setOnFilterAttributeClickListener(OnBtnClickListener onBtnClickListener) {
         mOnBtnClickListener = onBtnClickListener;
     }
@@ -101,5 +96,10 @@ public class FilterViewModel extends ViewModel {
 
     public void setFilterIds(List<Integer> filterIds) {
         mFilterIds = filterIds;
+    }
+
+    public interface OnBtnClickListener {
+        void onAttributeSelected(int attributeId);
+        void onFilterBtnClickListener();
     }
 }

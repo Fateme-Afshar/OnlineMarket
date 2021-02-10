@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Category;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class NetworkTaskViewModel extends AndroidViewModel {
+public class NetworkTaskViewModel extends ViewModel {
     private ProductRepository mProductRepository;
     private CategoryRepository mCategoryRepository;
     private FilterRepository mFilterRepository;
@@ -37,9 +38,7 @@ public class NetworkTaskViewModel extends AndroidViewModel {
     private LiveData<List<AttributeInfo>> mColorAttributeInfoList;
     private LiveData<List<AttributeInfo>> mSizeAttributeInfoList;
 
-    public NetworkTaskViewModel(@NonNull Application application) {
-        super(application);
-
+    public NetworkTaskViewModel() {
         mProductRepository = ProductRepository.getInstance();
         mCategoryRepository=CategoryRepository.getInstance();
         mFilterRepository=FilterRepository.getInstance();
