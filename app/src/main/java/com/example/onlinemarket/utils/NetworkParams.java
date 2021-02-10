@@ -25,6 +25,7 @@ public class NetworkParams {
 
         MAP_PARAMETERS_CATEGORY.putAll(MAP_KEYS);
         MAP_PARAMETERS_CATEGORY.put("category", String.valueOf(catId));
+        MAP_PARAMETERS_CATEGORY.put("per_page","100");
 
         return MAP_PARAMETERS_CATEGORY;
     }

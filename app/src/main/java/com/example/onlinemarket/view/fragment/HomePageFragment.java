@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductAdapter;
 import com.example.onlinemarket.databinding.FragmentHomePageBinding;
@@ -28,6 +29,7 @@ import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.HomePageViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.List;
 
@@ -130,4 +132,5 @@ public class HomePageFragment extends Fragment{
 
         requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
+
 }

@@ -101,25 +101,25 @@
                 app:layout_constraintEnd_toStartOf="@+id/imv_basket" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_product_price"
+                android:id="@+id/tv_product_regular_price"
                 style="@style/NumberStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 strikeThrough="@{product.regularPrice==product.price ? false : true}"
                 android:layout_marginRight="5dp"
-                android:text="@{PersianNumberUtils.convert(product.price)}"
+                android:text='@{PersianNumberUtils.convert(product.regularPrice)+"تومان"}'
                 app:layout_constraintEnd_toStartOf="@id/imv_product"
                 app:layout_constraintTop_toBottomOf="@id/guide_horizontal"
                 android:textStyle="normal"
                 tools:text="13000" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_product_regular_price"
+                android:id="@+id/tv_product_price"
                 style="@style/NumberStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="@{PersianNumberUtils.convert(product.regularPrice)}"
+                android:text='@{PersianNumberUtils.convert(product.price)+"تومان"}'
                 android:textColor="@color/green"
                 android:textStyle="normal"
                 android:textSize="13sp"

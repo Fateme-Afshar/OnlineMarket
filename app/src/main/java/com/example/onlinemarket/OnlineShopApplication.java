@@ -10,7 +10,6 @@ import com.example.onlinemarket.repository.CustomerLocationRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.UiUtils;
-import com.squareup.leakcanary.LeakCanary;
 
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
@@ -24,12 +23,10 @@ public class OnlineShopApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        sProductPurchasedRepository = ProductPurchasedRepository.getInstance(this);
-        sLocationRepository=CustomerLocationRepository.getInstance(this);
-        sCustomer= OnlineShopSharePref.getCustomer(this);
-        sUiUtils=new UiUtils(this);
-
-        LeakCanary.install(this);
+        sProductPurchasedRepository = ProductPurchasedRepository.getInstance(this.getApplicationContext());
+        sLocationRepository=CustomerLocationRepository.getInstance(this.getApplicationContext());
+        sCustomer= OnlineShopSharePref.getCustomer(this.getApplicationContext());
+        sUiUtils=new UiUtils(this.getApplicationContext());
 
         createNotificationChannel();
     }

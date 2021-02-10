@@ -25,7 +25,7 @@ public interface RetrofitInterface {
     @GET("products/categories?per_page=100")
     Call<List<CatObj>> getListCatObjects(@QueryMap Map<String, String> queryMap);
 
-    @GET("products?per_page=100")
+    @GET("products")
     Call<List<Product>> getListProductObjects(@QueryMap Map<String, String> queryMap);
 
     @GET("products/{id}")

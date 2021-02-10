@@ -31,14 +31,14 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_name"
-            style="@style/TextStylePersian"
+            style="@style/HeadTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintWidth_min="200dp"
             tools:text="گیتار"
             android:text="@{viewModel.product.name}"
             android:layout_marginTop="5dp"
-            android:padding="5dp"
+            android:padding="8dp"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title_product_inifo"
-            style="@style/TextStylePersian"
+            style="@style/HeadTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -108,18 +108,18 @@
             android:layout_marginLeft="48dp"
             android:layout_marginTop="8dp"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_regular_price"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
             android:text="@string/price_title" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tv_regular_price"
             style="@style/TextStylePersian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginBottom="0dp"
-            android:text='@{PersianNumberUtils.convert(viewModel.product.price)+"تومان "}'
+            android:text='@{PersianNumberUtils.convert(viewModel.product.regularPrice)+"تومان "}'
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
@@ -137,16 +137,16 @@
             android:text="@string/regular_price_title" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_regular_price"
+            android:id="@+id/tv_price"
             style="@style/TextStylePersian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/green"
-            android:text='@{PersianNumberUtils.convert(viewModel.product.regularPrice)+"تومان "}'
+            android:text='@{PersianNumberUtils.convert(viewModel.product.price)+"تومان "}'
             android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_price"
-            app:layout_constraintStart_toStartOf="@+id/tv_price"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price"
+            app:layout_constraintEnd_toEndOf="@+id/tv_regular_price"
+            app:layout_constraintStart_toStartOf="@+id/tv_regular_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_regular_price"
             tools:text="30000 " />
 
         <com.google.android.material.card.MaterialCardView

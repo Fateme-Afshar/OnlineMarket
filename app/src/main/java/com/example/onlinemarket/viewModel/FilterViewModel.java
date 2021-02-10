@@ -50,6 +50,7 @@ public class FilterViewModel extends ViewModel {
             queryValues.append(filterItemIds.get(i)).append(",");
         }
         queryParameters.put(QueryParameters.ATTRIBUTE_TERM, queryValues.toString());
+        queryParameters.put("per_page","100");
 
         Log.d(ProgramUtils.TAG,"FilterViewModel : Request to server for receive filter products");
         mProductRepository.requestToServerForReceiveProducts(queryParameters);
@@ -59,6 +60,7 @@ public class FilterViewModel extends ViewModel {
         Map<String,String> queryParameter=new HashMap<>();
         queryParameter.put(QueryParameters.ORDER_BY,orderby);
         queryParameter.put(QueryParameters.ORDER,order);
+        queryParameter.put("per_page","100");
         mProductRepository.requestToServerForReceiveProducts(queryParameter);
     }
 
