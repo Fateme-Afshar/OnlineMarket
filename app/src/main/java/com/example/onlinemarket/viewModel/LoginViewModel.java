@@ -24,7 +24,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        mRepository= OnlineShopApplication.getCustomerRepository();
+        mRepository= CustomerRepository.getInstance();
     }
 
     public void afterTextChangeUsername(Editable editable) {

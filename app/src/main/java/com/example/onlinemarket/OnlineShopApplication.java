@@ -5,22 +5,15 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelStore;
-import androidx.lifecycle.ViewModelStoreOwner;
-
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerLocationRepository;
-import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.squareup.leakcanary.LeakCanary;
 
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
     private static ProductPurchasedRepository sProductPurchasedRepository;
-    private static CustomerRepository sCustomerRepository;
     private static CustomerLocationRepository sLocationRepository;
 
     private static Customer sCustomer;
@@ -29,20 +22,14 @@ public class OnlineShopApplication extends Application{
     public void onCreate() {
         super.onCreate();
         sProductPurchasedRepository = ProductPurchasedRepository.getInstance(this);
-        sCustomerRepository=CustomerRepository.getInstance();
-
         sLocationRepository=CustomerLocationRepository.getInstance(this);
-
         sCustomer= OnlineShopSharePref.getCustomer(this);
-        createNotificationChannel();
+
+        LeakCanary.install(this);
     }
 
     public static ProductPurchasedRepository getProductPurchasedRepository() {
         return sProductPurchasedRepository;
-    }
-
-    public static CustomerRepository getCustomerRepository() {
-        return sCustomerRepository;
     }
 
     public static CustomerLocationRepository getLocationRepository() {
@@ -62,8 +49,7 @@ public class OnlineShopApplication extends Application{
         }
     }
 
-    public static Customer getsCustomer() {
+    public static Customer getCustomer() {
         return sCustomer;
     }
-
 }

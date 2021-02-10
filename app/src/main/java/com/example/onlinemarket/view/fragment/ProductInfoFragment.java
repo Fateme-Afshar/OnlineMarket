@@ -186,4 +186,10 @@ public class ProductInfoFragment extends Fragment{
 
         questionDialog.show();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mProductViewModel.setProduct(null);
+    }
 }

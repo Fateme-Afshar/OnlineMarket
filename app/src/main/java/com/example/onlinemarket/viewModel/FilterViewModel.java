@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FilterViewModel extends AndroidViewModel {
+public class FilterViewModel extends ViewModel {
     private FilterRepository mRepository;
     private ProductRepository mProductRepository;
     private MainLoadingRepository mMainLoadingRepository;
@@ -29,8 +30,7 @@ public class FilterViewModel extends AndroidViewModel {
 
     private List<Integer> mFilterIds;
 
-    public FilterViewModel(@NonNull Application application) {
-        super(application);
+    public FilterViewModel() {
         mRepository = FilterRepository.getInstance();
         mProductRepository = ProductRepository.getInstance();
         mMainLoadingRepository=MainLoadingRepository.getInstance();

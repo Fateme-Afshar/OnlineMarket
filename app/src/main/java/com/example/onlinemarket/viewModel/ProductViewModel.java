@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.model.Product;
@@ -16,8 +15,6 @@ import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.repository.ReviewRepository;
-
-import java.util.Map;
 
 public class ProductViewModel extends AndroidViewModel {
     private Product mProduct;
@@ -76,7 +73,7 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     public void onPostCommentClickListener() {
-        Customer customer = OnlineShopApplication.getsCustomer();
+        Customer customer = OnlineShopApplication.getCustomer();
 
         if (customer==null) {
             Toast.makeText(

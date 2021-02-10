@@ -59,7 +59,7 @@ public class SignUpViewModel extends AndroidViewModel {
 
     public SignUpViewModel(@NonNull Application application) {
         super(application);
-        mRepository = OnlineShopApplication.getCustomerRepository();
+        mRepository = CustomerRepository.getInstance();
     }
 
     public void afterTextChangeFirstName(Editable editable) {

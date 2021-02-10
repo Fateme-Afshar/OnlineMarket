@@ -16,7 +16,7 @@ public class EditReviewViewModel extends ViewModel {
 
     private EditReviewViewModelCallback mCallback;
 
-    {
+    public EditReviewViewModel() {
         mReviewRepository = ReviewRepository.getInstance();
     }
 

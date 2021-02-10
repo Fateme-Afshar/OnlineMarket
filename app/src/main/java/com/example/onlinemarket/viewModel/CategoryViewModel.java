@@ -20,7 +20,7 @@ public class CategoryViewModel extends ViewModel {
 
     private List<Product> mProductList=new ArrayList<>();
 
-    {
+    public CategoryViewModel() {
         mCategoryRepository=CategoryRepository.getInstance();
         mMainLoadingRepository=MainLoadingRepository.getInstance();
 

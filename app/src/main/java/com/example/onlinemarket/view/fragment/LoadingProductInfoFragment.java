@@ -62,6 +62,7 @@ public class LoadingProductInfoFragment extends Fragment {
                 public void onChanged(Product product) {
                     mViewModel.setProduct(product);
 
+
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.nav_product_info);
                 }
@@ -86,5 +87,11 @@ public class LoadingProductInfoFragment extends Fragment {
         mBinding.animNoInternet.setVisibility(visible);
         mBinding.tvNoInternet.setVisibility(visible);
         mBinding.btnRefresh.setVisibility(visible);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.getProductLiveData().removeObservers(getActivity());
     }
 }
