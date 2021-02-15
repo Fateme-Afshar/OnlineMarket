@@ -2,14 +2,11 @@ package com.example.onlinemarket.viewModel;
 
 import android.app.Application;
 import android.text.Editable;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Customer;
@@ -21,6 +18,8 @@ import com.example.onlinemarket.utils.UiUtils;
 
 public class ProductViewModel extends AndroidViewModel {
     private Product mProduct;
+    private Product mLastProduct=new Product();
+
     private Review mReview;
 
     private LiveData<Product> mProductLiveData;
@@ -35,8 +34,6 @@ public class ProductViewModel extends AndroidViewModel {
         mPurchasedRepository = ProductPurchasedRepository.getInstance(getApplication());
         mReviewRepository = ReviewRepository.getInstance();
         mProductRepository=ProductRepository.getInstance();
-
-        mProductLiveData=mProductRepository.getProductLiveData();
         mReview = new Review();
     }
 
@@ -50,7 +47,11 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     public void setProduct(Product product) {
-        mProduct = product;
+        mLastProduct=mProduct;
+        if (!product.equals(mLastProduct))
+            mProduct = product;
+        else
+            mProduct=null;
     }
 
     public void onAddCartBtnClickListener() {
@@ -92,6 +93,7 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     public LiveData<Product> getProductLiveData() {
+        mProductLiveData = mProductRepository.getProductLiveData();
         return mProductLiveData;
     }
 }

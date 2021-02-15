@@ -19,6 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.LoadingViewBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.LoadingUtils;
+import com.example.onlinemarket.view.observer.SingleEventObserver;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 
 public class LoadingProductInfoFragment extends Fragment {
@@ -34,7 +35,6 @@ public class LoadingProductInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductId = LoadingProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
         mViewModel = new ViewModelProvider(getActivity()).get(ProductViewModel.class);
     }
 
@@ -47,7 +47,6 @@ public class LoadingProductInfoFragment extends Fragment {
                         R.layout.loading_view,
                         container,
                         false);
-
         setupLoadProduct();
         return mBinding.getRoot();
     }
@@ -56,28 +55,6 @@ public class LoadingProductInfoFragment extends Fragment {
     private void setupLoadProduct() {
         if (LoadingUtils.checkHasInternet(getActivity().getSystemService(ConnectivityManager.class))) {
             mViewModel.requestToServerForReceiveProductById(mProductId);
-
-            mViewModel.getProductLiveData().observe(getActivity(), new Observer<Product>() {
-                @Override
-                public void onChanged(Product product) {
-                    mViewModel.setProduct(product);
-
-
-                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.nav_product_info);
-                }
-            });
-        }else {
-            setupVisibility(View.GONE, View.VISIBLE);
-
-            mBinding.btnRefresh.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setupVisibility(View.VISIBLE, View.GONE);
-
-                    setupLoadProduct();
-                }
-            });
         }
     }
 
@@ -92,6 +69,5 @@ public class LoadingProductInfoFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.getProductLiveData().removeObservers(getActivity());
     }
 }

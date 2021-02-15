@@ -61,6 +61,8 @@ public class FilterFragment extends Fragment{
             @Override
             public void onChanged(List<Product> productList) {
                 setupAdapter(productList);
+
+                mBinding.animLoading.setVisibility(View.GONE);
             }
         });
     }
@@ -80,10 +82,13 @@ public class FilterFragment extends Fragment{
             else
                 mViewModel.requestToServerForReceiveFilterProductsOnAttributeTerm(filterIds, "pa_size");
 
+            mBinding.animLoading.setVisibility(View.VISIBLE);
+
         }else if(requestCode==REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET){
             String orderby=data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER_BY);
             String order=data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER);
             mViewModel.requestToServerForReceiveFilterProductsOnMore(orderby,order);
+            mBinding.animLoading.setVisibility(View.VISIBLE);
         }
     }
 
@@ -144,9 +149,9 @@ public class FilterFragment extends Fragment{
                 NavController navController=
                         Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
 
-                FilterFragmentDirections.ActionNavFilterToNavLoadingProduct
+                FilterFragmentDirections.ActionNavFilterToNavProductInfo
                         actionNavFilterToNavLoadingProduct=
-                        FilterFragmentDirections.actionNavFilterToNavLoadingProduct(productId);
+                        FilterFragmentDirections.actionNavFilterToNavProductInfo(productId);
 
                 actionNavFilterToNavLoadingProduct.setProductId(productId);
                 navController.navigate(actionNavFilterToNavLoadingProduct);
@@ -160,6 +165,7 @@ public class FilterFragment extends Fragment{
         if(productList.size()==0) {
             mBinding.animEmpty.setVisibility(View.VISIBLE);
             mBinding.tvEmpty.setVisibility(View.VISIBLE);
+            mBinding.animLoading.setVisibility(View.GONE);
         }
         else {
             mBinding.animEmpty.setVisibility(View.GONE);

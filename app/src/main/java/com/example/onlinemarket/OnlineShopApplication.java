@@ -5,12 +5,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-import com.example.onlinemarket.model.customer.Customer;
-import com.example.onlinemarket.repository.CustomerLocationRepository;
-import com.example.onlinemarket.repository.ProductPurchasedRepository;
-import com.example.onlinemarket.sharePref.OnlineShopSharePref;
-import com.example.onlinemarket.utils.UiUtils;
-
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
 

@@ -60,6 +60,7 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mViewModel.requestToServerForSearchProducts("name",query);
+                mBinding.animLoading.setVisibility(View.VISIBLE);
                 return false;
             }
 
@@ -69,6 +70,7 @@ public class SearchFragment extends Fragment {
                     setupAdapter(new ArrayList<>());
                     mBinding.animEmpty.setVisibility(View.GONE);
                     mBinding.tvEmpty.setVisibility(View.GONE);
+                    mBinding.animLoading.setVisibility(View.GONE);
                 }
                 return false;
             }
@@ -77,6 +79,7 @@ public class SearchFragment extends Fragment {
         mViewModel.getProductLiveData().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> productList) {
+                mBinding.animLoading.setVisibility(View.GONE);
                 setupAdapter(productList);
             }
         });
@@ -106,9 +109,9 @@ public class SearchFragment extends Fragment {
                 NavController navController=
                         Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
 
-                SearchFragmentDirections.ActionNavSearchToNavLoadingProduct
+                SearchFragmentDirections.ActionNavSearchToNavProductInfo
                         actionNavSearchToNavLoadingProduct=
-                        SearchFragmentDirections.actionNavSearchToNavLoadingProduct(productId);
+                        SearchFragmentDirections.actionNavSearchToNavProductInfo(productId);
 
                 actionNavSearchToNavLoadingProduct.setProductId(productId);
                 navController.navigate(actionNavSearchToNavLoadingProduct);
@@ -121,6 +124,7 @@ public class SearchFragment extends Fragment {
         if (productList.size() == 0) {
             mBinding.animEmpty.setVisibility(View.VISIBLE);
             mBinding.tvEmpty.setVisibility(View.VISIBLE);
+            mBinding.animLoading.setVisibility(View.GONE);
         } else {
             mBinding.animEmpty.setVisibility(View.GONE);
             mBinding.tvEmpty.setVisibility(View.GONE);

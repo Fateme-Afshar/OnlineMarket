@@ -10,14 +10,14 @@
         android:name="com.example.onlinemarket.view.fragment.HomePageFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home_page" >
+
         <action
             android:id="@+id/action_nav_home_to_nav_product_info"
-            app:destination="@id/nav_loading_product" >
+            app:destination="@id/nav_product_info" >
             <argument
                 android:name="productId"
                 app:argType="integer"/>
         </action>
-
     </fragment>
 
     <fragment
@@ -27,10 +27,7 @@
         tools:layout="@layout/fragment_category_detail" >
         <action
             android:id="@+id/action_nav_categories_to_nav_category_product"
-            app:destination="@id/nav_category_product_loading"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:enterAnim="@anim/fade_in"
-            >
+            app:destination="@id/nav_category_product" >
             <argument
                 android:name="catId"
                 app:argType="integer"/>
@@ -42,9 +39,10 @@
         android:name="com.example.onlinemarket.view.fragment.SearchFragment"
         android:label="@string/menu_search"
         tools:layout="@layout/fragment_search" >
+
         <action
-            android:id="@+id/action_nav_search_to_nav_loading_product"
-            app:destination="@id/nav_loading_product" >
+            android:id="@+id/action_nav_search_to_nav_product_info"
+            app:destination="@id/nav_product_info">
             <argument
                 android:name="productId"
                 app:argType="integer"/>
@@ -56,9 +54,10 @@
         android:name="com.example.onlinemarket.view.fragment.FilterFragment"
         android:label="@string/menu_filter"
         tools:layout="@layout/fragment_filter" >
+
         <action
-            android:id="@+id/action_nav_filter_to_nav_loading_product"
-            app:destination="@id/nav_loading_product" >
+            android:id="@+id/action_nav_filter_to_nav_product_info"
+            app:destination="@id/nav_product_info" >
             <argument
                 android:name="productId"
                 app:argType="integer"/>
@@ -84,25 +83,17 @@
         android:name="com.example.onlinemarket.view.fragment.LoadingProductInfoFragment"
         android:label="@string/menu_loading_product"
         tools:layout="@layout/item_location_view">
-        <argument
-            android:name="productId"
-            app:argType="integer"/>
-        <action
-            android:id="@+id/action_nav_loading_product_to_nav_product_info"
-            app:destination="@id/nav_product_info" />
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_product_info"
         android:name="com.example.onlinemarket.view.fragment.ProductInfoFragment"
         android:label="@string/menu_product_info"
-        tools:layout="@layout/fragment_product_info"
-        >
-
-        <action
-            android:id="@+id/action_nav_product_to_nav_home"
-            app:destination="@+id/nav_home"
-            />
+        tools:layout="@layout/fragment_product_info">
+        <argument
+            android:name="productId"
+            app:argType="integer"/>
     </fragment>
 
     <fragment
@@ -120,15 +111,19 @@
         android:id="@+id/nav_category_product"
         android:name="com.example.onlinemarket.view.fragment.CategoryProductsFragment"
         android:label="@string/menu_products"
-        tools:layout="@layout/fragment_category_detail"
-        >
+        tools:layout="@layout/fragment_category_detail">
+            <argument
+                android:name="catId"
+                app:argType="integer"/>
         <action
-            android:id="@+id/action_nav_category_product_to_nav_loading_product"
-            app:destination="@id/nav_loading_product" >
+            android:id="@+id/action_nav_category_product_to_nav_product_info"
+            app:destination="@id/nav_product_info" >
             <argument
                 android:name="productId"
                 app:argType="integer"/>
         </action>
+
+
     </fragment>
 
     <fragment
@@ -143,9 +138,10 @@
         android:label="@string/menu_cart"
         tools:layout="@layout/fragment_cart"
         >
+
         <action
-            android:id="@+id/action_nav_cart_to_nav_loading_product"
-            app:destination="@id/nav_loading_product" >
+            android:id="@+id/action_nav_cart_to_nav_product_info"
+            app:destination="@id/nav_product_info">
             <argument
                 android:name="productId"
                 app:argType="integer"/>

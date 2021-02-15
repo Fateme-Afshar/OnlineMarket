@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.onlinemarket.R;
@@ -72,6 +75,7 @@ public class CategoriesFragment extends Fragment{
                 container,
                 false);
         setupAdapter(mViewModel.getCategoryList());
+        setupBackButton();
         return mBinding.getRoot();
     }
 
@@ -91,6 +95,20 @@ public class CategoriesFragment extends Fragment{
             mCatAdapter.setCategories(models);
             mCatAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void setupBackButton() {
+        OnBackPressedCallback onBackPressedCallback=new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavController navController=
+                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+                navController.navigate(R.id.nav_home);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
 
     public interface CategoriesFragmentCallbacks{

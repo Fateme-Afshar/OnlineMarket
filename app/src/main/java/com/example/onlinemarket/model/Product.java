@@ -37,6 +37,9 @@ public class Product extends Observable implements Serializable {
         mId=id;
     }
 
+    public Product() {
+    }
+
     @Ignore
     public Product(int id,
                    String name,

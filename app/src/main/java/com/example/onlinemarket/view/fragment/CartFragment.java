@@ -90,10 +90,10 @@ public class CartFragment extends Fragment{
                         Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
 
                 CartFragmentDirections.
-                        ActionNavCartToNavLoadingProduct
+                        ActionNavCartToNavProductInfo
                         actionNavCartToNavLoadingProduct=
                         CartFragmentDirections.
-                                actionNavCartToNavLoadingProduct(productId);
+                                actionNavCartToNavProductInfo(productId);
 
                 actionNavCartToNavLoadingProduct.setProductId(productId);
                 navController.navigate(actionNavCartToNavLoadingProduct);

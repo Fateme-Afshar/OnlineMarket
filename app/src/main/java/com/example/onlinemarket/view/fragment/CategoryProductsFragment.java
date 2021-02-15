@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,8 +50,21 @@ public class CategoryProductsFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int catId=
+                CategoryProductsFragmentArgs.fromBundle(getArguments()).getCatId();
+
         mViewModel =
                 new ViewModelProvider(getActivity()).get(CategoryViewModel.class);
+
+        mViewModel.requestToServerForSpecificCatProduct(catId);
+        mViewModel.getProductLiveData().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> productList) {
+                setupAdapter(productList);
+                mBinding.animLoading.setVisibility(View.GONE);
+                mBinding.recyclerView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -61,7 +75,6 @@ public class CategoryProductsFragment extends Fragment{
                 R.layout.fragment_category_detail,
                 container,
                 false);
-        setupAdapter(mViewModel.getProductList());
 
         setupBackButton();
 
@@ -91,10 +104,10 @@ public class CategoryProductsFragment extends Fragment{
                             Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
 
                     CategoryProductsFragmentDirections.
-                            ActionNavCategoryProductToNavLoadingProduct
+                            ActionNavCategoryProductToNavProductInfo
                             actionNavCategoryProductToNavLoadingProduct=
                             CategoryProductsFragmentDirections.
-                                    actionNavCategoryProductToNavLoadingProduct(productId);
+                                    actionNavCategoryProductToNavProductInfo(productId);
 
                     actionNavCategoryProductToNavLoadingProduct.setProductId(productId);
                     navController.navigate(actionNavCategoryProductToNavLoadingProduct);
