@@ -11,6 +11,7 @@ import com.example.onlinemarket.model.response.CatObj;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -23,13 +24,13 @@ import retrofit2.http.QueryMap;
 public interface RetrofitInterface {
 
     @GET("products/categories?per_page=100")
-    Call<List<CatObj>> getListCatObjects(@QueryMap Map<String, String> queryMap);
+    Observable<List<CatObj>> getListCatObjects(@QueryMap Map<String, String> queryMap);
 
     @GET("products")
-    Call<List<Product>> getListProductObjects(@QueryMap Map<String, String> queryMap);
+    Observable<List<Product>> getListProductObjects(@QueryMap Map<String, String> queryMap);
 
     @GET("products/{id}")
-    Call<Product> getProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
+    Observable<Product> getProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
 
     @DELETE("products/{id}?force=true")
     Call<Product> deleteProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);

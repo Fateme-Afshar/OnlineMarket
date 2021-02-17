@@ -88,7 +88,7 @@ public class FilterViewModel extends ViewModel {
         mOnBtnClickListener = onBtnClickListener;
     }
 
-    public LiveData<List<Product>> getFilterProducts() {
+    public List<Product> getFilterProducts() {
         return mProductRepository.getProducts();
     }
 

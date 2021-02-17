@@ -1,9 +1,5 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -17,6 +13,7 @@ import com.example.onlinemarket.utils.QueryParameters;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.repository.ProductRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +24,13 @@ public class NetworkTaskViewModel extends ViewModel {
     private CategoryRepository mCategoryRepository;
     private FilterRepository mFilterRepository;
 
-    private LiveData<List<Product>> mNewestProductLiveData;
-    private LiveData<List<Product>> mPopulateProductLiveData;
-    private LiveData<List<Product>> mBestProductLiveData;
-    private LiveData<List<Product>> mSpecialProductLiveData;
-    private LiveData<List<Product>> mProductLiveData;
+    private List<Product> mNewestProductList=new ArrayList<>();
+    private List<Product> mPopulateProductList=new ArrayList<>();
+    private List<Product> mBestProductList=new ArrayList<>();
+    private List<Product> mSpecialProductList=new ArrayList<>();
+    private List<Product> mProductList=new ArrayList<>();
 
-    private LiveData<List<Category>> mCategoryLiveData;
+    private List<Category> mCategoryList=new ArrayList<>();
 
     private LiveData<List<AttributeInfo>> mColorAttributeInfoList;
     private LiveData<List<AttributeInfo>> mSizeAttributeInfoList;
@@ -43,16 +40,24 @@ public class NetworkTaskViewModel extends ViewModel {
         mCategoryRepository=CategoryRepository.getInstance();
         mFilterRepository=FilterRepository.getInstance();
 
-        mNewestProductLiveData= mProductRepository.getNewestProductLiveData() ;
-        mPopulateProductLiveData= mProductRepository.getPopulateProductLiveData() ;
-        mBestProductLiveData= mProductRepository.getBestProductLiveData() ;
-        mSpecialProductLiveData=mProductRepository.getSpecialProductLiveData();
-        mProductLiveData =mProductRepository.getProducts();
+        mNewestProductList.addAll(mProductRepository.getNewestProductList()) ;
+        mPopulateProductList.addAll(mProductRepository.getPopulateProductList()) ;
+        mBestProductList.addAll(mProductRepository.getBestProductList());
+        mSpecialProductList.addAll(mProductRepository.getSpecialProductList());
+        mProductList.addAll(mProductRepository.getProducts());
 
-        mCategoryLiveData=mCategoryRepository.getCategoryListLiveData();
+        mCategoryList.addAll(mCategoryRepository.getCategoriesList());
 
         mColorAttributeInfoList=mFilterRepository.getColorAttributeListLiveData();
         mSizeAttributeInfoList=mFilterRepository.getSizeAttributeListLiveData();
+    }
+
+    public LiveData<Boolean> isCompleteLoadingProducts(){
+        return mProductRepository.isCompleteProducts();
+    }
+
+    public LiveData<Boolean> isCompleteLoadingCategories(){
+        return mCategoryRepository.isCompleteCategory();
     }
 
     public void requestToServerForReceiveProducts(Map<String,String> queryMap, Titles title){
@@ -76,28 +81,28 @@ public class NetworkTaskViewModel extends ViewModel {
         mFilterRepository.requestToServerForReceiveInfoSizeAttribute();
     }
 
-    public LiveData<List<Category>> getCategoryLiveData() {
-        return mCategoryLiveData;
+    public List<Category> getCategoryList() {
+        return mCategoryList;
     }
 
-    public LiveData<List<Product>> geNewestProductLiveData() {
-        return mNewestProductLiveData;
+    public List<Product> geNewestProductLiveData() {
+        return mNewestProductList;
     }
 
-    public LiveData<List<Product>> getPopulateProductLiveData() {
-        return mPopulateProductLiveData;
+    public List<Product> getPopulateProductList() {
+        return mPopulateProductList;
     }
 
-    public LiveData<List<Product>> getBestProductLiveData() {
-        return mBestProductLiveData;
+    public List<Product> getBestProductList() {
+        return mBestProductList;
     }
 
-    public LiveData<List<Product>> getProductLiveData() {
-        return mProductLiveData;
+    public List<Product> getProductList() {
+        return mProductList;
     }
 
-    public LiveData<List<Product>> getSpecialProductLiveData() {
-        return mSpecialProductLiveData;
+    public List<Product> getSpecialProductList() {
+        return mSpecialProductList;
     }
 
     public LiveData<List<AttributeInfo>> getColorAttributeInfoList(){return mColorAttributeInfoList;}

@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -22,6 +23,7 @@ public class RetrofitInstance {
         return new Retrofit.Builder().
                 baseUrl(NetworkParams.BASE_URL).
                 addConverterFactory(createConverterFactoryCustom(type,typeAdapter)).
+                addCallAdapterFactory(RxJava2CallAdapterFactory.create()).
                 build();
     }
 
@@ -29,6 +31,7 @@ public class RetrofitInstance {
         return new Retrofit.Builder().
                 baseUrl(NetworkParams.BASE_URL).
                 addConverterFactory(GsonConverterFactory.create()).
+                addCallAdapterFactory(RxJava2CallAdapterFactory.create()).
                 build();
     }
 
@@ -36,7 +39,8 @@ public class RetrofitInstance {
         OkHttpClient client = new OkHttpClient();
         return new Retrofit.Builder().
                 baseUrl(NetworkParams.BASE_URL).
-                addConverterFactory(GsonConverterFactory.create())
+                addConverterFactory(GsonConverterFactory.create()).
+                addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client).
                 build();
     }

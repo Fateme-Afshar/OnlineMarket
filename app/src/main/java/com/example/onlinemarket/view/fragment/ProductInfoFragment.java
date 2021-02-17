@@ -113,21 +113,14 @@ public class ProductInfoFragment extends Fragment{
     private void setupLoadProduct() {
         if (LoadingUtils.checkHasInternet(getActivity().getSystemService(ConnectivityManager.class))) {
 
-            mProductViewModel.getProductLiveData().observe(getViewLifecycleOwner(), new Observer<Product>() {
-                @Override
-                public void onChanged(Product product) {
-                    mProductViewModel.setProduct(product);
-                    setupReviewsForProduct();
+            mProductViewModel.setProduct(mProductViewModel.getProductLiveData());
+            setupReviewsForProduct();
 
-                    if (mProductViewModel.getProduct() != null){
-                        mImageSlider = new ImageSlider(mBinding.imgSlider);
-                        mImageSlider.startSlider(mProductViewModel.getProduct().getImgUrls());
-                    }
-
-                    mBinding.notifyPropertyChanged(R.id.img_slider);
-                    mBinding.setViewModel(mProductViewModel);
-                }
-            });
+            if (mProductViewModel.getProduct() != null){
+                mImageSlider = new ImageSlider(mBinding.imgSlider);
+                mImageSlider.startSlider(mProductViewModel.getProduct().getImgUrls());
+            }
+            mBinding.setViewModel(mProductViewModel);
         }else {
             UiUtils.returnToast(getContext(),"اینترنت قطع است");
         }

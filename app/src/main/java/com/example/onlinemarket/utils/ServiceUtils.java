@@ -9,7 +9,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.Observer;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
@@ -30,20 +29,18 @@ public class ServiceUtils {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                productRepository.getNewestProductLiveData().observeForever(new Observer<List<Product>>() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    @Override
-                    public void onChanged(List<Product> productList) {
-                        int lastedProductId = productList.get(productList.size() - 1).getId();
-                        if (lastedProductId != OnlineShopSharePref.getLastedProductId(context.getApplicationContext())) {
-                            Log.d(ProgramUtils.TEST_TAG,"show notification");
-                            showNotification(context);
-                            OnlineShopSharePref.setLastedProductId(context.getApplicationContext(), lastedProductId);
-                        }else {
-                            Log.d(ProgramUtils.TEST_TAG,"nothing to show notification");
-                        }
+                List<Product> productList=productRepository.getProducts();
+
+                int lastedProductId = productList.get(productList.size() - 1).getId();
+                if (lastedProductId != OnlineShopSharePref.getLastedProductId(context.getApplicationContext())) {
+                    Log.d(ProgramUtils.TEST_TAG,"show notification");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        showNotification(context);
                     }
-                });
+                    OnlineShopSharePref.setLastedProductId(context.getApplicationContext(), lastedProductId);
+                }else {
+                    Log.d(ProgramUtils.TEST_TAG,"nothing to show notification");
+                }
             }
         };
 

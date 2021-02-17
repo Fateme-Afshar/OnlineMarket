@@ -1,6 +1,6 @@
 package com.example.onlinemarket.repository;
 
-import android.util.Log;
+import android.annotation.SuppressLint;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,29 +11,33 @@ import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.network.retrofit.RetrofitInterface;
 import com.example.onlinemarket.network.retrofit.gson.ProductListGsonConverterCustomize;
 import com.example.onlinemarket.utils.NetworkParams;
-import com.example.onlinemarket.utils.ProgramUtils;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class CategoryRepository {
     private static CategoryRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
 
-    private MutableLiveData<List<Category>> mCategoryLiveData=new MutableLiveData<>();
+    private MainLoadingRepository mMainLoadingRepository;
+
+    private List<Category> mCategoriesList=new ArrayList<>();
+    private List<Product> mProductList=new ArrayList<>();
+
+    private MutableLiveData<Boolean> mIsCompleteCategory=new MutableLiveData<>();
     private MutableLiveData<List<Product>> mProducts =new MutableLiveData<>();
 
     private CategoryRepository() {
         Retrofit retrofit=RetrofitInstance.getRetrofit();
 
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
+        mMainLoadingRepository=MainLoadingRepository.getInstance();
     }
 
     public static CategoryRepository getInstance() {
@@ -42,69 +46,60 @@ public class CategoryRepository {
         return sInstance;
     }
 
+    @SuppressLint("CheckResult")
     public void requestToServerForCategories() {
-        List<Category> categoriesList = new ArrayList<>();
         Retrofit retrofit =RetrofitInstance.getRetrofit();
 
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        Call<List<CatObj>> catObjects =
+        Observable<List<CatObj>> catObjects =
                 mRetrofitInterface.getListCatObjects(NetworkParams.MAP_KEYS);
-        catObjects.enqueue(new Callback<List<CatObj>>() {
-            @Override
-            public void onResponse(Call<List<CatObj>> call, Response<List<CatObj>> response) {
-                    if (response.body()!=null){
-                        for (CatObj catObj : response.body()) {
-                                Category category=new Category
-                                        (catObj.getId(),
-                                                catObj.getName(),
-                                                catObj.getImage().getSrc());
-
-                                categoriesList.add(category);
-                        }
-
-                        mCategoryLiveData.setValue(categoriesList);
-                    }
-            }
-
-            @Override
-            public void onFailure(Call<List<CatObj>> call, Throwable t) {
-
-            }
-        });
+        catObjects.
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(this::setCatObj, throwable ->new Exception("CategoryRepository : An error occurred when receive categories "));
     }
 
+    private void setCatObj(List<CatObj> catObjList){
+            for (CatObj catObj : catObjList) {
+                Category category=new Category
+                        (catObj.getId(),
+                                catObj.getName(),
+                                catObj.getImage().getSrc());
+
+                mCategoriesList.add(category);
+        }
+            mMainLoadingRepository.setCategoryList(mCategoriesList);
+            mIsCompleteCategory.setValue(true);
+    }
+
+    @SuppressLint("CheckResult")
     public void requestToServerForSpecificCatProduct(int catId) {
         Retrofit retrofit =RetrofitInstance.getRetrofit(new TypeToken<List<Product>>(){}.getType()
                 ,new ProductListGsonConverterCustomize());
 
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<List<Product>> productObjects=
+        Observable<List<Product>> productObjects=
                 mRetrofitInterface.getListProductObjects
                         (NetworkParams.queryForReceiveSpecificCategoryProduct(catId));
-
-        productObjects.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                Log.d(ProgramUtils.TAG,
-                        "ProductRepository : request Server for receive products for Category by id = "+catId);
-
-                mProducts.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-
-            }
-        });
-
+        productObjects.subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(this::setProducts, throwable ->new Exception("CategoryRepository : An error occurred when receive categories "));
     }
 
-    public MutableLiveData<List<Product>> getProducts() {
-        return mProducts;
+    public List<Category> getCategoriesList() {
+        return mCategoriesList;
     }
 
-    public MutableLiveData<List<Category>> getCategoryListLiveData() {
-        return mCategoryLiveData;
+    public List<Product> getProductList() {
+        return mProductList;
+    }
+
+    public void setProducts(List<Product> productList) {
+        mProductList.addAll(productList);
+    }
+
+    public MutableLiveData<Boolean> isCompleteCategory() {
+        return mIsCompleteCategory;
     }
 }

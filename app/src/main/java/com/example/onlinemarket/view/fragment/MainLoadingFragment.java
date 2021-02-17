@@ -12,16 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.MainLoadingViewBinding;
 import com.example.onlinemarket.model.AttributeInfo;
-import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.viewModel.MainLoadingViewModel;
@@ -45,7 +41,7 @@ public class MainLoadingFragment extends Fragment {
 
     private MainLoadingFragmentCallback mCallback;
 
-    private boolean[] flags=new boolean[7];
+    private boolean[] flags = new boolean[4];
 
     public MainLoadingFragment() {
         // Required empty public constructor
@@ -75,8 +71,16 @@ public class MainLoadingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mMainLoadingViewModel =
                 new ViewModelProvider(getActivity()).get(MainLoadingViewModel.class);
-        mNetworkTaskViewModel=
+        mNetworkTaskViewModel =
                 new ViewModelProvider(this).get(NetworkTaskViewModel.class);
+
+        mNetworkTaskViewModel.isCompleteLoadingProducts().observe(getActivity(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                flags[0] = true;
+                completeLoadingData();
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -119,7 +123,7 @@ public class MainLoadingFragment extends Fragment {
             public void onChanged(List<AttributeInfo> attributeInfoList) {
                 mMainLoadingViewModel.setColorAttributeInfoList(attributeInfoList);
 
-                flags[6]=true;
+                flags[1] = true;
                 completeLoadingData();
             }
         });
@@ -128,7 +132,7 @@ public class MainLoadingFragment extends Fragment {
             @Override
             public void onChanged(List<AttributeInfo> attributeInfoList) {
                 mMainLoadingViewModel.setSizeAttributeInfoList(attributeInfoList);
-                flags[5]=true;
+                flags[2] = true;
                 completeLoadingData();
             }
         });
@@ -137,11 +141,10 @@ public class MainLoadingFragment extends Fragment {
 
     private void setupLoadingCategories() {
         mNetworkTaskViewModel.requestToServerForCategories();
-        mNetworkTaskViewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), new Observer<List<Category>>() {
+        mNetworkTaskViewModel.isCompleteLoadingCategories().observe(getActivity(), new Observer<Boolean>() {
             @Override
-            public void onChanged(List<Category> categories) {
-                mMainLoadingViewModel.setCategories(categories);
-                flags[4]=true;
+            public void onChanged(Boolean aBoolean) {
+                flags[3] = true;
                 completeLoadingData();
             }
         });
@@ -156,71 +159,11 @@ public class MainLoadingFragment extends Fragment {
 
     private void getProducts(Map<String, String> queryMap, Titles title) {
         mNetworkTaskViewModel.requestToServerForReceiveProducts(queryMap,title);
-
-        switch (title) {
-            case NEWEST_PRODUCT:
-                LiveData<List<Product>> productNewestLiveData =
-                        mNetworkTaskViewModel.geNewestProductLiveData();
-                productNewestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        mMainLoadingViewModel.setNewestProductList(products);
-                        OnlineShopSharePref.setLastedProductId(getContext(),products.get(products.size()-1).getId());
-                        flags[0]=true;
-                        completeLoadingData();
-                    }
-                });
-
-                break;
-            case BEST_PRODUCT:
-                LiveData<List<Product>> productBestLiveData=
-                        mNetworkTaskViewModel.getBestProductLiveData();
-                productBestLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        mMainLoadingViewModel.setBestProductList(products);
-
-                        flags[1]=true;
-                        completeLoadingData();
-                    }
-                });
-
-                break;
-            case MORE_REVIEWS_PRODUCT:
-
-                LiveData<List<Product>> productMostReviewLiveData =
-                        mNetworkTaskViewModel.getPopulateProductLiveData();
-                productMostReviewLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        mMainLoadingViewModel.setPopulateProductList(products);
-                        flags[2]=true;
-                        completeLoadingData();
-                    }
-                });
-                break;
-            case SPECIAL_PRODUCT:
-
-                LiveData<List<Product>> specialProductLiveData=
-                        mNetworkTaskViewModel.getSpecialProductLiveData();
-                specialProductLiveData.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> productList) {
-                        mMainLoadingViewModel.setSpecialProductList(productList);
-                        flags[3]=true;
-                        completeLoadingData();
-                    }
-                });
-
-            default:
-                break;
-        }
     }
 
     private void completeLoadingData(){
-        if (flags[0] && flags[1] && flags[2] &&
-                flags[3] && flags[4] && flags[5] && flags[6]){
-                mCallback.onStartMainActivity();
+        if (flags[0] && flags[1] && flags[2] && flags[3]) {
+            mCallback.onStartMainActivity();
         }
     }
 

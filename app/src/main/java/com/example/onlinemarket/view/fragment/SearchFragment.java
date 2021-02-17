@@ -1,12 +1,10 @@
 package com.example.onlinemarket.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -20,7 +18,6 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentSearchBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.ArrayList;
@@ -76,13 +73,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        mViewModel.getProductLiveData().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> productList) {
-                mBinding.animLoading.setVisibility(View.GONE);
-                setupAdapter(productList);
-            }
-        });
+        mBinding.animLoading.setVisibility(View.GONE);
+        setupAdapter(mViewModel.getProductList());
     }
 
     @Override

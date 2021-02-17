@@ -92,8 +92,7 @@ public class ProductViewModel extends AndroidViewModel {
        UiUtils.returnToast(getApplication(),"دیدگاه شما با موفقیت ثبت شد و در دست بررسی است");
     }
 
-    public LiveData<Product> getProductLiveData() {
-        mProductLiveData = mProductRepository.getProductLiveData();
-        return mProductLiveData;
+    public Product getProductLiveData() {
+        return mProductRepository.getProductLiveData();
     }
 }

@@ -1,7 +1,6 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -27,6 +24,7 @@ import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -57,14 +55,6 @@ public class FilterFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupViewModel();
-        mViewModel.getFilterProducts().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> productList) {
-                setupAdapter(productList);
-
-                mBinding.animLoading.setVisibility(View.GONE);
-            }
-        });
     }
 
     @Override
@@ -82,13 +72,16 @@ public class FilterFragment extends Fragment{
             else
                 mViewModel.requestToServerForReceiveFilterProductsOnAttributeTerm(filterIds, "pa_size");
 
-            mBinding.animLoading.setVisibility(View.VISIBLE);
+            setupAdapter(new ArrayList<>());
+            setupVisebility();
 
-        }else if(requestCode==REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET){
-            String orderby=data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER_BY);
-            String order=data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER);
-            mViewModel.requestToServerForReceiveFilterProductsOnMore(orderby,order);
-            mBinding.animLoading.setVisibility(View.VISIBLE);
+
+        }else if(requestCode==REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET) {
+            String orderby = data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER_BY);
+            String order = data.getStringExtra(FilterProductBottomSheetFragment.EXTRA_ORDER);
+            mViewModel.requestToServerForReceiveFilterProductsOnMore(orderby, order);
+            setupVisebility();
+            setupAdapter(new ArrayList<>());
         }
     }
 
@@ -103,6 +96,14 @@ public class FilterFragment extends Fragment{
                         false);
         mBinding.setViewModel(mViewModel);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupAdapter(mViewModel.getFilterProducts());
+
+        mBinding.animLoading.setVisibility(View.GONE);
     }
 
     private void setupViewModel() {
@@ -162,14 +163,19 @@ public class FilterFragment extends Fragment{
     }
 
     private void setupEmpty(List<Product> productList) {
-        if(productList.size()==0) {
+        if (productList.size() == 0) {
             mBinding.animEmpty.setVisibility(View.VISIBLE);
             mBinding.tvEmpty.setVisibility(View.VISIBLE);
             mBinding.animLoading.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             mBinding.animEmpty.setVisibility(View.GONE);
             mBinding.tvEmpty.setVisibility(View.GONE);
         }
+    }
+
+    private void setupVisebility() {
+        mBinding.animLoading.setVisibility(View.VISIBLE);
+        mBinding.animEmpty.setVisibility(View.GONE);
+        mBinding.tvEmpty.setVisibility(View.GONE);
     }
 }

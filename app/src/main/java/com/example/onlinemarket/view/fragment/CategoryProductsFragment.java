@@ -57,14 +57,9 @@ public class CategoryProductsFragment extends Fragment{
                 new ViewModelProvider(getActivity()).get(CategoryViewModel.class);
 
         mViewModel.requestToServerForSpecificCatProduct(catId);
-        mViewModel.getProductLiveData().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> productList) {
-                setupAdapter(productList);
-                mBinding.animLoading.setVisibility(View.GONE);
-                mBinding.recyclerView.setVisibility(View.VISIBLE);
-            }
-        });
+        setupAdapter(mViewModel.getProductList());
+        mBinding.animLoading.setVisibility(View.GONE);
+        mBinding.recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
