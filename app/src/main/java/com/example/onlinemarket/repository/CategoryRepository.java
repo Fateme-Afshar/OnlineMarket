@@ -74,17 +74,13 @@ public class CategoryRepository {
     }
 
     @SuppressLint("CheckResult")
-    public void requestToServerForSpecificCatProduct(int catId) {
+    public Observable<List<Product>> requestToServerForSpecificCatProduct(int catId) {
         Retrofit retrofit =RetrofitInstance.getRetrofit(new TypeToken<List<Product>>(){}.getType()
                 ,new ProductListGsonConverterCustomize());
 
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
-        Observable<List<Product>> productObjects=
-                mRetrofitInterface.getListProductObjects
+        return mRetrofitInterface.getListProductObjects
                         (NetworkParams.queryForReceiveSpecificCategoryProduct(catId));
-        productObjects.subscribeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(this::setProducts, throwable ->new Exception("CategoryRepository : An error occurred when receive categories "));
     }
 
     public List<Category> getCategoriesList() {

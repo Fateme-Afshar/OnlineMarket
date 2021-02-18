@@ -65,8 +65,7 @@ public class ProductInfoFragment extends Fragment{
         return fragment;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("CheckResult")
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,24 +74,14 @@ public class ProductInfoFragment extends Fragment{
 
         if (getArguments() != null) {
             mProductId = ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
-            Observable<Product> productObservable =
-                    mProductViewModel.requestToServerForReceiveProductById(mProductId);
-
-            productObservable.subscribeOn(Schedulers.io()).
-                    observeOn(AndroidSchedulers.mainThread()).
-                    subscribe(product -> {
-                        mProductViewModel.setProduct(product);
-                        setupLoadProduct();
-                    }, throwable -> {
-                        Log.e(ProgramUtils.TAG, throwable.getMessage());
-                    });
         }
         mReviewViewModel = new ViewModelProvider(this).
                 get(ReviewViewModel.class);
 
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("CheckResult")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,7 +90,7 @@ public class ProductInfoFragment extends Fragment{
                 R.layout.fragment_product_info,
                 container,
                 false);
-
+        setupObserver();
         return mBinding.getRoot();
     }
 
@@ -122,6 +111,22 @@ public class ProductInfoFragment extends Fragment{
                 }
             });
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("CheckResult")
+    private void setupObserver() {
+        Observable<Product> productObservable =
+                mProductViewModel.requestToServerForReceiveProductById(mProductId);
+
+        productObservable.subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(product -> {
+                    mProductViewModel.setProduct(product);
+                    setupLoadProduct();
+                }, throwable -> {
+                    Log.e(ProgramUtils.TAG, throwable.getMessage());
+                });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

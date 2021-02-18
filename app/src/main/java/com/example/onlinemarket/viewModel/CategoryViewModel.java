@@ -10,6 +10,8 @@ import com.example.onlinemarket.repository.MainLoadingRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public class CategoryViewModel extends ViewModel {
     private CategoryRepository mCategoryRepository;
     private List<Category> mCategoryList;
@@ -37,7 +39,7 @@ public class CategoryViewModel extends ViewModel {
         mProductList = productList;
     }
 
-    public void requestToServerForSpecificCatProduct(int catId){
-        mCategoryRepository.requestToServerForSpecificCatProduct(catId);
+    public Observable<List<Product>> requestToServerForSpecificCatProduct(int catId){
+        return mCategoryRepository.requestToServerForSpecificCatProduct(catId);
     }
 }

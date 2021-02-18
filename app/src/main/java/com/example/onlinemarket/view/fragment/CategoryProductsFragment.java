@@ -1,5 +1,6 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,10 @@ import com.example.onlinemarket.viewModel.CategoryViewModel;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class CategoryProductsFragment extends Fragment{
     private FragmentCategoryDetailBinding mBinding;
     private ProductSearchAdapter mAdapter;
@@ -45,18 +50,11 @@ public class CategoryProductsFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int catId=
-                CategoryProductsFragmentArgs.fromBundle(getArguments()).getCatId();
-
         mViewModel =
                 new ViewModelProvider(getActivity()).get(CategoryViewModel.class);
-
-        mViewModel.requestToServerForSpecificCatProduct(catId);
-        setupAdapter(mViewModel.getProductList());
-        mBinding.animLoading.setVisibility(View.GONE);
-        mBinding.recyclerView.setVisibility(View.VISIBLE);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +65,7 @@ public class CategoryProductsFragment extends Fragment{
                 false);
 
         setupBackButton();
+        setupObserver();
 
         return mBinding.getRoot();
     }
@@ -83,6 +82,21 @@ public class CategoryProductsFragment extends Fragment{
         };
 
         requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+    }
+
+    @SuppressLint("CheckResult")
+    private void setupObserver() {
+        int catId=
+                CategoryProductsFragmentArgs.fromBundle(getArguments()).getCatId();
+        Observable<List<Product>> observable=mViewModel.requestToServerForSpecificCatProduct(catId);
+
+        observable.subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(productList -> {
+                    setupAdapter(productList);
+                    mBinding.animLoading.setVisibility(View.GONE);
+                    mBinding.recyclerView.setVisibility(View.VISIBLE);
+                }, throwable ->new Exception("CategoryRepository : An error occurred when receive categories "));
     }
 
     private void setupAdapter(List<Product> models) {
