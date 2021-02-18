@@ -1,5 +1,6 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -7,35 +8,37 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ReviewAdapter;
 import com.example.onlinemarket.databinding.FragmentProductInfoBinding;
-import com.example.onlinemarket.databinding.LoadingViewBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.utils.LoadingUtils;
+import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.UiUtils;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 import com.example.onlinemarket.viewModel.ReviewViewModel;
 
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ProductInfoFragment extends Fragment{
     public static final int REQUEST_CODE_EDIT = 1;
@@ -62,6 +65,8 @@ public class ProductInfoFragment extends Fragment{
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("CheckResult")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,15 +74,25 @@ public class ProductInfoFragment extends Fragment{
                 get(ProductViewModel.class);
 
         if (getArguments() != null) {
-            mProductId= ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
-            mProductViewModel.requestToServerForReceiveProductById(mProductId);
+            mProductId = ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
+            Observable<Product> productObservable =
+                    mProductViewModel.requestToServerForReceiveProductById(mProductId);
+
+            productObservable.subscribeOn(Schedulers.io()).
+                    observeOn(AndroidSchedulers.mainThread()).
+                    subscribe(product -> {
+                        mProductViewModel.setProduct(product);
+                        setupLoadProduct();
+                    }, throwable -> {
+                        Log.e(ProgramUtils.TAG, throwable.getMessage());
+                    });
         }
         mReviewViewModel = new ViewModelProvider(this).
                 get(ReviewViewModel.class);
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +101,7 @@ public class ProductInfoFragment extends Fragment{
                 R.layout.fragment_product_info,
                 container,
                 false);
-        setupLoadProduct();
+
         return mBinding.getRoot();
     }
 
@@ -112,8 +127,6 @@ public class ProductInfoFragment extends Fragment{
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setupLoadProduct() {
         if (LoadingUtils.checkHasInternet(getActivity().getSystemService(ConnectivityManager.class))) {
-
-            mProductViewModel.setProduct(mProductViewModel.getProductLiveData());
             setupReviewsForProduct();
 
             if (mProductViewModel.getProduct() != null){

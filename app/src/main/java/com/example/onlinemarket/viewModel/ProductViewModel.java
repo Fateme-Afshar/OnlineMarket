@@ -16,6 +16,8 @@ import com.example.onlinemarket.repository.ReviewRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.UiUtils;
 
+import io.reactivex.Observable;
+
 public class ProductViewModel extends AndroidViewModel {
     private Product mProduct;
     private Product mLastProduct=new Product();
@@ -38,8 +40,8 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
 
-    public void requestToServerForReceiveProductById(int productId){
-        mProductRepository.requestToServerForReceiveProductById(productId);
+    public Observable<Product> requestToServerForReceiveProductById(int productId){
+        return mProductRepository.requestToServerForReceiveProductById(productId);
     }
 
     public Product getProduct() {

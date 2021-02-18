@@ -140,15 +140,18 @@ public class ProductRepository {
     }
 
     @SuppressLint("CheckResult")
-    public void requestToServerForReceiveProductById(int productId){
+    public Observable<Product> requestToServerForReceiveProductById(int productId){
         Retrofit retrofit=RetrofitInstance.getRetrofit
                 (Product.class,new ProductGsonConverterCustomize());
         RetrofitInterface retrofitInterface=retrofit.create(RetrofitInterface.class);
 
-        retrofitInterface.getProduct(productId,NetworkParams.MAP_KEYS).
+        return retrofitInterface.
+                getProduct(productId,NetworkParams.MAP_KEYS);
+
+        /*retrofitInterface.getProduct(productId,NetworkParams.MAP_KEYS).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(this::setProduct,throwable -> Log.e(ProgramUtils.TAG,"ProductRepository : Fail receive Product List."));
+                subscribe(this::setProduct,throwable -> Log.e(ProgramUtils.TAG,"ProductRepository : Fail receive Product List."));*/
     }
 
     private Observable<List<Product>> getListCall(Map<String, String> queryMap) {

@@ -1,6 +1,5 @@
 package com.example.onlinemarket.view.fragment;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,9 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.view.OpenProductPage;
 import com.example.onlinemarket.viewModel.CategoryViewModel;
-import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
 
