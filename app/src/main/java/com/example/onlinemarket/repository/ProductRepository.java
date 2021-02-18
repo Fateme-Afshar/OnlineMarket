@@ -121,14 +121,8 @@ public class ProductRepository {
         return mIsCompleteProducts;
     }
 
-    @SuppressLint("CheckResult")
-    public void requestToServerForReceiveProducts(Map<String, String> queryMap) {
-        Observable<List<Product>> observable = getListCall(queryMap);
-
-        observable.
-                subscribeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(this::setProducts,throwable -> Log.e(ProgramUtils.TAG,"ProductRepository : Fail receive Product List."));
+    public Observable<List<Product>> requestToServerForReceiveProducts(Map<String, String> queryMap) {
+       return getListCall(queryMap);
     }
 
     public void setProducts(List<Product> products) {

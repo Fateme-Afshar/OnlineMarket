@@ -37,11 +37,11 @@ public interface RetrofitInterface {
 
     //for receive filter sections such as color,size
     @GET("products/attributes")
-    Call<List<AttributeInfo>> getAttributes(@QueryMap Map<String, String> queryMap);
+    Observable<List<AttributeInfo>> getAttributes(@QueryMap Map<String, String> queryMap);
 
     //for receive every filter part attribute for example in size:32,33,45,50,...
     @GET("products/attributes/{id}/terms")
-    Call<List<AttributeInfo>> getEveryAttributePart(@Path("id") String path,
+    Observable<List<AttributeInfo>> getEveryAttributePart(@Path("id") String path,
                                                     @QueryMap Map<String, String> queryMap);
 
     @GET("customers")

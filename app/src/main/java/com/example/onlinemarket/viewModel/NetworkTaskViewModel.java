@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
 
 public class NetworkTaskViewModel extends ViewModel {
     private ProductRepository mProductRepository;
@@ -32,8 +33,8 @@ public class NetworkTaskViewModel extends ViewModel {
 
     private List<Category> mCategoryList=new ArrayList<>();
 
-    private LiveData<List<AttributeInfo>> mColorAttributeInfoList;
-    private LiveData<List<AttributeInfo>> mSizeAttributeInfoList;
+    private List<AttributeInfo> mColorAttributeInfoList=new ArrayList<>();
+    private List<AttributeInfo> mSizeAttributeInfoList=new ArrayList<>();
 
     public NetworkTaskViewModel() {
         mProductRepository = ProductRepository.getInstance();
@@ -48,8 +49,8 @@ public class NetworkTaskViewModel extends ViewModel {
 
         mCategoryList.addAll(mCategoryRepository.getCategoriesList());
 
-        mColorAttributeInfoList=mFilterRepository.getColorAttributeListLiveData();
-        mSizeAttributeInfoList=mFilterRepository.getSizeAttributeListLiveData();
+        mColorAttributeInfoList.addAll(mFilterRepository.getColorAttributeList());
+        mSizeAttributeInfoList.addAll(mFilterRepository.getSizeAttributeList());
     }
 
     public LiveData<Boolean> isCompleteLoadingProducts(){
@@ -73,41 +74,21 @@ public class NetworkTaskViewModel extends ViewModel {
         mCategoryRepository.requestToServerForCategories();
     }
 
-    public void requestToServerForReceiveInfoColorAttribute(){
-        mFilterRepository.requestToServerForReceiveInfoColorAttribute();
+    public Observable<List<AttributeInfo>> requestToServerForReceiveInfoColorAttribute(){
+        return mFilterRepository.requestToServerForReceiveInfoColorAttribute();
     }
 
-    public void requestToServerForReceiveInfoSizeAttribute(){
-        mFilterRepository.requestToServerForReceiveInfoSizeAttribute();
-    }
-
-    public List<Category> getCategoryList() {
-        return mCategoryList;
-    }
-
-    public List<Product> geNewestProductLiveData() {
-        return mNewestProductList;
-    }
-
-    public List<Product> getPopulateProductList() {
-        return mPopulateProductList;
-    }
-
-    public List<Product> getBestProductList() {
-        return mBestProductList;
+    public Observable<List<AttributeInfo>> requestToServerForReceiveInfoSizeAttribute(){
+        return mFilterRepository.requestToServerForReceiveInfoSizeAttribute();
     }
 
     public List<Product> getProductList() {
         return mProductList;
     }
 
-    public List<Product> getSpecialProductList() {
-        return mSpecialProductList;
-    }
+    public List<AttributeInfo> getColorAttributeInfoList(){return mColorAttributeInfoList;}
 
-    public LiveData<List<AttributeInfo>> getColorAttributeInfoList(){return mColorAttributeInfoList;}
-
-    public LiveData<List<AttributeInfo>> getSizeAttributeInfoList() {
+    public List<AttributeInfo> getSizeAttributeInfoList() {
         return mSizeAttributeInfoList;
     }
 

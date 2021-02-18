@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+
 public class FilterViewModel extends ViewModel {
     private FilterRepository mRepository;
     private ProductRepository mProductRepository;
@@ -40,7 +42,7 @@ public class FilterViewModel extends ViewModel {
         mRepository.requestToServerForReceiveAttributes();
     }
 
-    public void requestToServerForReceiveFilterProductsOnAttributeTerm(List<Integer> filterItemIds, String filterName) {
+    public Observable<List<Product>> requestToServerForReceiveFilterProductsOnAttributeTerm(List<Integer> filterItemIds, String filterName) {
         Log.d(ProgramUtils.TAG,"FilterViewModel : Creating filter query parameters");
 
         Map<String, String> queryParameters = new HashMap<>();
@@ -53,15 +55,15 @@ public class FilterViewModel extends ViewModel {
         queryParameters.put("per_page","100");
 
         Log.d(ProgramUtils.TAG,"FilterViewModel : Request to server for receive filter products");
-        mProductRepository.requestToServerForReceiveProducts(queryParameters);
+        return mProductRepository.requestToServerForReceiveProducts(queryParameters);
     }
 
-    public void requestToServerForReceiveFilterProductsOnMore(String orderby,String order){
+    public Observable<List<Product>> requestToServerForReceiveFilterProductsOnMore(String orderby,String order){
         Map<String,String> queryParameter=new HashMap<>();
         queryParameter.put(QueryParameters.ORDER_BY,orderby);
         queryParameter.put(QueryParameters.ORDER,order);
         queryParameter.put("per_page","100");
-        mProductRepository.requestToServerForReceiveProducts(queryParameter);
+        return mProductRepository.requestToServerForReceiveProducts(queryParameter);
     }
 
     public void onAttributeBtnClickListener(int attributeId) {

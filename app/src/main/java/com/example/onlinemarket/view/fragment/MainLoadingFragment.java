@@ -1,9 +1,11 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +21,17 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.MainLoadingViewBinding;
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.utils.LoadingUtils;
+import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.Titles;
 import com.example.onlinemarket.viewModel.MainLoadingViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.onlinemarket.utils.Titles.NEWEST_PRODUCT;
 
@@ -114,28 +121,31 @@ public class MainLoadingFragment extends Fragment {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void setupLoadingAttributes() {
-        mNetworkTaskViewModel.requestToServerForReceiveInfoColorAttribute();
-        mNetworkTaskViewModel.requestToServerForReceiveInfoSizeAttribute();
+        Observable<List<AttributeInfo>> observable=
+                mNetworkTaskViewModel.requestToServerForReceiveInfoColorAttribute();
 
-        mNetworkTaskViewModel.getColorAttributeInfoList().observe(getActivity(), new Observer<List<AttributeInfo>>() {
-            @Override
-            public void onChanged(List<AttributeInfo> attributeInfoList) {
-                mMainLoadingViewModel.setColorAttributeInfoList(attributeInfoList);
+        observable.subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(attributeInfoList -> {
+                    mMainLoadingViewModel.setColorAttributeInfoList(attributeInfoList);
+                    flags[1]=true;
+                    completeLoadingData();
+                },throwable -> {
+                    Log.e(ProgramUtils.TAG, "FilterRepository :Fail Receive Attributes");});
 
-                flags[1] = true;
-                completeLoadingData();
-            }
-        });
+        Observable<List<AttributeInfo>> sizeObservable=
+                mNetworkTaskViewModel.requestToServerForReceiveInfoSizeAttribute();
 
-        mNetworkTaskViewModel.getSizeAttributeInfoList().observe(getActivity(), new Observer<List<AttributeInfo>>() {
-            @Override
-            public void onChanged(List<AttributeInfo> attributeInfoList) {
-                mMainLoadingViewModel.setSizeAttributeInfoList(attributeInfoList);
-                flags[2] = true;
-                completeLoadingData();
-            }
-        });
+        sizeObservable.subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(attributeInfoList -> {
+                    mMainLoadingViewModel.setSizeAttributeInfoList(attributeInfoList);
+                    flags[2]=true;
+                    completeLoadingData();
+                },throwable -> {
+                    Log.e(ProgramUtils.TAG, "FilterRepository :Fail Receive Attributes");});
 
     }
 
