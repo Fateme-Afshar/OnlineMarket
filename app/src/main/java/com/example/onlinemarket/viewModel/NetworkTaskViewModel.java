@@ -65,9 +65,9 @@ public class NetworkTaskViewModel extends ViewModel {
         mProductRepository.requestToServerForReceiveProducts(queryMap,title);
     }
 
-    public void requestToServerForSearchProducts(String title,String search){
+    public Observable<List<Product>> requestToServerForSearchProducts(String title,String search){
         Map<String, String> queryParameter = NetworkParams.querySearch(title, search);
-        mProductRepository.requestToServerForReceiveProducts(queryParameter);
+        return mProductRepository.requestToServerForReceiveProducts(queryParameter);
     }
 
     public void requestToServerForCategories(){
@@ -84,12 +84,6 @@ public class NetworkTaskViewModel extends ViewModel {
 
     public List<Product> getProductList() {
         return mProductList;
-    }
-
-    public List<AttributeInfo> getColorAttributeInfoList(){return mColorAttributeInfoList;}
-
-    public List<AttributeInfo> getSizeAttributeInfoList() {
-        return mSizeAttributeInfoList;
     }
 
     public Map<String, String> getQueryMapNewest() {

@@ -1,6 +1,8 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,10 +19,15 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentSearchBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,10 +60,18 @@ public class SearchFragment extends Fragment {
 
     private void setupSearchView() {
         mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @SuppressLint("CheckResult")
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mViewModel.requestToServerForSearchProducts("name",query);
-                mBinding.animLoading.setVisibility(View.VISIBLE);
+                setupVisibility(View.GONE, View.VISIBLE);
+                Observable<List<Product>> observable =
+                        mViewModel.requestToServerForSearchProducts("name", query);
+                observable.subscribeOn(Schedulers.io()).
+                        observeOn(AndroidSchedulers.mainThread()).
+                        subscribe(SearchFragment.this::setupAdapter, throwable -> {
+                            Log.e(ProgramUtils.TAG, throwable.getMessage());
+                        });
+
                 return false;
             }
 
@@ -65,16 +79,11 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 if (newText.length()==0) {
                     setupAdapter(new ArrayList<>());
-                    mBinding.animEmpty.setVisibility(View.GONE);
-                    mBinding.tvEmpty.setVisibility(View.GONE);
-                    mBinding.animLoading.setVisibility(View.GONE);
+                    setupVisibility(View.GONE,View.GONE);
                 }
                 return false;
             }
         });
-
-        mBinding.animLoading.setVisibility(View.GONE);
-        setupAdapter(mViewModel.getProductList());
     }
 
     @Override
@@ -114,12 +123,16 @@ public class SearchFragment extends Fragment {
 
     private void setupEmpty(List<Product> productList) {
         if (productList.size() == 0) {
-            mBinding.animEmpty.setVisibility(View.VISIBLE);
-            mBinding.tvEmpty.setVisibility(View.VISIBLE);
-            mBinding.animLoading.setVisibility(View.GONE);
+            setupVisibility(View.VISIBLE, View.GONE);
         } else {
             mBinding.animEmpty.setVisibility(View.GONE);
             mBinding.tvEmpty.setVisibility(View.GONE);
         }
+    }
+
+    private void setupVisibility(int emptyVisibility, int loadingVisibility) {
+        mBinding.animEmpty.setVisibility(emptyVisibility);
+        mBinding.tvEmpty.setVisibility(emptyVisibility);
+        mBinding.animLoading.setVisibility(loadingVisibility);
     }
 }

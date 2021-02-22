@@ -32,9 +32,6 @@ public interface RetrofitInterface {
     @GET("products/{id}")
     Observable<Product> getProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
 
-    @DELETE("products/{id}?force=true")
-    Call<Product> deleteProduct(@Path("id") int id,@QueryMap Map<String, String> queryMap);
-
     //for receive filter sections such as color,size
     @GET("products/attributes")
     Observable<List<AttributeInfo>> getAttributes(@QueryMap Map<String, String> queryMap);
