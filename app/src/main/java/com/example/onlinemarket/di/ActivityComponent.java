@@ -7,6 +7,7 @@ import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.FilterFragment;
 import com.example.onlinemarket.view.fragment.FilterItemBottomSheetFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
+import com.example.onlinemarket.view.fragment.LoginFragment;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 import com.example.onlinemarket.view.fragment.ProductInfoFragment;
 import com.example.onlinemarket.view.fragment.SearchFragment;
@@ -31,4 +32,5 @@ public interface ActivityComponent {
     void inject(FilterItemBottomSheetFragment filterItemBottomSheetFragment);
     void inject(AccountFragment accountFragment);
     void inject(CustomerFragment customerFragment);
+    void inject(LoginFragment loginFragment);
 }

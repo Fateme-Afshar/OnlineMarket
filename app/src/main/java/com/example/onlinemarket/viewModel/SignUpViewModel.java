@@ -16,6 +16,7 @@ import com.example.onlinemarket.model.customer.Billing;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.customer.Links;
 import com.example.onlinemarket.model.customer.Shipping;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
@@ -59,7 +60,7 @@ public class SignUpViewModel extends AndroidViewModel {
 
     public SignUpViewModel(@NonNull Application application) {
         super(application);
-        mRepository = CustomerRepository.getInstance();
+        mRepository = new CustomerRepository(new RetrofitInstance());
     }
 
     public void afterTextChangeFirstName(Editable editable) {

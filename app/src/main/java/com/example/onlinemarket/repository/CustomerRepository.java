@@ -12,29 +12,30 @@ import com.example.onlinemarket.utils.ProgramUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+@Singleton
 public class CustomerRepository {
-    private static CustomerRepository sInstance;
+
     private RetrofitInterface mRetrofitInterface;
 
     private final MutableLiveData<Integer> mResponseCode=new MutableLiveData<>();
 
     private MutableLiveData<Customer> mCustomerLiveData=new MutableLiveData<>();
 
-    private CustomerRepository() {
-        Retrofit retrofit = RetrofitInstance.getPostRetrofit();
+    @Inject
+    public CustomerRepository(RetrofitInstance retrofitInstance) {
+        Retrofit retrofit = retrofitInstance.getPostRetrofit();
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
-    public static CustomerRepository getInstance() {
-        if (sInstance == null)
-            sInstance = new CustomerRepository();
-        return sInstance;
-    }
+
     // important note to post customer:Email must be unique
     public void postCustomerToServer(Customer customer) {
 

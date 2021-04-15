@@ -1,7 +1,9 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,7 +16,10 @@ import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentLoginBinding;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.LoginViewModel;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +28,8 @@ import com.example.onlinemarket.viewModel.LoginViewModel;
  */
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding mBinding;
-    private LoginViewModel mViewModel;
+    @Inject
+    LoginViewModel mViewModel;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -37,9 +43,15 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(LoginViewModel.class);
+
         mViewModel.setLifecycleOwner(this);
         mViewModel.setCallback(new LoginViewModel.LoginViewModelCallback() {
             @Override

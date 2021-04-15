@@ -7,24 +7,31 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.UiUtils;
 
-public class LoginViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+public class LoginViewModel extends ViewModel {
     private Customer mCustomer=new Customer();
     private CustomerRepository mRepository;
+
+    private ContextModule mContextModule;
 
     private LifecycleOwner mLifecycleOwner;
 
     private LoginViewModelCallback mCallback;
 
-    public LoginViewModel(@NonNull Application application) {
-        super(application);
-        mRepository= CustomerRepository.getInstance();
+    @Inject
+    public LoginViewModel(ContextModule contextModule,CustomerRepository customerRepository) {
+        mRepository= customerRepository;
+        mContextModule=contextModule;
     }
 
     public void afterTextChangeUsername(Editable editable) {
@@ -46,18 +53,18 @@ public class LoginViewModel extends AndroidViewModel {
                 @Override
                 public void onChanged(Customer customer) {
                     if (customer==null) {
-                        UiUtils.returnToast(getApplication(),"اطلاعات وارد شده نا معتبر است");
+                        UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"اطلاعات وارد شده نا معتبر است");
                         return;
                     }
                     if (mCustomer.getUsername().equals(customer.getUsername())
                             && mCustomer.getEmail().equals(customer.getEmail())){
-                        OnlineShopSharePref.saveCustomer(getApplication(),customer);
+                        OnlineShopSharePref.saveCustomer(mContextModule.provideContext().getApplicationContext(),customer);
 
                         mCallback.onLoginBtnClickListener();
 
-                        UiUtils.returnToast(getApplication(),"تبریک شما با موفقیت login شدید");
+                        UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"تبریک شما با موفقیت login شدید");
                     }else {
-                        UiUtils.returnToast(getApplication(),"اطلاعات وارد شده نا معتبر است");
+                        UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"اطلاعات وارد شده نا معتبر است");
                     }
                 }
             });
