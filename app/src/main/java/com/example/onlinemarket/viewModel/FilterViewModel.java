@@ -5,9 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.onlinemarket.di.ActivityScope;
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
-import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.FilterRepository;
 import com.example.onlinemarket.repository.MainLoadingRepository;
 import com.example.onlinemarket.repository.ProductRepository;
@@ -18,8 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
+@ActivityScope
 public class FilterViewModel extends ViewModel {
     private FilterRepository mRepository;
     private ProductRepository mProductRepository;
@@ -28,10 +31,13 @@ public class FilterViewModel extends ViewModel {
 
     private List<Integer> mFilterIds;
 
-    public FilterViewModel() {
-        mRepository = FilterRepository.getInstance();
-        mMainLoadingRepository=new MainLoadingRepository();
-        mProductRepository = new ProductRepository(new RetrofitInstance(),mMainLoadingRepository);
+    @Inject
+    public FilterViewModel(FilterRepository filterRepository,
+                           MainLoadingRepository mainLoadingRepository,
+                           ProductRepository productRepository) {
+        mRepository = filterRepository;
+        mMainLoadingRepository=mainLoadingRepository;
+        mProductRepository = productRepository;
     }
 
     public void requestToServerForReceiveAttributes() {

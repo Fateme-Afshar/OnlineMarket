@@ -24,7 +24,6 @@ import retrofit2.Retrofit;
 
 @Singleton
 public class FilterRepository {
-    private static FilterRepository sInstance;
     private List<AttributeInfo> mColorAttributeList = new ArrayList<>();
     private List<AttributeInfo> mSizeAttributeList = new ArrayList<>();
     private MutableLiveData<AttributeInfo> mAttributeLiveData = new MutableLiveData<>();
@@ -34,15 +33,9 @@ public class FilterRepository {
     private List<Integer> mAttributeId = new ArrayList<>();
 
     @Inject
-    public FilterRepository() {
-        Retrofit retrofit = RetrofitInstance.getRetrofit();
+    public FilterRepository(RetrofitInstance retrofitInstance) {
+        Retrofit retrofit = retrofitInstance.getRetrofit();
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
-    }
-
-    public static FilterRepository getInstance() {
-        if (sInstance == null)
-            sInstance = new FilterRepository();
-        return sInstance;
     }
 
     @SuppressLint("CheckResult")

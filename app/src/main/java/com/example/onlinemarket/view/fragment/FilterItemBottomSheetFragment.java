@@ -1,12 +1,14 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -17,10 +19,13 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.FilterItemAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBottomSheetBinding;
 import com.example.onlinemarket.model.AttributeInfo;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +38,8 @@ public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
             "com.example.onlinemarket.FilterItemIds";
     public static final String EXTRA_FILTER_ATTRIBUTE_ID =
             "com.example.onlinemarket.FilterAttributeId";
-    private FilterViewModel mViewModel;
+    @Inject
+    FilterViewModel mViewModel;
     private int mAttributeId;
 
     private FilterItemAdapter mAdapter;
@@ -53,12 +59,17 @@ public class FilterItemBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mAttributeId=getArguments().getInt(ARG_ATTRIBUTE_ID);
         }
-        mViewModel=new ViewModelProvider(getActivity()).get(FilterViewModel.class);
     }
 
     @Override

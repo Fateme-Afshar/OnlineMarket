@@ -2,6 +2,7 @@ package com.example.onlinemarket.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,11 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,11 +25,13 @@ import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentFilterBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.ProgramUtils;
-import com.example.onlinemarket.view.OpenProductPage;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,12 +42,11 @@ public class FilterFragment extends Fragment{
     public static final int REQUEST_CODE_FILTER_BOTTOM_SHEET = 1;
     public static final int REQUEST_CODE_FILTER_MORE_BOTTOM_SHEET =2;
     public static final String TAG_FILTER_FRAGMENT = "Filter Fragment";
-    private FilterViewModel mViewModel;
+    @Inject
+    FilterViewModel mViewModel;
     private FragmentFilterBinding mBinding;
 
     private ProductSearchAdapter mAdapter;
-
-    private OpenProductPage mCallback;
 
     public FilterFragment() {
         // Required empty public constructor
@@ -57,11 +59,18 @@ public class FilterFragment extends Fragment{
         return fragment;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupViewModel();
+        setupViewModelCallbacks();
     }
 
     @SuppressLint("CheckResult")
@@ -126,8 +135,8 @@ public class FilterFragment extends Fragment{
         setupAdapter(new ArrayList<>());
     }
 
-    private void setupViewModel() {
-        mViewModel = new ViewModelProvider(getActivity()).get(FilterViewModel.class);
+    private void setupViewModelCallbacks() {
+
         mViewModel.setOnFilterAttributeClickListener(new FilterViewModel.OnBtnClickListener() {
             @Override
             public void onAttributeSelected(int attributeId) {
