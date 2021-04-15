@@ -1,22 +1,19 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.content.Context;
 import android.text.Editable;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
-import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.customer.Billing;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.customer.Links;
 import com.example.onlinemarket.model.customer.Shipping;
-import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
@@ -24,11 +21,15 @@ import com.example.onlinemarket.utils.UiUtils;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 //TODO: implementation billing and shipping part
-public class SignUpViewModel extends AndroidViewModel {
+public class SignUpViewModel extends ViewModel {
     private Customer mCustomer = new Customer();
 
     private CustomerRepository mRepository;
+
+    private ContextModule mContextModule;
 
     private LifecycleOwner mLifecycleOwner;
 
@@ -58,9 +59,10 @@ public class SignUpViewModel extends AndroidViewModel {
             "",
             "Aysan");
 
-    public SignUpViewModel(@NonNull Application application) {
-        super(application);
-        mRepository = new CustomerRepository(new RetrofitInstance());
+    @Inject
+    public SignUpViewModel(ContextModule contextModule,CustomerRepository customerRepository) {
+        mContextModule=contextModule;
+        mRepository =customerRepository;
     }
 
     public void afterTextChangeFirstName(Editable editable) {
@@ -80,7 +82,7 @@ public class SignUpViewModel extends AndroidViewModel {
     }
 
     public void onSignUpBtnClickListener() {
-        OnlineShopSharePref.saveCustomer(getApplication(), mCustomer);
+        OnlineShopSharePref.saveCustomer(mContextModule.provideContext().getApplicationContext(), mCustomer);
         Log.d(ProgramUtils.TAG, "SignUpViewModel : save user in share preferences successfully");
 
         mCustomer.setLinks(links);
@@ -89,7 +91,7 @@ public class SignUpViewModel extends AndroidViewModel {
 
         mRepository.postCustomerToServer(mCustomer);
 
-        checkResponse(getApplication());
+        checkResponse(mContextModule.provideContext().getApplicationContext());
     }
 
     public void checkResponse(Context context) {
@@ -104,12 +106,12 @@ public class SignUpViewModel extends AndroidViewModel {
                         try {
                             mCallback.startHomePage();
                         }catch (NullPointerException exception){
-                            UiUtils.returnToast(getApplication(),"#DEVELOPER : implement SignUpViewModelCallback callback");
+                            UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"#DEVELOPER : implement SignUpViewModelCallback callback");
                         }
                     } else {
                         Log.e(ProgramUtils.TAG,
                                 "SignUpViewModel : Customer post fail response code is  " + integer);
-                        UiUtils.returnToast(getApplication(),R.string.repetitive_email);
+                        UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),R.string.repetitive_email);
                     }
                 }
             });

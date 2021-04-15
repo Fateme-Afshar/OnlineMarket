@@ -1,10 +1,12 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,7 +15,10 @@ import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentSignupPageBinding;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.SignUpViewModel;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +27,8 @@ import com.example.onlinemarket.viewModel.SignUpViewModel;
  */
 public class SignUpPageFragment extends Fragment{
     private FragmentSignupPageBinding mBinding;
-    private SignUpViewModel mViewModel;
+    @Inject
+    SignUpViewModel mViewModel;
 
     public SignUpPageFragment() {
         // Required empty public constructor
@@ -36,9 +42,16 @@ public class SignUpPageFragment extends Fragment{
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(SignUpViewModel.class);
+
         mViewModel.setCallback(new SignUpViewModel.SignUpViewModelCallback() {
             @Override
             public void startHomePage() {

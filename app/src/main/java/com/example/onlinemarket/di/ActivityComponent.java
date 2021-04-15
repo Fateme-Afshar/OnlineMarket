@@ -11,6 +11,7 @@ import com.example.onlinemarket.view.fragment.LoginFragment;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 import com.example.onlinemarket.view.fragment.ProductInfoFragment;
 import com.example.onlinemarket.view.fragment.SearchFragment;
+import com.example.onlinemarket.view.fragment.SignUpPageFragment;
 
 import dagger.Subcomponent;
 
@@ -33,4 +34,5 @@ public interface ActivityComponent {
     void inject(AccountFragment accountFragment);
     void inject(CustomerFragment customerFragment);
     void inject(LoginFragment loginFragment);
+    void inject(SignUpPageFragment signUpPageFragment);
 }
