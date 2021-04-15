@@ -5,12 +5,17 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import com.example.onlinemarket.di.ApplicationGraph;
+import com.example.onlinemarket.di.DaggerApplicationGraph;
+
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
+    private ApplicationGraph mApplicationGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mApplicationGraph= DaggerApplicationGraph.create();
         createNotificationChannel();
     }
 
@@ -25,5 +30,9 @@ public class OnlineShopApplication extends Application{
             NotificationManager notificationManager=this.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
         }
+    }
+
+    public ApplicationGraph getApplicationGraph() {
+        return mApplicationGraph;
     }
 }

@@ -18,39 +18,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 public class NetworkTaskViewModel extends ViewModel {
-    private ProductRepository mProductRepository;
-    private CategoryRepository mCategoryRepository;
-    private FilterRepository mFilterRepository;
+    private final ProductRepository mProductRepository;
+    private final CategoryRepository mCategoryRepository;
+    private final FilterRepository mFilterRepository;
 
-    private List<Product> mNewestProductList=new ArrayList<>();
-    private List<Product> mPopulateProductList=new ArrayList<>();
-    private List<Product> mBestProductList=new ArrayList<>();
-    private List<Product> mSpecialProductList=new ArrayList<>();
-    private List<Product> mProductList=new ArrayList<>();
+    private final List<Product> mProductList=new ArrayList<>();
 
-    private List<Category> mCategoryList=new ArrayList<>();
+    @Inject
+    public NetworkTaskViewModel(ProductRepository productRepository,CategoryRepository categoryRepository,FilterRepository filterRepository) {
+        mProductRepository = productRepository;
+        mCategoryRepository=categoryRepository;
+        mFilterRepository=filterRepository;
 
-    private List<AttributeInfo> mColorAttributeInfoList=new ArrayList<>();
-    private List<AttributeInfo> mSizeAttributeInfoList=new ArrayList<>();
-
-    public NetworkTaskViewModel() {
-        mProductRepository = ProductRepository.getInstance();
-        mCategoryRepository=CategoryRepository.getInstance();
-        mFilterRepository=FilterRepository.getInstance();
-
-        mNewestProductList.addAll(mProductRepository.getNewestProductList()) ;
-        mPopulateProductList.addAll(mProductRepository.getPopulateProductList()) ;
-        mBestProductList.addAll(mProductRepository.getBestProductList());
-        mSpecialProductList.addAll(mProductRepository.getSpecialProductList());
         mProductList.addAll(mProductRepository.getProducts());
 
-        mCategoryList.addAll(mCategoryRepository.getCategoriesList());
+        List<Category> categoryList = new ArrayList<>();
+        categoryList.addAll(mCategoryRepository.getCategoriesList());
 
-        mColorAttributeInfoList.addAll(mFilterRepository.getColorAttributeList());
-        mSizeAttributeInfoList.addAll(mFilterRepository.getSizeAttributeList());
+        List<AttributeInfo> colorAttributeInfoList = new ArrayList<>();
+        colorAttributeInfoList.addAll(mFilterRepository.getColorAttributeList());
+        List<AttributeInfo> sizeAttributeInfoList = new ArrayList<>();
+        sizeAttributeInfoList.addAll(mFilterRepository.getSizeAttributeList());
     }
 
     public LiveData<Boolean> isCompleteLoadingProducts(){

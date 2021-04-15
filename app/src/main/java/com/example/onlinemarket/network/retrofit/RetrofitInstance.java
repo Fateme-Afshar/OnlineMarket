@@ -6,6 +6,9 @@ import com.google.gson.GsonBuilder;
 
 import java.lang.reflect.Type;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -17,9 +20,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * one of them create retrofit instance with Gson Converter Customize
  * another create retrofit instance with default Gson Converter.
  */
+@Singleton
 public class RetrofitInstance {
 
-    public static Retrofit getRetrofit(Type type,Object typeAdapter) {
+    @Inject
+    public RetrofitInstance() {
+    }
+
+    public static Retrofit getRetrofit(Type type, Object typeAdapter) {
         return new Retrofit.Builder().
                 baseUrl(NetworkParams.BASE_URL).
                 addConverterFactory(createConverterFactoryCustom(type,typeAdapter)).

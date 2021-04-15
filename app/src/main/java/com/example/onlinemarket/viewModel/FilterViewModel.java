@@ -1,22 +1,18 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.FilterRepository;
 import com.example.onlinemarket.repository.MainLoadingRepository;
 import com.example.onlinemarket.repository.ProductRepository;
-import com.example.onlinemarket.utils.NetworkParams;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.QueryParameters;
-import com.example.onlinemarket.utils.Titles;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +30,8 @@ public class FilterViewModel extends ViewModel {
 
     public FilterViewModel() {
         mRepository = FilterRepository.getInstance();
-        mProductRepository = ProductRepository.getInstance();
-        mMainLoadingRepository=MainLoadingRepository.getInstance();
+        mMainLoadingRepository=new MainLoadingRepository();
+        mProductRepository = new ProductRepository(new RetrofitInstance(),mMainLoadingRepository);
     }
 
     public void requestToServerForReceiveAttributes() {

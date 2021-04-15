@@ -13,6 +13,8 @@ import androidx.core.app.NotificationCompat;
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
+import com.example.onlinemarket.repository.MainLoadingRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.view.activity.MainActivity;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class ServiceUtils {
     public static void checkLastProductId(Context context) {
-        ProductRepository productRepository=ProductRepository.getInstance();
+        ProductRepository productRepository=new ProductRepository(new RetrofitInstance(),new MainLoadingRepository());
         productRepository.requestToServerForReceiveProducts(NetworkParams.MAP_KEYS);
 
         Handler handler = new Handler(context.getMainLooper());

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,37 +30,32 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+@Singleton
 public class ProductRepository {
-    private static ProductRepository sInstance;
-    private MainLoadingRepository mMainLoadingRepository;
+    private final MainLoadingRepository mMainLoadingRepository;
 
-    private List<Product> mNewestProductList = new ArrayList<>();
-    private List<Product> mPopulateProductList = new ArrayList<>();
-    private List<Product> mBestProductList = new ArrayList<>();
-    private List<Product> mSpecialProductList = new ArrayList<>();
-    private List<Product> mProducts = new ArrayList<>();
+    private final List<Product> mNewestProductList = new ArrayList<>();
+    private final List<Product> mPopulateProductList = new ArrayList<>();
+    private final List<Product> mBestProductList = new ArrayList<>();
+    private final List<Product> mSpecialProductList = new ArrayList<>();
+    private final List<Product> mProducts = new ArrayList<>();
 
     private Product mProduct=new Product();
 
-    private RetrofitInterface mRetrofitInterface;
+    private final RetrofitInterface mRetrofitInterface;
 
-    private MutableLiveData<Boolean> mIsCompleteProducts =new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mIsCompleteProducts =new MutableLiveData<>();
 
-    private boolean[] flags=new boolean[4];
+    private final boolean[] flags=new boolean[4];
 
-    private ProductRepository() {
-        Retrofit retrofit = RetrofitInstance.getRetrofit
+    @Inject
+    public ProductRepository(RetrofitInstance retrofitInstance,MainLoadingRepository mainLoadingRepository) {
+        Retrofit retrofit = retrofitInstance.getRetrofit
                 (new TypeToken<List<Product>>() {
                         }.getType()
                         , new ProductListGsonConverterCustomize());
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
-        mMainLoadingRepository=MainLoadingRepository.getInstance();
-    }
-
-    public static ProductRepository getInstance() {
-        if (sInstance == null)
-            sInstance = new ProductRepository();
-        return sInstance;
+        mMainLoadingRepository=mainLoadingRepository;
     }
 
     public void requestToServerForReceiveProducts(Map<String,String> queryMap, Titles title) {

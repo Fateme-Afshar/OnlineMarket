@@ -8,16 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class MainLoadingRepository {
-    private static MainLoadingRepository sMainLoadingRepository;
 
-    private MainLoadingRepository() {
-    }
+    @Inject
+    public MainLoadingRepository() {
 
-    public static MainLoadingRepository getInstance() {
-        if (sMainLoadingRepository ==null)
-            sMainLoadingRepository =new MainLoadingRepository();
-        return sMainLoadingRepository;
     }
 
    private List<Product> mNewestProductList=new ArrayList<>();

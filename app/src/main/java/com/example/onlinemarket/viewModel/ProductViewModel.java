@@ -10,6 +10,8 @@ import androidx.lifecycle.LiveData;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Customer;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
+import com.example.onlinemarket.repository.MainLoadingRepository;
 import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.repository.ProductRepository;
 import com.example.onlinemarket.repository.ReviewRepository;
@@ -35,7 +37,7 @@ public class ProductViewModel extends AndroidViewModel {
         super(application);
         mPurchasedRepository = ProductPurchasedRepository.getInstance(getApplication());
         mReviewRepository = ReviewRepository.getInstance();
-        mProductRepository=ProductRepository.getInstance();
+        mProductRepository=new ProductRepository(new RetrofitInstance(),new MainLoadingRepository());
         mReview = new Review();
     }
 

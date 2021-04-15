@@ -9,13 +9,15 @@ import com.example.onlinemarket.repository.MainLoadingRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MainLoadingViewModel extends ViewModel {
     private MainLoadingRepository mRepository;
 
-    {
-        mRepository= MainLoadingRepository.getInstance();
+    @Inject
+    public MainLoadingViewModel(MainLoadingRepository repository) {
+        mRepository = repository;
     }
-
 
     public void setNewestProductList(List<Product> newestProductList) {
        mRepository.setNewestProductList(newestProductList);

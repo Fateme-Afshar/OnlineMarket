@@ -16,11 +16,15 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+@Singleton
 public class CategoryRepository {
     private static CategoryRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
@@ -33,11 +37,12 @@ public class CategoryRepository {
     private MutableLiveData<Boolean> mIsCompleteCategory=new MutableLiveData<>();
     private MutableLiveData<List<Product>> mProducts =new MutableLiveData<>();
 
-    private CategoryRepository() {
+    @Inject
+    public CategoryRepository() {
         Retrofit retrofit=RetrofitInstance.getRetrofit();
 
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
-        mMainLoadingRepository=MainLoadingRepository.getInstance();
+        mMainLoadingRepository=new MainLoadingRepository();
     }
 
     public static CategoryRepository getInstance() {

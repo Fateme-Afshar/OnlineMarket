@@ -11,7 +11,7 @@ public class HomePageViewModel extends ViewModel {
     private MainLoadingRepository mRepository;
 
     {
-        mRepository= MainLoadingRepository.getInstance();
+        mRepository= new MainLoadingRepository();
     }
 
     public List<Product> getNewestProductList(){

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.MainLoadingViewBinding;
 import com.example.onlinemarket.model.AttributeInfo;
@@ -28,6 +29,8 @@ import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,8 +44,10 @@ import static com.example.onlinemarket.utils.Titles.NEWEST_PRODUCT;
  * create an instance of this fragment.
  */
 public class MainLoadingFragment extends Fragment {
-    private NetworkTaskViewModel mNetworkTaskViewModel;
-    private MainLoadingViewModel mMainLoadingViewModel;
+    @Inject
+    NetworkTaskViewModel mNetworkTaskViewModel;
+    @Inject
+    MainLoadingViewModel mMainLoadingViewModel;
 
     private MainLoadingViewBinding mBinding;
 
@@ -57,7 +62,7 @@ public class MainLoadingFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
+        ((OnlineShopApplication) getActivity().getApplication()).getApplicationGraph().inject(this);
         if (context instanceof MainLoadingFragmentCallback)
             mCallback=(MainLoadingFragmentCallback) context;
         else
@@ -76,11 +81,6 @@ public class MainLoadingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMainLoadingViewModel =
-                new ViewModelProvider(getActivity()).get(MainLoadingViewModel.class);
-        mNetworkTaskViewModel =
-                new ViewModelProvider(this).get(NetworkTaskViewModel.class);
-
         mNetworkTaskViewModel.isCompleteLoadingProducts().observe(getActivity(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {

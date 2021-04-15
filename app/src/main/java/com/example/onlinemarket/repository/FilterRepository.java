@@ -14,11 +14,15 @@ import com.example.onlinemarket.utils.ProgramUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+@Singleton
 public class FilterRepository {
     private static FilterRepository sInstance;
     private List<AttributeInfo> mColorAttributeList = new ArrayList<>();
@@ -29,7 +33,8 @@ public class FilterRepository {
 
     private List<Integer> mAttributeId = new ArrayList<>();
 
-    private FilterRepository() {
+    @Inject
+    public FilterRepository() {
         Retrofit retrofit = RetrofitInstance.getRetrofit();
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
     }

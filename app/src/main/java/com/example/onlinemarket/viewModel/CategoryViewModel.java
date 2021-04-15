@@ -21,7 +21,7 @@ public class CategoryViewModel extends ViewModel {
 
     public CategoryViewModel() {
         mCategoryRepository=CategoryRepository.getInstance();
-        mMainLoadingRepository=MainLoadingRepository.getInstance();
+        mMainLoadingRepository=new MainLoadingRepository();
 
         mProductList.addAll(mCategoryRepository.getProductList());
         mCategoryList=mMainLoadingRepository.getCategoryList();
