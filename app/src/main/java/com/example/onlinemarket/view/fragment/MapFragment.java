@@ -1,8 +1,10 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
@@ -11,6 +13,7 @@ import androidx.navigation.Navigation;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.MapViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,19 +22,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import javax.inject.Inject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
-
-    private MapViewModel mViewModel;
+    @Inject
+    MapViewModel mViewModel;
 
     public MapFragment() {
         // Required empty public constructor
     }
-
 
     public static MapFragment newInstance() {
         MapFragment fragment = new MapFragment();
@@ -41,9 +45,15 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(MapViewModel.class);
         getMapAsync(this);
     }
 

@@ -1,13 +1,10 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.location.Address;
 import android.location.Geocoder;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModel;
 
-import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.repository.CustomerLocationRepository;
@@ -19,18 +16,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class MapViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+public class MapViewModel extends ViewModel {
     private CustomerLocationRepository mLocationRepository;
     private GoogleMap mMap;
     private CustomerLocation mLocation;
 
-    public MapViewModel(@NonNull Application application) {
-        super(application);
-        mLocationRepository= new CustomerLocationRepository(new ContextModule(application));
+    private ContextModule mContextModule;
+
+    @Inject
+    public MapViewModel(ContextModule contextModule,CustomerLocationRepository customerLocationRepository) {
+       mContextModule=contextModule;
+        mLocationRepository= customerLocationRepository;
     }
 
     public void saveLocationOnSharePref() {
-        OnlineShopSharePref.setCustomerLastedLocation(getApplication(), mLocation);
+        OnlineShopSharePref.setCustomerLastedLocation(mContextModule.provideContext().getApplicationContext(), mLocation);
     }
 
     public void setMarker(LatLng point) {
@@ -44,7 +46,7 @@ public class MapViewModel extends AndroidViewModel {
     }
 
     public void getAddressFromGeocoder(LatLng point) {
-        Geocoder geocoder=new Geocoder(getApplication());
+        Geocoder geocoder=new Geocoder(mContextModule.provideContext().getApplicationContext());
         try {
             List<Address> addresses=geocoder.getFromLocation(point.latitude,point.longitude,1);
             String address=addresses.get(0).getAddressLine(0)+"," +addresses.get(0).getLocality();
