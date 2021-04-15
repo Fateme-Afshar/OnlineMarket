@@ -24,6 +24,8 @@ import com.example.onlinemarket.model.AttributeInfo;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.Titles;
+import com.example.onlinemarket.view.activity.LoadingActivity;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.MainLoadingViewModel;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
@@ -62,7 +64,7 @@ public class MainLoadingFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((OnlineShopApplication) getActivity().getApplication()).getApplicationGraph().inject(this);
+        ((LoadingActivity)getActivity()).getActivityComponent().inject(this);
         if (context instanceof MainLoadingFragmentCallback)
             mCallback=(MainLoadingFragmentCallback) context;
         else

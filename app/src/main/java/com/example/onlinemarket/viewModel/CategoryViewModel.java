@@ -2,6 +2,7 @@ package com.example.onlinemarket.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.onlinemarket.di.ActivityScope;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.CategoryRepository;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
+@ActivityScope
 public class CategoryViewModel extends ViewModel {
     private CategoryRepository mCategoryRepository;
     private List<Category> mCategoryList;

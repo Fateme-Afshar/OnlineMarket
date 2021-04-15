@@ -33,6 +33,7 @@ import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.utils.LoadingUtils;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.UiUtils;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.view.slider.ImageSlider;
 import com.example.onlinemarket.viewModel.ProductViewModel;
 import com.example.onlinemarket.viewModel.ReviewViewModel;
@@ -76,7 +77,7 @@ public class ProductInfoFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        ((OnlineShopApplication) getActivity().getApplication()).getApplicationGraph().inject(this);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
     }
 
     @Override

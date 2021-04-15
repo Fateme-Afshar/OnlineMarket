@@ -12,12 +12,10 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ContextModule.class})
+@Component(modules = {ContextModule.class,AppModule.class})
 public interface ApplicationGraph {
     Context getContext();
 
-    void inject(MainLoadingFragment mainLoadingFragment);
-    void inject(HomePageFragment homePageFragment);
-    void inject(ProductInfoFragment productInfoFragment);
-    void inject(CategoriesFragment categoriesFragment);
+    ActivityComponent.Factory getActivityComponent();
+    LoadingActivityComponent.Factory getLoadingActivityComponent();
 }

@@ -9,6 +9,7 @@ import com.example.onlinemarket.di.ApplicationGraph;
 import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.di.DaggerApplicationGraph;
 
+
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
     private  ApplicationGraph mApplicationGraph;

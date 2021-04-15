@@ -24,6 +24,8 @@ import com.example.onlinemarket.viewModel.CategoryViewModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -31,8 +33,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CategoryProductsFragment extends Fragment{
     private FragmentCategoryDetailBinding mBinding;
     private ProductSearchAdapter mAdapter;
-
-    private CategoryViewModel mViewModel;
+    @Inject
+    CategoryViewModel mViewModel;
     
     public CategoryProductsFragment() {
         // Required empty public constructor

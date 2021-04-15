@@ -15,7 +15,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.di.ActivityComponent;
 import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragmentDirections;
@@ -27,14 +29,24 @@ public class MainActivity extends SingleFragmentActivity
         implements CategoriesFragment.CategoriesFragmentCallbacks,
        AccountFragment.AccountFragmentCallback,
         CustomerFragment.CustomerInfoFragmentCallback {
+    private ActivityComponent mActivityComponent;
 
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+       mActivityComponent=
+               ((OnlineShopApplication)getApplication()).
+                       getApplicationGraph().getActivityComponent().
+                       create();
+
         super.onCreate(savedInstanceState);
         setupNavigationDrawer();
+    }
+
+    public ActivityComponent getActivityComponent() {
+        return mActivityComponent;
     }
 
     public static void start(Context context) {

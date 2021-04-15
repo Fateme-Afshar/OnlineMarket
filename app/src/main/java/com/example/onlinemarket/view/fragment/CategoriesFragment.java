@@ -22,6 +22,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 import com.example.onlinemarket.model.Category;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.CategoryViewModel;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ((OnlineShopApplication)getActivity().getApplication()).getApplicationGraph().inject(this);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
         if (context instanceof  CategoriesFragmentCallbacks)
             mCallbacks=(CategoriesFragmentCallbacks) context;
         else
