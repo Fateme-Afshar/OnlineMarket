@@ -1,6 +1,7 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoryDetailBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.CategoryViewModel;
 
 import java.util.List;
@@ -47,13 +50,11 @@ public class CategoryProductsFragment extends Fragment{
         return fragment;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        mViewModel =
-                new ViewModelProvider(getActivity()).get(CategoryViewModel.class);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
     }
 
     @SuppressLint("CheckResult")
