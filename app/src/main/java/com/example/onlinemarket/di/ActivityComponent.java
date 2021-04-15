@@ -1,6 +1,7 @@
 package com.example.onlinemarket.di;
 
 import com.example.onlinemarket.view.fragment.AccountFragment;
+import com.example.onlinemarket.view.fragment.CartFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoryProductsFragment;
 import com.example.onlinemarket.view.fragment.CustomerFragment;
@@ -39,4 +40,5 @@ public interface ActivityComponent {
     void inject(SignUpPageFragment signUpPageFragment);
     void inject(EditReviewBottomSheetFragment editReviewBottomSheetFragment);
     void inject(MapFragment mapFragment);
+    void inject(CartFragment cartFragment);
 }

@@ -12,26 +12,24 @@ import com.example.onlinemarket.utils.ProgramUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+@Singleton
 public class CouponsRepository {
-    private static CouponsRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
 
     private MutableLiveData<Coupons> mCouponsMutableLiveData=new MutableLiveData<>();
 
-    private CouponsRepository() {
+    @Inject
+    public CouponsRepository() {
         Retrofit retrofit= RetrofitInstance.getPostRetrofit();
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
-    }
-
-    public static CouponsRepository getInstance() {
-        if (sInstance==null)
-            sInstance=new CouponsRepository();
-        return sInstance;
     }
 
     public void searchCouponsCode(String code) {

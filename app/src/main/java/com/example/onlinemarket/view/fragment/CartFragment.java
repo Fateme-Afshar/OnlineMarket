@@ -1,11 +1,13 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -18,9 +20,12 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentCartBinding;
 import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.CartViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +34,8 @@ import java.util.List;
  */
 public class CartFragment extends Fragment{
     private FragmentCartBinding mBinding;
-    private CartViewModel mViewModel;
+    @Inject
+    CartViewModel mViewModel;
     private ProductSearchAdapter mAdapter;
 
     public CartFragment() {
@@ -44,9 +50,16 @@ public class CartFragment extends Fragment{
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(CartViewModel.class);
+
         mViewModel.getProductRegisteredForPurchase().observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> productList) {

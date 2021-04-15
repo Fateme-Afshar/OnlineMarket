@@ -1,17 +1,13 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.text.Editable;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
-import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.Coupons;
@@ -24,14 +20,16 @@ import com.example.onlinemarket.repository.ProductPurchasedRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
 import com.example.onlinemarket.utils.UiUtils;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+public class CartViewModel extends ViewModel {
     private ProductPurchasedRepository mPurchasedRepository ;
     private CouponsRepository mCouponsRepository;
+    private ContextModule mContextModule;
 
     private LiveData<Coupons> mCouponsLiveData;
 
@@ -46,11 +44,13 @@ public class CartViewModel extends AndroidViewModel {
     private Orders mOrders;
     private Customer mCustomer;
 
-    public CartViewModel(@NonNull Application application) {
-        super(application);
-        mCustomer= OnlineShopSharePref.getCustomer(getApplication());
-        mPurchasedRepository=new ProductPurchasedRepository(new ContextModule(application));
-        mCouponsRepository=CouponsRepository.getInstance();
+    @Inject
+    public CartViewModel(ContextModule contextModule,ProductPurchasedRepository productPurchasedRepository,CouponsRepository couponsRepository) {
+        mCustomer= OnlineShopSharePref.getCustomer(contextModule.provideContext().getApplicationContext());
+        mPurchasedRepository=productPurchasedRepository;
+        mCouponsRepository=couponsRepository;
+
+        mContextModule=contextModule;
 
         mCouponsLiveData=mCouponsRepository.getCouponsMutableLiveData();
     }
@@ -62,7 +62,7 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onBuyBtnClickListener() {
         if (mCustomer == null) {
-                UiUtils.returnToast(getApplication(),"ابتدا وارد حساب کاربری خود شوید");
+                UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"ابتدا وارد حساب کاربری خود شوید");
             return;
         }
         List<LineItemsItem> productLines = new ArrayList<>();
@@ -87,7 +87,7 @@ public class CartViewModel extends AndroidViewModel {
 
     public void onRecordCouponBtnClickListener(){
         if (mCouponCode.equals("")) {
-            UiUtils.returnToast(getApplication(),"لطفا کد تخفیف را وارد کنید");
+            UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"لطفا کد تخفیف را وارد کنید");
             return;
         }
         mCouponsRepository.searchCouponsCode(mCouponCode);
@@ -96,15 +96,15 @@ public class CartViewModel extends AndroidViewModel {
             @Override
             public void onChanged(Coupons coupons) {
                 if (coupons==null || !mCouponCode.equals(coupons.getCode())){
-                    UiUtils.returnToast(getApplication(),"کد تخفیف نامعتبر است ");
+                    UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"کد تخفیف نامعتبر است ");
                 }else{
                     if (mTotalPrice<coupons.getAmount() ||
                             mTotalPrice<coupons.getMinimumAmount() ||
                             mTotalPrice > coupons.getMaximumAmount()){
-                        UiUtils.returnToast(getApplication(),"به خرید شما کد تخفیف تعلق نمیگیرد");
+                        UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"به خرید شما کد تخفیف تعلق نمیگیرد");
                     }else {
                         mTotalPrice=mTotalPrice-coupons.getAmount();
-                        UiUtils.returnToast(getApplication(),"تخفیف با موفقیت اعمال شد");
+                        UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),"تخفیف با موفقیت اعمال شد");
                     }
                 }
             }
@@ -119,13 +119,13 @@ public class CartViewModel extends AndroidViewModel {
                 if (integer==201) {
                     Log.d(ProgramUtils.TAG,
                             "CartViewModel : Orders post successfully" + integer);
-                   UiUtils.returnToast(getApplication(),R.string.order_success);
+                   UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),R.string.order_success);
 
                     mPurchasedRepository.deleteAll();
                 } else {
                     Log.e(ProgramUtils.TAG,
                             "CartViewModel : Orders post fail response code is  " + integer);
-                    UiUtils.returnToast(getApplication(),R.string.order_fail);
+                    UiUtils.returnToast(mContextModule.provideContext().getApplicationContext(),R.string.order_fail);
                 }
             }
         });
