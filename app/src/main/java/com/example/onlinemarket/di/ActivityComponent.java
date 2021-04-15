@@ -8,6 +8,7 @@ import com.example.onlinemarket.view.fragment.CustomerFragment;
 import com.example.onlinemarket.view.fragment.EditReviewBottomSheetFragment;
 import com.example.onlinemarket.view.fragment.FilterFragment;
 import com.example.onlinemarket.view.fragment.FilterItemBottomSheetFragment;
+import com.example.onlinemarket.view.fragment.FilterProductBottomSheetFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.LoginFragment;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
@@ -41,4 +42,5 @@ public interface ActivityComponent {
     void inject(EditReviewBottomSheetFragment editReviewBottomSheetFragment);
     void inject(MapFragment mapFragment);
     void inject(CartFragment cartFragment);
+    void inject(FilterProductBottomSheetFragment filterProductBottomSheetFragment);
 }

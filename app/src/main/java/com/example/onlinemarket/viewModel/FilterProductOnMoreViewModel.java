@@ -2,10 +2,17 @@ package com.example.onlinemarket.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
+import javax.inject.Inject;
+
 public class FilterProductOnMoreViewModel extends ViewModel {
     private FilterProductOnMoreViewModelCallback mOnBtnClickListener;
 
-    public void onMoreFilterBtnClickListener(String orderby,String order){
+    @Inject
+    public FilterProductOnMoreViewModel() {
+
+    }
+
+    public void onMoreFilterBtnClickListener(String orderby, String order){
         mOnBtnClickListener.onFilterBtnClickListener(orderby,order);
     }
 

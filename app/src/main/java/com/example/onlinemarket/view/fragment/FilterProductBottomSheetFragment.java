@@ -1,9 +1,11 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,15 +16,19 @@ import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentFilterProductBottomSheetBinding;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.FilterProductOnMoreViewModel;
 import com.example.onlinemarket.viewModel.FilterViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import javax.inject.Inject;
 
 public class FilterProductBottomSheetFragment extends BottomSheetDialogFragment {
     public static final String EXTRA_ORDER_BY = "com.example.onlinemarket.OrderBy";
     public static final String EXTRA_ORDER = "com.example.onlinemarket.order";
     private FragmentFilterProductBottomSheetBinding mBinding;
-    private FilterProductOnMoreViewModel mViewModel;
+    @Inject
+    FilterProductOnMoreViewModel mViewModel;
 
     public FilterProductBottomSheetFragment() {
         // Required empty public constructor
@@ -37,9 +43,16 @@ public class FilterProductBottomSheetFragment extends BottomSheetDialogFragment 
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(FilterProductOnMoreViewModel.class);
+
         mViewModel.setOnBtnClickListener(new FilterProductOnMoreViewModel.FilterProductOnMoreViewModelCallback() {
             @Override
             public void onFilterBtnClickListener(String orderby, String order) {
