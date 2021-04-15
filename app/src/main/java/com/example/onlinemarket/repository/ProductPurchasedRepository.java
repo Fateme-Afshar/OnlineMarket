@@ -16,12 +16,14 @@ import com.example.onlinemarket.utils.NetworkParams;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+@Singleton
 public class ProductPurchasedRepository implements IRepository<Product> {
     private RetrofitInterface mRetrofitInterface;
     private MutableLiveData<Integer> mResponseCode=new MutableLiveData<>();

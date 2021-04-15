@@ -11,7 +11,9 @@ import com.example.onlinemarket.model.CustomerLocation;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class CustomerLocationRepository implements IRepository<CustomerLocation> {
     private LocationDao mDao;
 
