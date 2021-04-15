@@ -87,9 +87,6 @@ public class ProductInfoFragment extends Fragment {
         if (getArguments() != null) {
             mProductId = ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();
         }
-        mReviewViewModel = new ViewModelProvider(this).
-                get(ReviewViewModel.class);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

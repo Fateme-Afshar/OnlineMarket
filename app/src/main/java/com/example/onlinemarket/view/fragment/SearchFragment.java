@@ -1,12 +1,14 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -20,10 +22,13 @@ import com.example.onlinemarket.adapter.ProductSearchAdapter;
 import com.example.onlinemarket.databinding.FragmentSearchBinding;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.utils.ProgramUtils;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,7 +43,8 @@ public class SearchFragment extends Fragment {
     private FragmentSearchBinding mBinding;
     private ProductSearchAdapter mAdapter;
 
-    private NetworkTaskViewModel mViewModel;
+    @Inject
+    NetworkTaskViewModel mViewModel;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -52,10 +58,10 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        mViewModel=new ViewModelProvider(this).get(NetworkTaskViewModel.class);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
     }
 
     private void setupSearchView() {
