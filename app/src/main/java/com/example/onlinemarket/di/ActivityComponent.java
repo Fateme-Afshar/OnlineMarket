@@ -4,6 +4,7 @@ import com.example.onlinemarket.view.fragment.AccountFragment;
 import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.CategoryProductsFragment;
 import com.example.onlinemarket.view.fragment.CustomerFragment;
+import com.example.onlinemarket.view.fragment.EditReviewBottomSheetFragment;
 import com.example.onlinemarket.view.fragment.FilterFragment;
 import com.example.onlinemarket.view.fragment.FilterItemBottomSheetFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
@@ -35,4 +36,5 @@ public interface ActivityComponent {
     void inject(CustomerFragment customerFragment);
     void inject(LoginFragment loginFragment);
     void inject(SignUpPageFragment signUpPageFragment);
+    void inject(EditReviewBottomSheetFragment editReviewBottomSheetFragment);
 }

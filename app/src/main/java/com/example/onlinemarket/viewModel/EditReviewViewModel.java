@@ -10,6 +10,8 @@ import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.ReviewRepository;
 import com.example.onlinemarket.utils.ProgramUtils;
 
+import javax.inject.Inject;
+
 public class EditReviewViewModel extends ViewModel {
     private ReviewRepository mReviewRepository;
 
@@ -17,8 +19,9 @@ public class EditReviewViewModel extends ViewModel {
 
     private EditReviewViewModelCallback mCallback;
 
-    public EditReviewViewModel() {
-        mReviewRepository = new ReviewRepository(new RetrofitInstance());
+    @Inject
+    public EditReviewViewModel(ReviewRepository reviewRepository) {
+        mReviewRepository = reviewRepository;
     }
 
     public void afterTextChangeReviewer(Editable editable) {

@@ -1,9 +1,11 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -16,8 +18,11 @@ import android.view.ViewGroup;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentEditReviewBinding;
 import com.example.onlinemarket.model.Review;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.EditReviewViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,8 +33,8 @@ public class EditReviewBottomSheetFragment extends BottomSheetDialogFragment {
     public static final String ARG_REVIEW = "com.example.onlinemarket.Review";
     public static final String EXTRA_REVIEW_ID = "ReviewId";
     private FragmentEditReviewBinding mBinding;
-
-    private EditReviewViewModel mViewModel;
+    @Inject
+    EditReviewViewModel mViewModel;
 
     public EditReviewBottomSheetFragment() {
         // Required empty public constructor
@@ -44,9 +49,15 @@ public class EditReviewBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(EditReviewViewModel.class);
         mViewModel.setReview((Review) getArguments().getSerializable(ARG_REVIEW));
 
         mViewModel.setCallback(new EditReviewViewModel.EditReviewViewModelCallback() {
