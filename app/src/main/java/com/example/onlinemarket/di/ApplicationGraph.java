@@ -1,5 +1,6 @@
 package com.example.onlinemarket.di;
 
+import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 
 import javax.inject.Singleton;
@@ -11,4 +12,5 @@ import dagger.Component;
 public interface ApplicationGraph {
 
     void inject(MainLoadingFragment mainLoadingFragment);
+    void inject(HomePageFragment homePageFragment);
 }

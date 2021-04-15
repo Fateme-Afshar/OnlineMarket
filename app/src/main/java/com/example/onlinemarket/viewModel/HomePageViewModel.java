@@ -1,17 +1,18 @@
 package com.example.onlinemarket.viewModel;
 
-import androidx.lifecycle.ViewModel;
-
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.MainLoadingRepository;
 
 import java.util.List;
 
-public class HomePageViewModel extends ViewModel {
+import javax.inject.Inject;
+
+public class HomePageViewModel {
     private MainLoadingRepository mRepository;
 
-    {
-        mRepository= new MainLoadingRepository();
+    @Inject
+    public HomePageViewModel(MainLoadingRepository repository) {
+        mRepository = repository;
     }
 
     public List<Product> getNewestProductList(){

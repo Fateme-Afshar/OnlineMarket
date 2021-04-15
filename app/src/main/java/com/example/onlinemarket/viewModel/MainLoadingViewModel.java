@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainLoadingViewModel extends ViewModel {
+public class MainLoadingViewModel{
     private MainLoadingRepository mRepository;
 
     @Inject
