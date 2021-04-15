@@ -26,7 +26,6 @@ import retrofit2.Retrofit;
 
 @Singleton
 public class CategoryRepository {
-    private static CategoryRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
 
     private MainLoadingRepository mMainLoadingRepository;
@@ -38,17 +37,11 @@ public class CategoryRepository {
     private MutableLiveData<List<Product>> mProducts =new MutableLiveData<>();
 
     @Inject
-    public CategoryRepository() {
-        Retrofit retrofit=RetrofitInstance.getRetrofit();
+    public CategoryRepository(RetrofitInstance retrofitInstance,MainLoadingRepository mainLoadingRepository) {
+        Retrofit retrofit=retrofitInstance.getRetrofit();
 
         mRetrofitInterface=retrofit.create(RetrofitInterface.class);
-        mMainLoadingRepository=new MainLoadingRepository();
-    }
-
-    public static CategoryRepository getInstance() {
-        if (sInstance==null)
-            sInstance=new CategoryRepository();
-        return sInstance;
+        mMainLoadingRepository=mainLoadingRepository;
     }
 
     @SuppressLint("CheckResult")

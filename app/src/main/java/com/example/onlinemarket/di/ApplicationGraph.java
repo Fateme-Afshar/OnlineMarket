@@ -2,6 +2,7 @@ package com.example.onlinemarket.di;
 
 import android.content.Context;
 
+import com.example.onlinemarket.view.fragment.CategoriesFragment;
 import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 import com.example.onlinemarket.view.fragment.ProductInfoFragment;
@@ -18,4 +19,5 @@ public interface ApplicationGraph {
     void inject(MainLoadingFragment mainLoadingFragment);
     void inject(HomePageFragment homePageFragment);
     void inject(ProductInfoFragment productInfoFragment);
+    void inject(CategoriesFragment categoriesFragment);
 }

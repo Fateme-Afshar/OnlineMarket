@@ -10,6 +10,8 @@ import com.example.onlinemarket.repository.MainLoadingRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 public class CategoryViewModel extends ViewModel {
@@ -19,9 +21,10 @@ public class CategoryViewModel extends ViewModel {
 
     private MainLoadingRepository mMainLoadingRepository;
 
-    public CategoryViewModel() {
-        mCategoryRepository=CategoryRepository.getInstance();
-        mMainLoadingRepository=new MainLoadingRepository();
+    @Inject
+    public CategoryViewModel(CategoryRepository categoryRepository,MainLoadingRepository mainLoadingRepository) {
+        mCategoryRepository=categoryRepository;
+        mMainLoadingRepository=mainLoadingRepository;
 
         mProductList.addAll(mCategoryRepository.getProductList());
         mCategoryList=mMainLoadingRepository.getCategoryList();

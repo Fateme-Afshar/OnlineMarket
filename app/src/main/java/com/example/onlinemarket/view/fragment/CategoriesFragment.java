@@ -12,28 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.viewModel.CategoryViewModel;
-import com.example.onlinemarket.viewModel.NetworkTaskViewModel;
 
 import java.util.List;
 
-public class CategoriesFragment extends Fragment{
+import javax.inject.Inject;
+
+public class CategoriesFragment extends Fragment {
     private FragmentCategoriesBinding mBinding;
     private CategoryAdapter mCatAdapter;
 
     private CategoriesFragmentCallbacks mCallbacks;
-
-    private CategoryViewModel mViewModel;
+    @Inject
+    CategoryViewModel mViewModel;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -49,20 +50,12 @@ public class CategoriesFragment extends Fragment{
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
+        ((OnlineShopApplication)getActivity().getApplication()).getApplicationGraph().inject(this);
         if (context instanceof  CategoriesFragmentCallbacks)
             mCallbacks=(CategoriesFragmentCallbacks) context;
         else
             throw new ClassCastException(
                     "Must implement CategoriesFragmentCallbacks interface");
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mViewModel=new ViewModelProvider(this).get(CategoryViewModel.class);
     }
 
     @Override
