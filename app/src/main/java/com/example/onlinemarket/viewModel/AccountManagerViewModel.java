@@ -1,26 +1,27 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-import com.example.onlinemarket.OnlineShopApplication;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.ProgramUtils;
 
-public class AccountManagerViewModel extends AndroidViewModel {
-    private AccountManagerViewModelCallback mCallback;
+import javax.inject.Inject;
 
-    public AccountManagerViewModel(@NonNull Application application) {
-        super(application);
+public class AccountManagerViewModel extends ViewModel {
+    private AccountManagerViewModelCallback mCallback;
+    private final ContextModule mContextModule;
+
+    @Inject
+    public AccountManagerViewModel(ContextModule contextModule) {
+        mContextModule=contextModule;
     }
 
     public void getAccountFragment(){
             try {
-                if (OnlineShopSharePref.getCustomer(getApplication()) !=null)
+                if (OnlineShopSharePref.getCustomer(mContextModule.provideContext()) !=null)
                     mCallback.getCustomerFragment();
                 else
                     mCallback.getLoginFragment();

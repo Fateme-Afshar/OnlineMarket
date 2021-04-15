@@ -1,32 +1,26 @@
 package com.example.onlinemarket.repository;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.databases.IRepository;
 import com.example.onlinemarket.databases.OnlineShopDatabase;
 import com.example.onlinemarket.databases.dao.LocationDao;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.CustomerLocation;
-import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class CustomerLocationRepository implements IRepository<CustomerLocation> {
-    private static CustomerLocationRepository sInstance;
     private LocationDao mDao;
 
-    private CustomerLocationRepository(Context context) {
+    @Inject
+    public CustomerLocationRepository(ContextModule contextModule) {
         OnlineShopDatabase database=
-                OnlineShopDatabase.getInstance(context.getApplicationContext());
+                OnlineShopDatabase.getInstance(contextModule.provideContext().getApplicationContext());
 
         mDao=database.getLocationDao();
-    }
-
-    public static CustomerLocationRepository getInstance(Context context) {
-        if (sInstance==null)
-            sInstance=new CustomerLocationRepository(context);
-        return sInstance;
     }
 
     @Override

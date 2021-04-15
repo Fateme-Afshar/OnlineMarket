@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.repository.CustomerLocationRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
@@ -25,7 +26,7 @@ public class MapViewModel extends AndroidViewModel {
 
     public MapViewModel(@NonNull Application application) {
         super(application);
-        mLocationRepository= CustomerLocationRepository.getInstance(getApplication());
+        mLocationRepository= new CustomerLocationRepository(new ContextModule(application));
     }
 
     public void saveLocationOnSharePref() {

@@ -35,6 +35,7 @@ import com.example.onlinemarket.databinding.FragmentCustomerBinding;
 
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.CustomerInfoViewModel;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -53,6 +54,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CustomerFragment#newInstance} factory method to
@@ -66,7 +69,8 @@ public class CustomerFragment extends Fragment {
 
     private FusedLocationProviderClient mFusedLocation;
 
-    private CustomerInfoViewModel mViewModel;
+    @Inject
+    CustomerInfoViewModel mViewModel;
 
     public CustomerFragment() {
         // Required empty public constructor
@@ -83,7 +87,7 @@ public class CustomerFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
         if (context instanceof CustomerInfoFragmentCallback)
             mCallback=(CustomerInfoFragmentCallback) context;
         else
@@ -172,7 +176,7 @@ public class CustomerFragment extends Fragment {
         mViewModel.getCustomerLocationList().observe(getViewLifecycleOwner(), new Observer<List<CustomerLocation>>() {
             @Override
             public void onChanged(List<CustomerLocation> customerLocations) {
-                LocationAdapter locationAdapter=new LocationAdapter(getContext(),customerLocations);
+                LocationAdapter locationAdapter=new LocationAdapter(customerLocations,mViewModel);
                 mBinding.recyclerView.setAdapter(locationAdapter);
             }
         });
@@ -181,8 +185,6 @@ public class CustomerFragment extends Fragment {
     }
 
     private void setupViewModel() {
-        mViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
-
         mViewModel.setCallback(new CustomerInfoViewModel.CustomerInfoViewModelCallback() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override

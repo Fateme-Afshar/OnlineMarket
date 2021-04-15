@@ -14,28 +14,25 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.ItemLocationViewBinding;
 import com.example.onlinemarket.model.CustomerLocation;
 import com.example.onlinemarket.repository.CustomerLocationRepository;
+import com.example.onlinemarket.viewModel.CustomerInfoViewModel;
 
 import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Holder> {
+    private final List<CustomerLocation> mCustomerLocationList;
+    private final CustomerLocationRepository mRepository;
 
-    private Context mContext;
-    private List<CustomerLocation> mCustomerLocationList;
-
-    private CustomerLocationRepository mRepository;
-
-    public LocationAdapter(Context context, List<CustomerLocation> customerLocationList) {
-        mContext = context;
+    public LocationAdapter(List<CustomerLocation> customerLocationList,CustomerInfoViewModel customerInfoViewModel) {
         mCustomerLocationList = customerLocationList;
 
-        mRepository= CustomerLocationRepository.getInstance(mContext);
+        mRepository= customerInfoViewModel.getLocationRepository();
     }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemLocationViewBinding binding= DataBindingUtil.inflate
-                (LayoutInflater.from(mContext),
+                (LayoutInflater.from(parent.getContext()),
                         R.layout.item_location_view,
                         parent,
                         false);

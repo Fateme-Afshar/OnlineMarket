@@ -14,7 +14,10 @@ import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentAccountBinding;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.AccountManagerViewModel;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +26,8 @@ import com.example.onlinemarket.viewModel.AccountManagerViewModel;
  */
 public class AccountFragment extends Fragment{
     private FragmentAccountBinding mBinding;
-    private AccountManagerViewModel mViewModel;
+    @Inject
+    AccountManagerViewModel mViewModel;
 
     private AccountFragmentCallback mCallback;
 
@@ -41,7 +45,7 @@ public class AccountFragment extends Fragment{
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
         if (context instanceof AccountFragmentCallback)
             mCallback=(AccountFragmentCallback) context;
         else
@@ -52,7 +56,6 @@ public class AccountFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel=new ViewModelProvider(this).get(AccountManagerViewModel.class);
         mViewModel.setCallback(new AccountManagerViewModel.AccountManagerViewModelCallback() {
             @Override
             public void getLoginFragment() {
