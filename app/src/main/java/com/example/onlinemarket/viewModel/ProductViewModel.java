@@ -1,12 +1,10 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
 import android.text.Editable;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.Review;
 import com.example.onlinemarket.model.customer.Customer;
@@ -18,26 +16,31 @@ import com.example.onlinemarket.repository.ReviewRepository;
 import com.example.onlinemarket.sharePref.OnlineShopSharePref;
 import com.example.onlinemarket.utils.UiUtils;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
-public class ProductViewModel extends AndroidViewModel {
+public class ProductViewModel extends ViewModel {
     private Product mProduct;
-    private Product mLastProduct=new Product();
+    private Product mLastProduct = new Product();
 
     private Review mReview;
 
-    private LiveData<Product> mProductLiveData;
-
     private ProductPurchasedRepository mPurchasedRepository;
     private ProductRepository mProductRepository;
-
     private ReviewRepository mReviewRepository;
 
-    public ProductViewModel(@NonNull Application application) {
-        super(application);
-        mPurchasedRepository = ProductPurchasedRepository.getInstance(getApplication());
-        mReviewRepository = ReviewRepository.getInstance();
-        mProductRepository=new ProductRepository(new RetrofitInstance(),new MainLoadingRepository());
+    private ContextModule mContextModule;
+
+    @Inject
+    public ProductViewModel(ContextModule contextModule,
+                            ProductPurchasedRepository productPurchasedRepository,
+                            ReviewRepository reviewRepository,
+                            ProductRepository productRepository) {
+        mPurchasedRepository = productPurchasedRepository;
+        mReviewRepository = reviewRepository;
+        mProductRepository = productRepository;
+        mContextModule=contextModule;
         mReview = new Review();
     }
 
@@ -82,10 +85,10 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     public void onPostCommentClickListener() {
-        Customer customer = OnlineShopSharePref.getCustomer(getApplication());
+        Customer customer = OnlineShopSharePref.getCustomer(mContextModule.provideContext());
 
         if (customer==null) {
-          UiUtils.returnToast(getApplication(),"ابتدا وارد حساب کاربری خود شوید");
+          UiUtils.returnToast(mContextModule.provideContext(),"ابتدا وارد حساب کاربری خود شوید");
             return;
         }
 
@@ -93,10 +96,6 @@ public class ProductViewModel extends AndroidViewModel {
         mReview.setProductId(mProduct.getId());
 
         mReviewRepository.postReviewToServer(mReview);
-       UiUtils.returnToast(getApplication(),"دیدگاه شما با موفقیت ثبت شد و در دست بررسی است");
-    }
-
-    public Product getProductLiveData() {
-        return mProductRepository.getProductLiveData();
+       UiUtils.returnToast(mContextModule.provideContext(),"دیدگاه شما با موفقیت ثبت شد و در دست بررسی است");
     }
 }

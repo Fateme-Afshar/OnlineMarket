@@ -3,6 +3,7 @@ package com.example.onlinemarket.view.fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
@@ -22,6 +24,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ReviewAdapter;
 import com.example.onlinemarket.databinding.FragmentProductInfoBinding;
@@ -36,23 +39,27 @@ import com.example.onlinemarket.viewModel.ReviewViewModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ProductInfoFragment extends Fragment{
+public class ProductInfoFragment extends Fragment {
     public static final int REQUEST_CODE_EDIT = 1;
     public static final String TAG_PRODUCT_INFO_FRAGMENT = "ProductInfoFragment";
     private FragmentProductInfoBinding mBinding;
 
-    private ProductViewModel mProductViewModel;
-    private ReviewViewModel mReviewViewModel;
+    @Inject
+    ProductViewModel mProductViewModel;
+    @Inject
+    ReviewViewModel mReviewViewModel;
 
     private ReviewAdapter mReviewAdapter;
 
     private ImageSlider mImageSlider;
 
-   private int mProductId;
+    private int mProductId;
 
     public ProductInfoFragment() {
         // Required empty public constructor
@@ -65,12 +72,16 @@ public class ProductInfoFragment extends Fragment{
         return fragment;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((OnlineShopApplication) getActivity().getApplication()).getApplicationGraph().inject(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductViewModel = new ViewModelProvider(getActivity()).
-                get(ProductViewModel.class);
 
         if (getArguments() != null) {
             mProductId = ProductInfoFragmentArgs.fromBundle(getArguments()).getProductId();

@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ReviewRepository {
-    private static ReviewRepository sInstance;
     private RetrofitInterface mRetrofitInterface;
 
     private MutableLiveData<List<Review>> mReviewListMutableLiveData =
@@ -28,15 +29,10 @@ public class ReviewRepository {
     private MutableLiveData<Review> mReviewMutableLiveData =
             new MutableLiveData<>();
 
-    private ReviewRepository() {
-        Retrofit retrofit = RetrofitInstance.getPostRetrofit();
+    @Inject
+    public ReviewRepository(RetrofitInstance retrofitInstance) {
+        Retrofit retrofit = retrofitInstance.getPostRetrofit();
         mRetrofitInterface = retrofit.create(RetrofitInterface.class);
-    }
-
-    public static ReviewRepository getInstance() {
-        if (sInstance == null)
-            sInstance = new ReviewRepository();
-        return sInstance;
     }
 
     public void postReviewToServer(Review review){

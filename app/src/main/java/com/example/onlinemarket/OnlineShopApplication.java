@@ -6,16 +6,17 @@ import android.app.NotificationManager;
 import android.os.Build;
 
 import com.example.onlinemarket.di.ApplicationGraph;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.di.DaggerApplicationGraph;
 
 public class OnlineShopApplication extends Application{
     public static final String CHANNEL_ID = "OnlineShopChannel";
-    private ApplicationGraph mApplicationGraph;
+    private  ApplicationGraph mApplicationGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mApplicationGraph= DaggerApplicationGraph.create();
+        mApplicationGraph= DaggerApplicationGraph.builder().contextModule(new ContextModule(this)).build();
         createNotificationChannel();
     }
 
@@ -32,7 +33,7 @@ public class OnlineShopApplication extends Application{
         }
     }
 
-    public ApplicationGraph getApplicationGraph() {
+    public  ApplicationGraph getApplicationGraph() {
         return mApplicationGraph;
     }
 }

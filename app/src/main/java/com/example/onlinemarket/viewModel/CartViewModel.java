@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.OnlineShopApplication;
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.Coupons;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.customer.Customer;
@@ -48,7 +49,7 @@ public class CartViewModel extends AndroidViewModel {
     public CartViewModel(@NonNull Application application) {
         super(application);
         mCustomer= OnlineShopSharePref.getCustomer(getApplication());
-        mPurchasedRepository=ProductPurchasedRepository.getInstance(getApplication());
+        mPurchasedRepository=new ProductPurchasedRepository(new ContextModule(application));
         mCouponsRepository=CouponsRepository.getInstance();
 
         mCouponsLiveData=mCouponsRepository.getCouponsMutableLiveData();

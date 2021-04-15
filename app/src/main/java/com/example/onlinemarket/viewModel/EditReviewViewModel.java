@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.Review;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.ReviewRepository;
 import com.example.onlinemarket.utils.ProgramUtils;
 
@@ -17,7 +18,7 @@ public class EditReviewViewModel extends ViewModel {
     private EditReviewViewModelCallback mCallback;
 
     public EditReviewViewModel() {
-        mReviewRepository = ReviewRepository.getInstance();
+        mReviewRepository = new ReviewRepository(new RetrofitInstance());
     }
 
     public void afterTextChangeReviewer(Editable editable) {

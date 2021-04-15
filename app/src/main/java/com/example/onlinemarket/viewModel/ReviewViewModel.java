@@ -1,16 +1,15 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.onlinemarket.model.Review;
+import com.example.onlinemarket.network.retrofit.RetrofitInstance;
 import com.example.onlinemarket.repository.ReviewRepository;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class ReviewViewModel extends ViewModel {
     private ReviewRepository mReviewRepository;
@@ -20,8 +19,9 @@ public class ReviewViewModel extends ViewModel {
 
     private ReviewViewModelCallback mCallback;
 
-    public ReviewViewModel() {
-        mReviewRepository = ReviewRepository.getInstance();
+    @Inject
+    public ReviewViewModel(ReviewRepository reviewRepository) {
+        mReviewRepository = reviewRepository;
         mListLiveData = mReviewRepository.getReviewListMutableLiveData();
         mReviewLiveData=mReviewRepository.getReviewMutableLiveData();
     }

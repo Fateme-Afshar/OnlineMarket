@@ -1,13 +1,12 @@
 package com.example.onlinemarket.repository;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlinemarket.databases.IRepository;
 import com.example.onlinemarket.databases.OnlineShopDatabase;
 import com.example.onlinemarket.databases.dao.ProductDao;
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.model.orders.Orders;
 import com.example.onlinemarket.network.retrofit.RetrofitInstance;
@@ -16,30 +15,25 @@ import com.example.onlinemarket.utils.NetworkParams;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ProductPurchasedRepository implements IRepository<Product> {
-    private static ProductPurchasedRepository sInstance;
-
     private RetrofitInterface mRetrofitInterface;
     private MutableLiveData<Integer> mResponseCode=new MutableLiveData<>();
 
     private final ProductDao mDao;
 
-    private ProductPurchasedRepository(Context context) {
+    @Inject
+    public ProductPurchasedRepository(ContextModule contextModule) {
         OnlineShopDatabase onlineShopDatabase =
-                OnlineShopDatabase.getInstance(context.getApplicationContext());
+                OnlineShopDatabase.getInstance(contextModule.provideContext().getApplicationContext());
 
         mDao=onlineShopDatabase.getProductDao();
-    }
-
-    public static ProductPurchasedRepository getInstance(Context context) {
-        if (sInstance == null)
-            sInstance = new ProductPurchasedRepository(context.getApplicationContext());
-        return sInstance;
     }
 
     public void postOrdersToServer(Orders orders){
