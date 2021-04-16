@@ -30,4 +30,4 @@ This is a online market application.
 - [x] MVVM
  
  ## External Libraries
- - Retrofit, Gson, Work Manager, Room, Glide, Google services, Lottie, Safe Args
+ - RxJava & RxAndroid,Retrofit, Gson, Work Manager, Room, Glide, Google services, Lottie, Safe Args
