@@ -1,11 +1,13 @@
 package com.example.onlinemarket.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,7 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentNotificationBinding;
 import com.example.onlinemarket.services.PollWorkManager;
+import com.example.onlinemarket.view.activity.MainActivity;
 import com.example.onlinemarket.viewModel.NotificationViewModel;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +27,8 @@ import com.example.onlinemarket.viewModel.NotificationViewModel;
  */
 public class NotificationFragment extends Fragment {
     private FragmentNotificationBinding mBinding;
-    private NotificationViewModel mViewModel;
+    @Inject
+    NotificationViewModel mViewModel;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -36,9 +42,9 @@ public class NotificationFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
     }
 
     @Override

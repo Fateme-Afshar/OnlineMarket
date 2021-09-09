@@ -33,10 +33,6 @@ public class Product extends Observable implements Serializable {
 
     private float mAverageRating;
 
-    public Product(int id) {
-        mId=id;
-    }
-
     public Product() {
     }
 

@@ -13,6 +13,7 @@ import com.example.onlinemarket.view.fragment.HomePageFragment;
 import com.example.onlinemarket.view.fragment.LoginFragment;
 import com.example.onlinemarket.view.fragment.MainLoadingFragment;
 import com.example.onlinemarket.view.fragment.MapFragment;
+import com.example.onlinemarket.view.fragment.NotificationFragment;
 import com.example.onlinemarket.view.fragment.ProductInfoFragment;
 import com.example.onlinemarket.view.fragment.SearchFragment;
 import com.example.onlinemarket.view.fragment.SignUpPageFragment;
@@ -43,4 +44,5 @@ public interface ActivityComponent {
     void inject(MapFragment mapFragment);
     void inject(CartFragment cartFragment);
     void inject(FilterProductBottomSheetFragment filterProductBottomSheetFragment);
+    void inject(NotificationFragment notificationFragment);
 }

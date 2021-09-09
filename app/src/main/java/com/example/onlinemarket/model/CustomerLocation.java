@@ -2,6 +2,7 @@ package com.example.onlinemarket.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.onlinemarket.databases.OnlineShopSchema;
@@ -21,13 +22,13 @@ public class CustomerLocation {
 
     public CustomerLocation() {
     }
-
+    @Ignore
     public CustomerLocation(double latitude, double longitude,String address) {
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
+    @Ignore
     public CustomerLocation(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
