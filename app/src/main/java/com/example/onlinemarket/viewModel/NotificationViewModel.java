@@ -1,27 +1,31 @@
 package com.example.onlinemarket.viewModel;
 
-import android.app.Application;
+import android.content.Context;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModel;
 
+import com.example.onlinemarket.di.ContextModule;
 import com.example.onlinemarket.services.PollWorkManager;
 
-public class NotificationViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+public class NotificationViewModel extends ViewModel {
     private int time;
     private boolean flag;
-    public NotificationViewModel(@NonNull Application application) {
-        super(application);
+    private Context mApplicationContext;
+    @Inject
+    public NotificationViewModel(ContextModule contextModule) {
+        mApplicationContext=contextModule.provideContext();
     }
 
     public void setupNotification(){
-        if (!PollWorkManager.isWorkEnqueued(getApplication())){
+        if (!PollWorkManager.isWorkEnqueued(mApplicationContext)){
             flag=true;
-            PollWorkManager.enqueue(getApplication(),time,false);
+            PollWorkManager.enqueue(mApplicationContext,time,false);
 
         }else {
             flag=false;
-            PollWorkManager.enqueue(getApplication(), time, true);
+            PollWorkManager.enqueue(mApplicationContext, time, true);
         }
     }
 

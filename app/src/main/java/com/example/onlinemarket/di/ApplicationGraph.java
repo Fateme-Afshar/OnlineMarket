@@ -14,7 +14,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ContextModule.class,AppModule.class})
 public interface ApplicationGraph {
-    Context getContext();
 
     ActivityComponent.Factory getActivityComponent();
     LoadingActivityComponent.Factory getLoadingActivityComponent();

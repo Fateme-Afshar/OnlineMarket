@@ -15,7 +15,7 @@ import com.example.onlinemarket.model.Product;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Product.class, CustomerLocation.class}, version = OnlineShopSchema.VERSION)
+@Database(entities = {Product.class, CustomerLocation.class}, version = OnlineShopSchema.VERSION,exportSchema = false)
 @TypeConverters(value = {DatabaseConverter.class})
 public abstract class OnlineShopDatabase extends RoomDatabase {
     private static final String DB_NAME = OnlineShopSchema.NAME;
