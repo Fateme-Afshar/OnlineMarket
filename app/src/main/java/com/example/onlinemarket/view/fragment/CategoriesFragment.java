@@ -31,7 +31,6 @@ import javax.inject.Inject;
 
 public class CategoriesFragment extends Fragment {
     private FragmentCategoriesBinding mBinding;
-    private CategoryAdapter mCatAdapter;
 
     private CategoriesFragmentCallbacks mCallbacks;
     @Inject
@@ -74,21 +73,11 @@ public class CategoriesFragment extends Fragment {
     }
 
     private void setupAdapter(List<Category> models) {
-        if (mCatAdapter==null) {
-            mCatAdapter = new CategoryAdapter(getContext(),models);
-            mBinding.recyclerView.setAdapter(mCatAdapter);
+            CategoryAdapter categoryAdapter = new CategoryAdapter(getContext(),models);
+            mBinding.recyclerView.setAdapter(categoryAdapter);
             mBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-            mCatAdapter.setCallbacks(new CategoryAdapter.CatAdapterCallbacks() {
-                @Override
-                public void OnSelectedItem(int catId) {
-                    mCallbacks.onCatSelected(catId);
-                }
-            });
-        }else {
-            mCatAdapter.setCategories(models);
-            mCatAdapter.notifyDataSetChanged();
-        }
+        categoryAdapter.setCallbacks(catId -> mCallbacks.onCatSelected(catId));
     }
 
     private void setupBackButton() {

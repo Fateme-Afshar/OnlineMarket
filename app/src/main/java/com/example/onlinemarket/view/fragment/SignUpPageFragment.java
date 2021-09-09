@@ -52,12 +52,9 @@ public class SignUpPageFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel.setCallback(new SignUpViewModel.SignUpViewModelCallback() {
-            @Override
-            public void startHomePage() {
-                NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_host_fragment);
-            }
+        mViewModel.setCallback(() -> {
+            NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+            navController.navigate(R.id.nav_user_account);
         });
         mViewModel.setLifecycleOwner(this);
     }
